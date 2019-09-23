@@ -44,12 +44,17 @@
     </transformations>
 
     <primitives>
-        <primitive id="demoRectangle">
+       <primitive id="demoRectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
+        </primitive>
+
+        <primitive id="demoTriangle">
+            <triangle x1="-0.5" y1="-1" z1="0" x2="0.5" y2="1" z2="0" x3="1" y3="3" z3="0" />
         </primitive>
     </primitives>
 
     <components>
+
         <component id="demoRoot">
             <transformation>
                 <translate x="0" y="0" z="1" />
@@ -61,7 +66,9 @@
             <texture id="demoTexture"/>
             <children>
                 <primitiveref id="demoRectangle" />
+                <primitiveref id="demoTriangle" />
             </children>
         </component>
+
     </components>
 </lxs>
