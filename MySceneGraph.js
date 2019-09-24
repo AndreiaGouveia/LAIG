@@ -476,7 +476,7 @@ class MySceneGraph {
 
                         transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
                         break;
-                    case 'scale':                        
+                    case 'scale':
                         this.onXMLMinorError("To do: Parse scale transformations.");
                         break;
                     case 'rotate':
@@ -537,7 +537,7 @@ class MySceneGraph {
             if (primitiveType == 'rectangle') {
                 this.parseRectangle(primitiveId, grandChildren);
             }
-            else if (primitiveType == 'triangle'){
+            else if (primitiveType == 'triangle') {
 
                 this.parseTriangle(primitiveId, grandChildren);
             }
@@ -550,7 +550,7 @@ class MySceneGraph {
         return null;
     }
 
-    parseRectangle(primitiveId, grandChildren){
+    parseRectangle(primitiveId, grandChildren) {
         // x1
         var x1 = this.reader.getFloat(grandChildren[0], 'x1');
         if (!(x1 != null && !isNaN(x1)))
@@ -577,7 +577,7 @@ class MySceneGraph {
 
     }
 
-    parseTriangle(primitiveId, grandChildren){
+    parseTriangle(primitiveId, grandChildren) {
 
         // x1
         var x1 = this.reader.getFloat(grandChildren[0], 'x1');
@@ -589,10 +589,10 @@ class MySceneGraph {
         if (!(y1 != null && !isNaN(y1)))
             return "unable to parse y1 of the primitive coordinates for ID = " + primitiveId;
 
-         // z1
-         var z1 = this.reader.getFloat(grandChildren[0], 'z1');
-         if (!(z1 != null && !isNaN(z1)))
-             return "unable to parse z1 of the primitive coordinates for ID = " + primitiveId;
+        // z1
+        var z1 = this.reader.getFloat(grandChildren[0], 'z1');
+        if (!(z1 != null && !isNaN(z1)))
+            return "unable to parse z1 of the primitive coordinates for ID = " + primitiveId;
 
         // x2
         var x2 = this.reader.getFloat(grandChildren[0], 'x2');
@@ -667,11 +667,18 @@ class MySceneGraph {
                 nodeNames.push(grandChildren[j].nodeName);
             }
 
+            //===============================================================================================
+            //Parse the transformation within component
             var transformationIndex = nodeNames.indexOf("transformation");
             if (transformationIndex == -1)
                 return "unknown tag";
 
-            //Parse the transformation within component
+            var returnValueTransformation = this.parseComponentTransformation(children[transformationIndex]);
+
+            if(returnValueTransformation == null)
+                return returnValueTransformation;
+
+            //===============================================================================================
 
             var materialsIndex = nodeNames.indexOf("materials");
             if (materialsIndex == -1)
@@ -684,7 +691,7 @@ class MySceneGraph {
                 return "unknown tag";
 
             //Parse the transformation within component
-                
+
             var childrenIndex = nodeNames.indexOf("children");
             if (childrenIndex == -1)
                 return "unknown tag";
@@ -693,13 +700,130 @@ class MySceneGraph {
 
             this.onXMLMinorError("To do: Parse components.");
             // Transformations
-            
+
             // Materials
 
             // Texture
 
             // Children
         }
+    }
+
+    parseComponentTransformation(componentsNode) {
+
+        //Components is empty
+        if (componentsNode.children.length == 0)
+            return;
+
+        // Reads transformation children and node names
+        var transformationChildren = componentsNode.children;
+        var transformationNodeNames = [];
+        for (var j = 0; j < transformationChildren.length; j++)
+            transformationNodeNames.push(transformationChildren[j].nodeName);
+
+        // Create variables
+        var transformationMatrix = mat4.create();
+        mat4.identity(transformationMatrix);
+        var transformationRef = true;
+
+        // Reads transformation
+        for (var j = 0; j < transformationChildren.length; j++) {
+
+            //Not explicited defined
+            if (transformationNodeNames[j] == "transformationref") {
+                // Reads id
+                var transformationID = this.reader.getString(componentsNode.children[j], 'id');
+
+                // Validates id
+                if (transformationID == null)
+                    return "unable to parse id component (null) on tag <transformationref> on tag <transformations> on the <component> node with index " + i + " from the <components> block";
+
+                // Checks if id exists
+                if (this.transformations[transformationID] == null)
+                    return "id '" + transformationID + "' is not a valid transformation reference on tag <transformation> on the <component> node with index " + i + " from the <components> block";
+
+                this.components[id].transformation = this.transformations[transformationID];
+
+                continue;
+            }
+
+            if (transformationNodeNames[j] == "translate") {
+                // Reads x, y, z
+                var x = this.reader.getFloat(transformationChildren[j], 'x');
+                var y = this.reader.getFloat(transformationChildren[j], 'y');
+                var z = this.reader.getFloat(transformationChildren[j], 'z');
+
+                // Validates x, y, z
+                if (isNaN(x) || isNaN(y) || isNaN(z))
+                    return "unable to parse x, y, z components (NaN) on tag <translate> with index " + j + " on tag <transformation> with index " + transformationIndex + " from the <component> node with index " + i + " from the <components> block";
+
+                if (x == null || y == null || z == null)
+                    return "unable to parse x, y, z components (null) on tag <translate> with index " + j + " on tag <transformation> with index " + transformationIndex + " from the <component> node with index " + i + " from the <components> block";
+
+                // Adds translation
+                mat4.translate(transformationMatrix, transformationMatrix, [x, y, z]);
+
+                transformationRef = false;
+
+                continue;
+            }
+
+            if (transformationNodeNames[j] == "rotate") {
+                // Reads axis, angle
+                var axis = this.reader.getString(transformationChildren[j], 'axis');
+                var angle = this.reader.getFloat(transformationChildren[j], 'angle');
+
+                // Validates axis and angle
+                if (isNaN(angle))
+                    return "unable to parse angle component (NaN) on tag <rotate> with index " + j + " on tag <transformation> with index " + transformationIndex + " from the <component> node with index " + i + " from the <components> block";
+
+                if (angle == null || axis == null)
+                    return "unable to parse axis and angle components (null) on tag <rotate> with index " + j + " on tag <transformation> with index " + transformationIndex + " from the <component> node with index " + i + " from the <components> block";
+
+                if (axis != "x" && axis != "y" && axis != "z")
+                    return "unable to parse axis component (not valid - should be x, y or z) on tag <rotate> with index " + j + " on tag <transformation> with index " + transformationIndex + " from the <component> node with index " + i + " from the <components> block";
+
+                // Adds rotation
+                if (axis == 'x')
+                    mat4.rotateX(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD);
+                else if (axis == 'y')
+                    mat4.rotateY(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD);
+                else if (axis == 'z')
+                    mat4.rotateZ(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD);
+
+
+                transformationRef = false;
+
+                continue;
+            }
+
+            if (transformationNodeNames[j] == "scale") {
+                // Reads x, y, z
+                var x = this.reader.getFloat(transformationChildren[j], 'x');
+                var y = this.reader.getFloat(transformationChildren[j], 'y');
+                var z = this.reader.getFloat(transformationChildren[j], 'z');
+
+                // Validates x, y, z
+                if (isNaN(x) || isNaN(y) || isNaN(z))
+                    return "unable to parse x, y, z components (NaN) on tag <scale> with index " + j + " on tag <transformation> with index " + transformationIndex + " from the <component> node with index " + i + " from the <components> block";
+
+                if (x == null || y == null || z == null)
+                    return "unable to parse x, y, z components (null) on tag <scale> with index " + j + " on tag <transformation> with index " + transformationIndex + " from the <component> node with index " + i + " from the <components> block";
+
+                // Adds scaling
+                mat4.scale(transformationMatrix, transformationMatrix, [x, y, z]);
+
+                transformationRef = false;
+
+                continue;
+            }
+
+            this.onXMLMinorError("tag <" + transformationChildren[j].nodeName + "> with index " + j + " on tag <transformation> on the <component> node");
+        }
+
+        // Sets transformation
+        if (!transformationRef)
+            this.components[id].transformation = transformationMatrix;
     }
 
 
