@@ -675,16 +675,22 @@ class MySceneGraph {
 
             var returnValueTransformation = this.parseComponentTransformation(children[transformationIndex]);
 
-            if(returnValueTransformation == null)
+            if (returnValueTransformation == null)
                 return returnValueTransformation;
 
-            //===============================================================================================
 
+            //===============================================================================================
+            //Parse the materials within component
             var materialsIndex = nodeNames.indexOf("materials");
             if (materialsIndex == -1)
                 return "unknown tag";
 
-            //Parse the materials within component
+            var returnValueMaterial = this.parseComponentMaterial(children[materialsIndex]);
+
+            if (returnValueMaterial == null)
+                return returnValueMaterial;
+
+            //===============================================================================================
 
             var textureIndex = nodeNames.indexOf("texture");
             if (textureIndex == -1)
@@ -824,6 +830,47 @@ class MySceneGraph {
         // Sets transformation
         if (!transformationRef)
             this.components[id].transformation = transformationMatrix;
+    }
+
+    parseComponentMaterial(componentsNode) {
+
+        if (componentsNode.children.length == 0)
+            return "at least one <material> must be defined on tag <materials> on the <component> node with index " + i + " from the <components> block";
+
+        // Reads materials children and node names
+        var materialsChildren = componentsNode.children;
+        var materialsNodeNames = [];
+
+        for (var j = 0; j < materialsChildren.length; j++)
+            materialsNodeNames.push(materialsChildren[j].nodeName);
+
+
+
+        for (var j = 0; j < materialsChildren.length; j++) {
+
+            //If the tag is not material: ERROR!
+            if (materialsNodeNames[j] != "material")
+                this.onXMLMinorError("tag <" + materialsNodeNames[j] + "> is not valid on tag <material> with index " + j + " on tag <materials> on the <component> node with index ");
+
+            // Reads id
+            var materialID = this.reader.getString(componentsNode.children[j], 'id');
+
+            // Validates id
+            if (materialID == null)
+                return "unable to parse id component (null) on tag <material> with index " + j + " on tag <materials> on the <component> node with index ";
+
+            // Checks if id exists
+            if (materialID == "inherit") {
+                this.components[id].materials[materialID] = materialID;
+                continue;
+            }
+
+            if (this.materials[materialID] == null)
+                return "id '" + materialID + "' is not a valid transformation reference on tag <material> with index " + j + " on tag <materials> on the <component> node with index ";
+
+            this.components[id].materials[materialID] = this.materials[materialID];
+
+        }
     }
 
 
