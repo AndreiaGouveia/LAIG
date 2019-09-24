@@ -673,7 +673,7 @@ class MySceneGraph {
             if (transformationIndex == -1)
                 return "unknown tag";
 
-            var returnValueTransformation = this.parseComponentTransformation(children[transformationIndex]);
+            var returnValueTransformation = this.parseComponentTransformation(children[transformationIndex], componentID);
 
             if (returnValueTransformation == null)
                 return returnValueTransformation;
@@ -685,18 +685,18 @@ class MySceneGraph {
             if (materialsIndex == -1)
                 return "unknown tag";
 
-            var returnValueMaterial = this.parseComponentMaterial(children[materialsIndex]);
+            var returnValueMaterial = this.parseComponentMaterial(children[materialsIndex], componentID);
 
             if (returnValueMaterial == null)
                 return returnValueMaterial;
 
             //===============================================================================================
-
+            //Parse the transformation within component
             var textureIndex = nodeNames.indexOf("texture");
             if (textureIndex == -1)
                 return "unknown tag";
 
-            //Parse the transformation within component
+            //===============================================================================================
 
             var childrenIndex = nodeNames.indexOf("children");
             if (childrenIndex == -1)
@@ -715,7 +715,9 @@ class MySceneGraph {
         }
     }
 
-    parseComponentTransformation(componentsNode) {
+    parseComponentTransformation(componentsNode, componentID) {
+
+        console.log("id: " + componentID);
 
         //Components is empty
         if (componentsNode.children.length == 0)
@@ -748,7 +750,7 @@ class MySceneGraph {
                 if (this.transformations[transformationID] == null)
                     return "id '" + transformationID + "' is not a valid transformation reference on tag <transformation> on the <component> node with index " + i + " from the <components> block";
 
-                this.components[id].transformation = this.transformations[transformationID];
+                this.components[componentID].transformation = this.transformations[transformationID];
 
                 continue;
             }
@@ -829,13 +831,13 @@ class MySceneGraph {
 
         // Sets transformation
         if (!transformationRef)
-            this.components[id].transformation = transformationMatrix;
+            this.components[componentID].transformation = transformationMatrix;
     }
 
-    parseComponentMaterial(componentsNode) {
+    parseComponentMaterial(componentsNode, componentID) {
 
         if (componentsNode.children.length == 0)
-            return "at least one <material> must be defined on tag <materials> on the <component> node with index " + i + " from the <components> block";
+            return "at least one <material> must be defined on tag <materials> on the <component> node with index ";
 
         // Reads materials children and node names
         var materialsChildren = componentsNode.children;
@@ -861,14 +863,14 @@ class MySceneGraph {
 
             // Checks if id exists
             if (materialID == "inherit") {
-                this.components[id].materials[materialID] = materialID;
+                this.components[componentID].materials[materialID] = materialID;
                 continue;
             }
 
             if (this.materials[materialID] == null)
                 return "id '" + materialID + "' is not a valid transformation reference on tag <material> with index " + j + " on tag <materials> on the <component> node with index ";
 
-            this.components[id].materials[materialID] = this.materials[materialID];
+            this.components[componentID].materials[materialID] = this.materials[materialID];
 
         }
     }
