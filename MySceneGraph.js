@@ -401,7 +401,7 @@ class MySceneGraph {
         for (var i = 0; i < children.length; i++) {
 
             var id = this.reader.getString(children[i], 'id');
-
+            
             if(typeof this.textures[id] != 'undefined')//ver se a textura ja existe
             {
                 this.onXMLError("texture: already exists a texture with sucj id"+ id+".")
@@ -418,24 +418,22 @@ class MySceneGraph {
         var textureChildren=texturesNode.children;
         var textureNodeNames = [];
 
-        var texture = new CGFappearance(this.scene);
-
-
         for (var j = 0; j < textureChildren.length; j++)
             textureNodeNames.push(textureChildren[j].nodeName);
 
 
         //reads file
-
-        var file = this.reader.getString(texturesNode, 'file ');
+        
+        var file= this.reader.getString(textureChildren[0], 'file');
+        this.log(file);
 
         if (file == null)
+         {
             return "unable to parse id and file components (null) on the <texture> " + id + " from the <texture> block";
-
-        if (isNaN(file))
-            return "unable to parse shininess component (NaN) on the <texture> node " + id + " from the <texture> block";
-
-        this.textures[id] = file;
+        }
+        
+        this.texture = new CGFtexture(this, file);
+        this.log("Parsed texture");
 
     }
     /**
@@ -470,7 +468,7 @@ class MySceneGraph {
             this.parseEachMaterial(children[i], materialID);
         }
 
-        //this.log("Parsed materials");
+        this.log("Parsed materials");
         return null;
     }
 
