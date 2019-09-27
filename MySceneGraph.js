@@ -27,6 +27,8 @@ class MySceneGraph {
 
         this.nodes = [];
 
+        this.textures = [];
+
         this.idRoot = null;                    // The id of the root element.
 
         this.axisCoords = [];
@@ -393,10 +395,49 @@ class MySceneGraph {
     parseTextures(texturesNode) {
 
         //For each texture in textures block, check ID and file URL
-        this.onXMLMinorError("To do: Parse textures.");
+
+        var children = texturesNode.children;
+
+        for (var i = 0; i < children.length; i++) {
+
+            var id = this.reader.getString(children[i], 'id');
+
+            if(typeof this.textures[id] != 'undefined')//ver se a textura ja existe
+            {
+                this.onXMLError("texture: already exists a texture with sucj id"+ id+".")
+            }
+
+            this.parseEachTexture(texturesNode,id);
+        }
+
         return null;
     }
 
+    parseEachTexture(texturesNode,id)
+    {
+        var textureChildren=texturesNode.children;
+        var textureNodeNames = [];
+
+        var texture = new CGFappearance(this.scene);
+
+
+        for (var j = 0; j < textureChildren.length; j++)
+            textureNodeNames.push(textureChildren[j].nodeName);
+
+
+        //reads file
+
+        var file = this.reader.getString(texturesNode, 'file ');
+
+        if (file == null)
+            return "unable to parse id and file components (null) on the <texture> " + id + " from the <texture> block";
+
+        if (isNaN(file))
+            return "unable to parse shininess component (NaN) on the <texture> node " + id + " from the <texture> block";
+
+        this.textures[id] = file;
+
+    }
     /**
      * Parses the <materials> node.
      * @param {materials block element} materialsNode
@@ -1135,6 +1176,7 @@ class MySceneGraph {
 
         this.scene.multMatrix(this.components['demoRoot'].transformation);
         this.components['demoRoot'].materials['demoMaterial'].apply();
+        //this.components['demoRoot'].textures['demoTexture'];
 
         //To test the parsing/creation of the primitives, call the display function directly
         this.primitives['demoTriangle'].display();
