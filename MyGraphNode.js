@@ -16,4 +16,14 @@ class MyGraphNode {
       this.children = [];
       this.primitives = [];
     };
+
+    addChild(child){
+
+      this.children.push(child);
+    }
+
+    addPrimitive(primitive){
+
+      this.primitives.push(primitive);
+    }
 }

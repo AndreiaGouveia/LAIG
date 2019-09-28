@@ -896,6 +896,11 @@ class MySceneGraph {
             if (childrenIndex == -1)
                 return "unknown tag";
 
+            var returnValueChildren = this.parseComponentChildren(grandChildren[childrenIndex], componentID);
+
+            if (returnValueChildren != null)
+                return returnValueChildren;
+
         }
     }
 
@@ -1091,6 +1096,58 @@ class MySceneGraph {
         }
     }
 
+    parseComponentChildren(componentsNode, componentID) {
+
+        //Components is empty
+        if (componentsNode.children.length <= 0)
+            return "Should be at least one children on tag <children> on the <component> node " + componentID + " from the <components> block";
+
+        // Reads transformation children and node names
+        var childrenChildren = componentsNode.children;
+        var childrenNodeNames = [];
+        for (var j = 0; j < childrenChildren.length; j++)
+            childrenNodeNames.push(childrenChildren[j].nodeName);
+
+        for (var j = 0; j < childrenChildren.length; j++) {
+
+            if (childrenChildren[j].nodeName == "componentref") {
+                // Reads id
+                var childrenID = this.reader.getString(childrenChildren[j], 'id');
+
+                // Validates id
+                if (childrenID == null)
+                    return "unable to parse id component (null) on tag <componentref> with index " + j + " on tag <children> on the <component> node " + componentID + " from the <components> block";
+
+                this.components[componentID].addChild(childrenID);
+
+                continue;
+            }
+
+            if (childrenChildren[j].nodeName == "primitiveref") {
+                // Reads id
+                var primitiveID = this.reader.getString(childrenChildren[j], 'id');
+
+                // Validates id
+                if (primitiveID == null)
+                    return "unable to parse id component (null) on tag <primitiveref> with index " + j + " on tag <children> on the <component> node " + componentID + " from the <components> block";
+
+                // Checks if id exists
+                if (this.primitives[primitiveID] == null)
+                    return "id '" + primitiveID + "' is not a valid primitive reference on tag <primitiveref> with index " + j + " on tag <children> on the <component> node with index " + i + " from the <components> block";
+
+                this.components[componentID].addPrimitive(this.primitives[primitiveID]);
+
+                continue;
+
+            }
+
+            return "invalid tag " + childrenChildren[j].nodeName + " on tag <children> on the <component> node " + componentID + " from the <components> block";
+        }
+
+        return null;
+
+    }
+
 
     /**
      * Parse the coordinates from a node with ID = id
@@ -1216,6 +1273,7 @@ class MySceneGraph {
         this.components['demoRoot'].texture.bind();
 
         //To test the parsing/creation of the primitives, call the display function directly
-        this.primitives['demoTriangle'].display();
+        this.components['demoRoot'].primitives[0].display();
+        //this.primitives['demoTriangle'].display();
     }
 }
