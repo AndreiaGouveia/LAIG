@@ -18,7 +18,7 @@ class MySceneGraph {
     /**
      * @constructor
      */
-    constructor(filename, scene) {
+        constructor(filename, scene) {
         this.loadedOk = null;
 
         // Establish bidirectional references between scene and graph.
@@ -374,7 +374,6 @@ class MySceneGraph {
 
                 global.push(...[angle, exponent, targetLight])
             }
-
             this.lights[lightId] = global;
             numLights++;
         }
@@ -395,6 +394,7 @@ class MySceneGraph {
     parseTextures(texturesNode) {
 
         //For each texture in textures block, check ID and file URL
+
 
         var children = texturesNode.children;
 
@@ -423,16 +423,16 @@ class MySceneGraph {
 
 
         //reads file
-        
-        var file= this.reader.getString(textureChildren[0], 'file');
+    
+        var file = this.reader.getString(textureChildren[0], 'file');
         this.log(file);
 
-        if (file == null)
+        if (file == null)//checks if reading was succesfull
          {
             return "unable to parse id and file components (null) on the <texture> " + id + " from the <texture> block";
         }
         
-        this.texture = new CGFtexture(this, file);
+        this.texture = new CGFtexture(this, file);//creates new texture
         this.log("Parsed texture");
 
     }
