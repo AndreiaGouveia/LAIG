@@ -885,7 +885,6 @@ class MySceneGraph {
             if (textureIndex == -1)
                 return "unknown tag";
 
-            //AQUI-DIZ QUE GRANDCHILDREN[TEXTUREINDEX] IS NOT DEFINED. chorei
             var returnValueTextures = this.parseComponentTexture(grandChildren[textureIndex], componentID);
 
             if (returnValueTextures != null)
