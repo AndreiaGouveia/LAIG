@@ -18,7 +18,7 @@ class MySceneGraph {
     /**
      * @constructor
      */
-        constructor(filename, scene) {
+    constructor(filename, scene) {
         this.loadedOk = null;
 
         // Establish bidirectional references between scene and graph.
@@ -402,8 +402,8 @@ class MySceneGraph {
         for (var i = 0; i < children.length; i++) {
 
             var id = this.reader.getString(children[i], 'id');
-            
-            if(typeof this.textures[id] != 'undefined')//ver se a textura ja existe
+
+            if (typeof this.textures[id] != 'undefined')//ver se a textura ja existe
             {
                 this.onXMLError("texture: already exists a texture with sucj id" + id + ".")
             }
@@ -417,10 +417,9 @@ class MySceneGraph {
         return null;
     }
 
-    parseEachTexture(texturesNode, id)
-    {
+    parseEachTexture(texturesNode, id) {
         //reads file
-    
+
         var file = this.reader.getString(texturesNode, 'file');
         this.log("id " + id);
 
@@ -428,8 +427,8 @@ class MySceneGraph {
         {
             return "unable to parse id and file components (null) on the <texture> " + id + " from the <texture> block";
         }
-        
-        this.texture = new CGFtexture(this.scene, file); //creates new texture
+
+        this.textures[id] = new CGFtexture(this.scene, file); //creates new texture
         this.log("Parsed texture");
 
     }
@@ -881,16 +880,16 @@ class MySceneGraph {
                 return returnValueMaterial;
 
             //===============================================================================================
-            //Parse the transformation within component
+            //Parse the texture within component
             var textureIndex = nodeNames.indexOf("texture");
             if (textureIndex == -1)
                 return "unknown tag";
 
-                //AQUI-DIZ QUE GRANDCHILDREN[TEXTUREINDEX] IS NOT DEFINED. chorei
-           /* var returnValeueTextures = this.parseComponentTexture(granschildren[textureIndex],componentID);
+            //AQUI-DIZ QUE GRANDCHILDREN[TEXTUREINDEX] IS NOT DEFINED. chorei
+            var returnValueTextures = this.parseComponentTexture(grandChildren[textureIndex], componentID);
 
-            if (returnValeueTextures != null)
-            return returnValeueTextures;*///
+            if (returnValueTextures != null)
+                return returnValueTextures;
 
             //===============================================================================================
             //Parse the children within component
@@ -1057,6 +1056,42 @@ class MySceneGraph {
         }
     }
 
+    parseComponentTexture(componentsNode, componentID) {
+
+        var textureID = this.reader.getString(componentsNode, 'id');
+        var length_s = this.reader.getFloat(componentsNode, 'length_s', false);
+        var length_t = this.reader.getFloat(componentsNode, 'length_t', false);
+
+        // Validates id, length_s, length_t
+        if (textureID == null)
+            return "unable to parse id component (null) on tag <texture> on the <component> node " + componentID + " from the <components> block";
+
+        if (length_s != null && length_t != null) {
+            if (isNaN(length_s) || isNaN(length_t))
+                return "unable to length_s, length_t components (NaN) on tag <texture> on the <component> node " + componentID + " from the <components> block";
+
+            if (length_s <= 0 || length_t <= 0)
+                return "unable to length_s, length_t components (out of 0-inf. range) on tag <texture> on the <component> node " + componentID + " from the <components> block";
+        }
+
+        // Checks if id exists
+        if (textureID == "inherit" || textureID == "none") {
+            this.components[componentID].texture = textureID;
+            return null;
+        }
+
+        if (this.textures[textureID] == null)
+            return "id '" + textureID + "' is not a valid transformation reference on tag <texture> on the <component> node " + componentID + " from the <components> block";
+
+        this.components[componentID].texture = this.textures[textureID];
+
+        // Sets length_s, length_t
+        if (length_s != null && length_s != null) {
+            this.components[componentID].length_s = length_s;
+            this.components[componentID].length_t = length_t;
+        }
+    }
+
 
     /**
      * Parse the coordinates from a node with ID = id
@@ -1176,15 +1211,10 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph
 
         this.scene.multMatrix(this.components['demoRoot'].transformation);
-<<<<<<< HEAD
 
-        //AQUI- DIZ QUE TA UNDEFINED
-        //this.components.texture['demoTexture'].bind();
-=======
->>>>>>> 0414f9a1ce61be8af93045d714e5bdd684c55a65
         this.components['demoRoot'].materials['demoMaterial'].apply();
 
-        this.textures['demoTexture'].bind();
+        this.components['demoRoot'].texture.bind();
 
         //To test the parsing/creation of the primitives, call the display function directly
         this.primitives['demoTriangle'].display();
