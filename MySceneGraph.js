@@ -397,6 +397,7 @@ class MySceneGraph {
 
 
         var children = texturesNode.children;
+        this.log(children.length);
 
         for (var i = 0; i < children.length; i++) {
 
@@ -407,7 +408,8 @@ class MySceneGraph {
                 this.onXMLError("texture: already exists a texture with sucj id" + id + ".")
             }
 
-            console.log(children[i].nodeName)
+            console.log(children[i].nodeName);
+
 
             this.parseEachTexture(children[i], id);
         }
@@ -427,7 +429,7 @@ class MySceneGraph {
             return "unable to parse id and file components (null) on the <texture> " + id + " from the <texture> block";
         }
         
-        this.textures[id] = new CGFtexture(this.scene, file); //creates new texture
+        this.texture = new CGFtexture(this.scene, file); //creates new texture
         this.log("Parsed texture");
 
     }
@@ -884,6 +886,12 @@ class MySceneGraph {
             if (textureIndex == -1)
                 return "unknown tag";
 
+                //AQUI-DIZ QUE GRANDCHILDREN[TEXTUREINDEX] IS NOT DEFINED. chorei
+           /* var returnValeueTextures = this.parseComponentTexture(granschildren[textureIndex],componentID);
+
+            if (returnValeueTextures != null)
+            return returnValeueTextures;*///
+
             //===============================================================================================
             //Parse the children within component
             var childrenIndex = nodeNames.indexOf("children");
@@ -1169,10 +1177,8 @@ class MySceneGraph {
 
         this.scene.multMatrix(this.components['demoRoot'].transformation);
 
-        
-        var tmp = new CGFtexture(this.scene, "scenes/images/vidral.jpg")
-
-        this.components['demoRoot'].materials['demoMaterial'].setTexture(tmp);
+        //AQUI- DIZ QUE TA UNDEFINED
+        //this.components.texture['demoTexture'].bind();
         this.components['demoRoot'].materials['demoMaterial'].apply();
 
        // this.textures['demoTexture'].bind();
