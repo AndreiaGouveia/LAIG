@@ -1168,14 +1168,9 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph
 
         this.scene.multMatrix(this.components['demoRoot'].transformation);
-
-        
-        var tmp = new CGFtexture(this.scene, "scenes/images/vidral.jpg")
-
-        this.components['demoRoot'].materials['demoMaterial'].setTexture(tmp);
         this.components['demoRoot'].materials['demoMaterial'].apply();
 
-       // this.textures['demoTexture'].bind();
+        this.textures['demoTexture'].bind();
 
         //To test the parsing/creation of the primitives, call the display function directly
         this.primitives['demoTriangle'].display();
