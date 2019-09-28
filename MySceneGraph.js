@@ -1176,12 +1176,15 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph
 
         this.scene.multMatrix(this.components['demoRoot'].transformation);
+<<<<<<< HEAD
 
         //AQUI- DIZ QUE TA UNDEFINED
         //this.components.texture['demoTexture'].bind();
+=======
+>>>>>>> 0414f9a1ce61be8af93045d714e5bdd684c55a65
         this.components['demoRoot'].materials['demoMaterial'].apply();
 
-       // this.textures['demoTexture'].bind();
+        this.textures['demoTexture'].bind();
 
         //To test the parsing/creation of the primitives, call the display function directly
         this.primitives['demoTriangle'].display();
