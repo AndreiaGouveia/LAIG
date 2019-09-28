@@ -404,35 +404,30 @@ class MySceneGraph {
             
             if(typeof this.textures[id] != 'undefined')//ver se a textura ja existe
             {
-                this.onXMLError("texture: already exists a texture with sucj id"+ id+".")
+                this.onXMLError("texture: already exists a texture with sucj id" + id + ".")
             }
 
-            this.parseEachTexture(texturesNode,id);
+            console.log(children[i].nodeName)
+
+            this.parseEachTexture(children[i], id);
         }
 
         return null;
     }
 
-    parseEachTexture(texturesNode,id)
+    parseEachTexture(texturesNode, id)
     {
-        var textureChildren=texturesNode.children;
-        var textureNodeNames = [];
-
-        for (var j = 0; j < textureChildren.length; j++)
-            textureNodeNames.push(textureChildren[j].nodeName);
-
-
         //reads file
     
-        var file = this.reader.getString(textureChildren[0], 'file');
-        this.log(file);
+        var file = this.reader.getString(texturesNode, 'file');
+        this.log("id " + id);
 
         if (file == null)//checks if reading was succesfull
-         {
+        {
             return "unable to parse id and file components (null) on the <texture> " + id + " from the <texture> block";
         }
         
-        this.texture = new CGFtexture(this, file);//creates new texture
+        this.textures[id] = new CGFtexture(this.scene, file); //creates new texture
         this.log("Parsed texture");
 
     }
@@ -1173,8 +1168,14 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph
 
         this.scene.multMatrix(this.components['demoRoot'].transformation);
+
+        
+        var tmp = new CGFtexture(this.scene, "scenes/images/vidral.jpg")
+
+        this.components['demoRoot'].materials['demoMaterial'].setTexture(tmp);
         this.components['demoRoot'].materials['demoMaterial'].apply();
-        //this.components['demoRoot'].textures['demoTexture'];
+
+       // this.textures['demoTexture'].bind();
 
         //To test the parsing/creation of the primitives, call the display function directly
         this.primitives['demoTriangle'].display();
