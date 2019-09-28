@@ -231,6 +231,216 @@ class MySceneGraph {
     parseView(viewsNode) {
         this.onXMLMinorError("To do: Parse views and create cameras.");
 
+        // Reads views children and node names
+        var children = viewsNode.children;
+        var nodeNames = [];
+
+        for (var i = 0; i < children.length; i++)
+            nodeNames.push(children[i].nodeName);
+
+        // Initializes views
+        this.views = [];
+
+        // Checks if there's at least one of the views (perspective or ortho)
+        if (viewsNode.getElementsByTagName('perspective').length == 0 && viewsNode.getElementsByTagName('ortho').length == 0)
+            return "at least one view must be defined (either <perspective> or <ortho>) on the <views> block";
+
+        for (var i = 0; i < children.length; i++) {
+
+            if (children[i].nodeName == "perspective") {
+
+                this.parseViewPerspective(children[i], children[i].nodeName);
+
+                continue;
+
+            }
+
+            if (children[i].nodeName == "ortho") {
+
+                this.parseViewOrtho(children[i], children[i].nodeName);
+
+                continue;
+
+            }
+        }
+
+        // Reads default view
+        var defaultView = this.reader.getString(viewsNode, "default");
+
+        // Finds and sets default view
+        if (this.views[defaultView] == null)
+            return "The Default Id given in the <views> block is not from a valid view.";
+
+        this.default = defaultView;
+
+        this.log("Parsed views");
+
+        return null;
+    }
+
+    parseViewOrtho(perspectiveNode, viewID) {
+
+        // Reads perspective node children and node names
+        var perspectiveChildren = perspectiveNode.children;
+        var perspectiveNodeNames = [];
+
+        for (var j = 0; j < perspectiveChildren.length; j++)
+            perspectiveNodeNames.push(perspectiveChildren[j].nodeName);
+
+        // Reads id, near far, left, righ, top, bottom
+        var perpectiveID = this.reader.getString(perspectiveNode, 'id');
+        var near = this.reader.getFloat(perspectiveNode, 'near');
+        var far = this.reader.getFloat(perspectiveNode, 'far');
+        var left = this.reader.getFloat(perspectiveNode, 'left');
+        var right = this.reader.getFloat(perspectiveNode, 'right');
+        var top = this.reader.getFloat(perspectiveNode, 'top');
+        var bottom = this.reader.getFloat(perspectiveNode, 'bottom');
+
+        // Validates id, near, far, angle
+        if (perpectiveID == null || near == null || far == null || left == null || right == null || top == null || bottom == null)
+            return "unable to parse id, near, far, left, right, top, bottom components (null) on the <perspective> node " + viewID + " from the <views> block";
+        else if (isNaN(near) || isNaN(far) || isNaN(left) ||  isNaN(right) ||  isNaN(top) ||  isNaN(bottom))
+            return "unable to parse near, far, left right, top, bottom components (NaN) on the <perspective> node " + viewID + " from the <views> block";
+
+        // Checks if id is unique
+        if (this.views[perpectiveID] != null)
+            return "id '" + perpectiveID + "' on the <perspective> node " + viewID + " from the <views> block is not unique";
+
+        // Sets id, near, far, angle
+        this.views[perpectiveID] = [];
+        this.views[perpectiveID].type = "perspective"
+        this.views[perpectiveID].near = near;
+        this.views[perpectiveID].far = far;
+        this.views[perpectiveID].left = left;
+        this.views[perpectiveID].right = right;
+        this.views[perpectiveID].top = top;
+        this.views[perpectiveID].bottom = bottom;
+
+        // Gets indexes of each element (from & too)
+        var fromIndex = perspectiveNodeNames.indexOf('from');
+        var toIndex = perspectiveNodeNames.indexOf('to');
+        var upIndex = perspectiveNodeNames.indexOf('up');
+
+        //=======================================================================================================
+        //FROM BLOCK
+        if (fromIndex == -1)
+            return "tag <from> is not present on the <perpective> node " + perpectiveID + " from the <materials> block";
+
+        var returnValueFrom = this.parseFromToUpView(this.views[perpectiveID].from, perspectiveChildren[fromIndex], perpectiveID);
+
+        if (returnValueFrom != null)
+            return returnValueFrom;
+
+        //=======================================================================================================
+        //TO BLOCK
+        if (toIndex == -1)
+            return "tag <To> is not present on the <perpective> node " + perpectiveID + " from the <materials> block";
+
+        var returnValueTo = this.parseFromToUpView(this.views[perpectiveID].to, perspectiveChildren[toIndex], perpectiveID);
+
+        if (returnValueTo != null)
+            return returnValueTo;
+
+        //=======================================================================================================
+        //UP BLOCK
+        if (upIndex == -1)
+            return "tag <Up> is not present on the <perpective> node " + perpectiveID + " from the <materials> block";
+
+        var returnValueUp = this.parseFromToUpView(this.views[perpectiveID].up, perspectiveChildren[upIndex], perpectiveID);
+
+        if (returnValueUp != null)
+            return returnValueUp;
+
+    }
+
+    parseViewPerspective(perspectiveNode, viewID) {
+
+        // Reads perspective node children and node names
+        var perspectiveChildren = perspectiveNode.children;
+        var perspectiveNodeNames = [];
+
+        for (var j = 0; j < perspectiveChildren.length; j++)
+            perspectiveNodeNames.push(perspectiveChildren[j].nodeName);
+
+        // Reads id, near far, angle
+        var perpectiveID = this.reader.getString(perspectiveNode, 'id');
+        var near = this.reader.getFloat(perspectiveNode, 'near');
+        var far = this.reader.getFloat(perspectiveNode, 'far');
+        var angle = this.reader.getFloat(perspectiveNode, 'angle');
+
+        // Validates id, near, far, angle
+        if (perpectiveID == null || near == null || far == null || angle == null)
+            return "unable to parse id, near, far, angle components (null) on the <perspective> node " + viewID + " from the <views> block";
+        else if (isNaN(near) || isNaN(far) || isNaN(angle))
+            return "unable to parse near, far, angle components (NaN) on the <perspective> node " + viewID + " from the <views> block";
+
+        // Checks if id is unique
+        if (this.views[perpectiveID] != null)
+            return "id '" + perpectiveID + "' on the <perspective> node " + viewID + " from the <views> block is not unique";
+
+        // Sets id, near, far, angle
+        this.views[perpectiveID] = [];
+        this.views[perpectiveID].type = "perspective"
+        this.views[perpectiveID].near = near;
+        this.views[perpectiveID].far = far;
+        this.views[perpectiveID].angle = angle * DEGREE_TO_RAD;
+
+        // Creates from and to variables
+        this.views[perpectiveID].to = []
+
+        // Gets indexes of each element (from & too)
+        var fromIndex = perspectiveNodeNames.indexOf('from');
+        var toIndex = perspectiveNodeNames.indexOf('to');
+
+        //=======================================================================================================
+        //FROM BLOCK
+        if (fromIndex == -1)
+            return "tag <from> is not present on the <perpective> node " + perpectiveID + " from the <materials> block";
+
+        var returnValueFrom = this.parseFromToUpView(this.views[perpectiveID].from, perspectiveChildren[fromIndex], perpectiveID);
+
+        if (returnValueFrom != null)
+            return returnValueFrom;
+
+        //=======================================================================================================
+        //TO BLOCK
+        if (toIndex == -1)
+            return "tag <To> is not present on the <perpective> node " + perpectiveID + " To the <materials> block";
+
+        var returnValueTo = this.parseFromToUpView(this.views[perpectiveID].to, perspectiveChildren[toIndex], perpectiveID);
+
+        if (returnValueTo != null)
+            return returnValueTo;
+
+    }
+
+    getErrorForView(x, y, z, viewID) {
+
+        // Validates x, y, z values
+        if (x == null || y == null || z == null)
+            return "unable to parse x, y, z components (null) on tag <from> from the node " + viewID + " from the <views> block";
+        else if (isNaN(x) || isNaN(y) || isNaN(z))
+            return "unable to parse x, y, z components (NaN) on tag <from> from the node " + viewID + " from the <views> block";
+
+        return null;
+    }
+
+
+    parseFromToUpView(addingTo, fromNode, viewID) {
+
+        var x = this.reader.getFloat(fromNode, 'x');
+        var y = this.reader.getFloat(fromNode, 'y');
+        var z = this.reader.getFloat(fromNode, 'z');
+
+        var error = this.getErrorForView(x, y, z, viewID);
+        if (error != null)
+            return error;
+
+        addingTo = [];
+        addingTo.x = x;
+        addingTo.y = y;
+        addingTo.z = z;
+
         return null;
     }
 
