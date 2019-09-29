@@ -1157,8 +1157,11 @@ class MySceneGraph {
                 // Checks if id exists
                 if (this.transformations[transformationID] == null)
                     return "id '" + transformationID + "' is not a valid transformation reference on tag <transformation> on the <component> node with index " + i + " from the <components> block";
-
+/*
                 this.components[componentID].transformation = this.transformations[transformationID];
+                //transformationMatrix *= this.transformations[transformationID];
+  */            mat4.multiply(transformationMatrix, transformationMatrix, this.transformations[transformationID])
+                transformationRef = false;
                 continue;
             }
 
