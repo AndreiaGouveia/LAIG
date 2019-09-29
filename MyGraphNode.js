@@ -8,7 +8,7 @@ class MyGraphNode {
     {
       this.graph = graph;
       this.id = id;
-      this.transformation;
+      this.transformation = mat4.create();
       this.materials = [];
       this.texture;
       this.length_s = 1;

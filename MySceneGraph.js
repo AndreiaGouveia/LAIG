@@ -873,7 +873,7 @@ class MySceneGraph {
                         transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
                         break;
                     case 'scale':
-                       var scaleCoordinates = this.parseCoordinates3D(grandChildren[j], "scale transformation for ID " + transformationID);
+                        var scaleCoordinates = this.parseCoordinates3D(grandChildren[j], "scale transformation for ID " + transformationID);
                         if (!Array.isArray(scaleCoordinates))
                             return scaleCoordinates;
 
@@ -886,11 +886,11 @@ class MySceneGraph {
                         angle = this.reader.getFloat(grandChildren[j], 'angle');
 
                         if (rotationAxis == 'x') rotation = [1, 0, 0];
-                            else if (rotationAxis == 'y') rotation = [0, 1, 0];
-                                else if (rotationAxis == 'z') rotation = [0, 0, 1];
+                        else if (rotationAxis == 'y') rotation = [0, 1, 0];
+                        else if (rotationAxis == 'z') rotation = [0, 0, 1];
 
-                        mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD,rotation);
-                            break;
+                        mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, rotation);
+                        break;
                 }
             }
             this.transformations[transformationID] = transfMatrix;
@@ -1141,7 +1141,6 @@ class MySceneGraph {
         // Create variables
         var transformationMatrix = mat4.create();
         mat4.identity(transformationMatrix);
-        var transformationRef = true;
 
         // Reads transformation
         for (var j = 0; j < transformationChildren.length; j++) {
@@ -1157,11 +1156,9 @@ class MySceneGraph {
                 // Checks if id exists
                 if (this.transformations[transformationID] == null)
                     return "id '" + transformationID + "' is not a valid transformation reference on tag <transformation> on the <component> node with index " + i + " from the <components> block";
-/*
-                this.components[componentID].transformation = this.transformations[transformationID];
-                //transformationMatrix *= this.transformations[transformationID];
-  */            mat4.multiply(transformationMatrix, transformationMatrix, this.transformations[transformationID])
-                transformationRef = false;
+
+                mat4.multiply(transformationMatrix, transformationMatrix, this.transformations[transformationID])
+
                 continue;
             }
 
@@ -1180,8 +1177,6 @@ class MySceneGraph {
 
                 // Adds translation
                 mat4.translate(transformationMatrix, transformationMatrix, [x, y, z]);
-
-                transformationRef = false;
 
                 continue;
             }
@@ -1209,9 +1204,6 @@ class MySceneGraph {
                 else if (axis == 'z')
                     mat4.rotateZ(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD);
 
-
-                transformationRef = false;
-
                 continue;
             }
 
@@ -1231,17 +1223,13 @@ class MySceneGraph {
                 // Adds scaling
                 mat4.scale(transformationMatrix, transformationMatrix, [x, y, z]);
 
-                transformationRef = false;
-
                 continue;
             }
 
             this.onXMLMinorError("tag <" + transformationChildren[j].nodeName + "> with index " + j + " on tag <transformation> on the <component> node");
         }
 
-        // Sets transformation
-        if (!transformationRef)
-            this.components[componentID].transformation = transformationMatrix;
+        this.components[componentID].transformation = transformationMatrix;
     }
 
     parseComponentMaterial(componentsNode, componentID) {

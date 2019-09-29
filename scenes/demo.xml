@@ -66,8 +66,21 @@
             </materials>
             <texture id="demoTexture" length_s="2"/>
             <children>
-                <primitiveref id="demoRectangle" />
                 <primitiveref id="demoTriangle" />
+                <componentref id="demoRootV2" />
+            </children>
+        </component>
+
+        <component id="demoRootV2">
+            <transformation>
+            
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoRectangle" />
             </children>
         </component>
 
