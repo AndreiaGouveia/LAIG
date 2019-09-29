@@ -299,7 +299,7 @@ class MySceneGraph {
         // Validates id, near, far, angle
         if (perpectiveID == null || near == null || far == null || left == null || right == null || top == null || bottom == null)
             return "unable to parse id, near, far, left, right, top, bottom components (null) on the <perspective> node " + viewID + " from the <views> block";
-        else if (isNaN(near) || isNaN(far) || isNaN(left) ||  isNaN(right) ||  isNaN(top) ||  isNaN(bottom))
+        else if (isNaN(near) || isNaN(far) || isNaN(left) || isNaN(right) || isNaN(top) || isNaN(bottom))
             return "unable to parse near, far, left right, top, bottom components (NaN) on the <perspective> node " + viewID + " from the <views> block";
 
         // Checks if id is unique
@@ -1474,16 +1474,87 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        //To do: Create display loop for transversing the scene graph
+        
+        /*
+                this.scene.multMatrix(this.components[this.idRoot].transformation);
+        
+                this.components[this.idRoot].materials['demoMaterial'].apply();
+        
+                this.components[this.idRoot].texture.bind();
+        
+                //To test the parsing/creation of the primitives, call the display function directly
+                this.components[this.idRoot].primitives[0].display();
+                //this.primitives['demoTriangle'].display();
+        */
 
-        this.scene.multMatrix(this.components['demoRoot'].transformation);
+        this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
 
-        this.components['demoRoot'].materials['demoMaterial'].apply();
+    }
 
-        this.components['demoRoot'].texture.bind();
+    displayComponent(component, parentMaterial, parentTexture, parentS, parentT) {
 
-        //To test the parsing/creation of the primitives, call the display function directly
-        this.components['demoRoot'].primitives[0].display();
-        //this.primitives['demoTriangle'].display();
+        this.scene.pushMatrix();
+
+        //TRANSFORMATION
+        this.scene.multMatrix(component.transformation);
+
+        var currentMaterial;
+        var currentTexture;
+        var allMaterials = [];
+        var materialIndex = 0; //In the future change this acoordingly to the user pressing de M key
+        var i = 0;
+
+
+        //==========================================================================
+        //MATERIAL
+
+        // Stores all component's materials in order
+        for (var key in component.materials) {
+            allMaterials[i] = component.materials[key];
+            i++;
+        }
+
+        // Checks if it's going to use component or parent material
+        if (allMaterials[materialIndex % i] == "inherit")
+            currentMaterial = parentMaterial;
+        else
+            currentMaterial = allMaterials[materialIndex % i];
+
+        //==========================================================================
+        //TEXTURE
+
+        //Checks if it's going to use component, parent texture or even none
+        if (component.texture == "inherit")
+            currentTexture = parentTexture;
+        else if (component.texture == "none")
+            currentTexture = "none";
+        else
+            currentTexture = component.texture;
+
+        // TO DO: updateTextCoordinates of Primitives if necessary 
+
+        
+        //SETTING THE CORRECT TEXTURE
+        if (currentTexture != "none")
+            currentMaterial.setTexture(currentTexture);
+        else
+            currentMaterial.setTexture(null);
+
+        currentMaterial.apply();
+
+        //==========================================================================
+        //DISPLAYING PRIMITIVES
+        for (var key in component.primitives) {
+            component.primitives[key].display();
+        }
+
+        //==========================================================================
+        //Recursively calls displayComponent for all component's children
+        for (var i = 0; i < component.children.length; i++)
+            this.displayComponent(this.components[component.children[i]], currentMaterial, currentTexture, currentS, currentT);
+
+
+        this.scene.popMatrix();
+
     }
 }
