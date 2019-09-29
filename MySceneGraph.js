@@ -873,12 +873,24 @@ class MySceneGraph {
                         transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
                         break;
                     case 'scale':
-                        this.onXMLMinorError("To do: Parse scale transformations.");
+                       var scaleCoordinates = this.parseCoordinates3D(grandChildren[j], "scale transformation for ID " + transformationID);
+                        if (!Array.isArray(scaleCoordinates))
+                            return scaleCoordinates;
+
+                        transfMatrix = mat4.scale(transfMatrix, transfMatrix, scaleCoordinates);
                         break;
                     case 'rotate':
-                        // angle
-                        this.onXMLMinorError("To do: Parse rotate transformations.");
-                        break;
+                        var rotationAxis, angle, rotation;
+
+                        rotationAxis = this.reader.getString(grandChildren[j], 'axis');
+                        angle = this.reader.getFloat(grandChildren[j], 'angle');
+
+                        if (rotationAxis == 'x') rotation = [1, 0, 0];
+                            else if (rotationAxis == 'y') rotation = [0, 1, 0];
+                                else if (rotationAxis == 'z') rotation = [0, 0, 1];
+
+                        mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD,rotation);
+                            break;
                 }
             }
             this.transformations[transformationID] = transfMatrix;
