@@ -44,12 +44,16 @@
     </transformations>
 
     <primitives>
-       <primitive id="demoRectangle">
+        <primitive id="demoRectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive>
 
         <primitive id="demoTriangle">
             <triangle x1="-0.5" y1="-1" z1="0" x2="0.5" y2="1" z2="0" x3="1" y3="3" z3="0" />
+        </primitive>
+
+        <primitive id="demoCylinder">
+            <cylinder base="2" top="2" height="2" slices="20" stacks="20" />
         </primitive>
     </primitives>
 
@@ -57,23 +61,23 @@
 
         <component id="demoRoot">
             <transformation>
-                <transformationref id="demoTransform"/>
+                <!--<transformationref id="demoTransform"/>
                 <translate x="0" y="0" z="1" />
-                <scale x="2" y="1" z="1" />
+                <scale x="2" y="1" z="1" />-->
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
             <texture id="demoTexture" length_s="2"/>
             <children>
-                <primitiveref id="demoTriangle" />
-                <componentref id="demoRootV2" />
+                <primitiveref id="demoCylinder" />
+                <!--<componentref id="demoRootV2" />-->
             </children>
         </component>
 
         <component id="demoRootV2">
             <transformation>
-            
+
             </transformation>
             <materials>
                 <material id="inherit" />

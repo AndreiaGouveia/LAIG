@@ -618,9 +618,6 @@ class MySceneGraph {
                 this.onXMLError("texture: already exists a texture with sucj id" + id + ".")
             }
 
-            console.log(children[i].nodeName);
-
-
             this.parseEachTexture(children[i], id);
         }
 
@@ -949,6 +946,13 @@ class MySceneGraph {
 
                 this.parseTriangle(primitiveId, grandChildren);
             }
+            else if (primitiveType == 'cylinder'){
+
+                var error;
+                if( (error = this.parseCylinder(primitiveId, grandChildren)) != null)
+                    return error;
+
+            }
             else {
                 console.warn("To do: Parse other primitives.");
             }
@@ -1036,6 +1040,38 @@ class MySceneGraph {
 
         this.primitives[primitiveId] = tria;
 
+    }
+
+    parseCylinder(primitiveId, grandChildren) {
+
+        // base
+        var base = this.reader.getFloat(grandChildren[0], 'base');
+        if (base == null || isNaN(base))
+            return "unable to parse base of the primitive coordinates for ID = " + primitiveId;
+
+        // top
+        var top = this.reader.getFloat(grandChildren[0], 'top');
+        if (top == null || isNaN(top))
+            return "unable to parse top of the primitive coordinates for ID = " + primitiveId;
+
+        // height
+        var height = this.reader.getFloat(grandChildren[0], 'height');
+        if (height == null && isNaN(height))
+            return "unable to parse height of the primitive coordinates for ID = " + primitiveId;
+
+        // slices
+        var slices = this.reader.getFloat(grandChildren[0], 'slices');
+        if (slices == null || isNaN(slices))
+            return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+
+        // stacks
+        var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+        if (stacks == null && isNaN(stacks))
+            return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
+
+        var cyl = new MyCylinder(this.scene, primitiveId, base, top, height, slices, stacks);
+
+        this.primitives[primitiveId] = cyl;
     }
 
     /**
@@ -1357,7 +1393,7 @@ class MySceneGraph {
 
                 // Checks if id exists
                 if (this.primitives[primitiveID] == null)
-                    return "id '" + primitiveID + "' is not a valid primitive reference on tag <primitiveref> with index " + j + " on tag <children> on the <component> node with index " + i + " from the <components> block";
+                    return "id '" + primitiveID + "' is not a valid primitive reference on tag <primitiveref> with index " + j + " on tag <children> on the <component> node " + componentID + " from the <components> block";
 
                 this.components[componentID].addPrimitive(this.primitives[primitiveID]);
 
