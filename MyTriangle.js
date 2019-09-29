@@ -18,7 +18,10 @@ class MyTriangle extends CGFobject {
 
         this.z1 = z1;
         this.z2 = z2;
-        this.z3 = z3;
+		this.z3 = z3;
+		
+		
+		this.originalTextCoord = [];
 
 		this.initBuffers();
 	}
@@ -61,6 +64,10 @@ class MyTriangle extends CGFobject {
 			1, 1,
 			0, 0
 		]
+
+		
+		this.originalTextCoord = this.texCoords;
+
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	}
@@ -70,8 +77,15 @@ class MyTriangle extends CGFobject {
 	 * Updates the list of texture coordinates of the rectangle
 	 * @param {Array} coords - Array of texture coordinates
 	 */
-	updateTexCoords(coords) {
-		this.texCoords = [...coords];
+	updateTexCoords(s, t) {
+
+		this.texCoords = this.originalTextCoord.slice();
+
+		for(var i = 0; i < this.texCoords.length; i+=2){
+			this.texCoords[i] /= s;
+			this.texCoords[i+1] /= t;
+		}
+
 		this.updateTexCoordsGLBuffers();
 	}
 }

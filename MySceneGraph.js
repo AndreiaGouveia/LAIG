@@ -1280,12 +1280,20 @@ class MySceneGraph {
         if (textureID == null)
             return "unable to parse id component (null) on tag <texture> on the <component> node " + componentID + " from the <components> block";
 
-        if (length_s != null && length_t != null) {
-            if (isNaN(length_s) || isNaN(length_t))
-                return "unable to length_s, length_t components (NaN) on tag <texture> on the <component> node " + componentID + " from the <components> block";
+        if (length_s != null) {
+            if (isNaN(length_s))
+                return "unable to length_s components (NaN) on tag <texture> on the <component> node " + componentID + " from the <components> block";
 
-            if (length_s <= 0 || length_t <= 0)
-                return "unable to length_s, length_t components (out of 0-inf. range) on tag <texture> on the <component> node " + componentID + " from the <components> block";
+            if (length_s <= 0)
+                return "unable to length_s components (out of 0-inf. range) on tag <texture> on the <component> node " + componentID + " from the <components> block";
+        }
+
+        if (length_t != null) {
+            if (isNaN(length_t))
+                return "unable to length_t components (NaN) on tag <texture> on the <component> node " + componentID + " from the <components> block";
+
+            if (length_t <= 0)
+                return "unable to length_t components (out of 0-inf. range) on tag <texture> on the <component> node " + componentID + " from the <components> block";
         }
 
         // Checks if id exists
@@ -1300,8 +1308,11 @@ class MySceneGraph {
         this.components[componentID].texture = this.textures[textureID];
 
         // Sets length_s, length_t
-        if (length_s != null && length_s != null) {
+        if (length_s != null) {
             this.components[componentID].length_s = length_s;
+        }
+
+        if (length_t != null) {
             this.components[componentID].length_t = length_t;
         }
     }
@@ -1474,9 +1485,11 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        
+
         /*
                 this.scene.multMatrix(this.components[this.idRoot].transformation);
+                
+                this.primitives['demoTriangle'].updateTexCoords(3, 3);
         
                 this.components[this.idRoot].materials['demoMaterial'].apply();
         
@@ -1484,8 +1497,8 @@ class MySceneGraph {
         
                 //To test the parsing/creation of the primitives, call the display function directly
                 this.components[this.idRoot].primitives[0].display();
-                //this.primitives['demoTriangle'].display();
-        */
+                //this.primitives['demoTriangle'].display();*/
+
 
         this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
 
@@ -1501,8 +1514,10 @@ class MySceneGraph {
         var currentMaterial;
         var currentTexture;
         var allMaterials = [];
-        var materialIndex = 0; //In the future change this acoordingly to the user pressing de M key
+        var materialIndex = 0; //TO DO: In the future change this acoordingly to the user pressing de M key
         var i = 0;
+        var currentS;
+        var currentT;
 
 
         //==========================================================================
@@ -1531,9 +1546,20 @@ class MySceneGraph {
         else
             currentTexture = component.texture;
 
-        // TO DO: updateTextCoordinates of Primitives if necessary 
+        // Checks if it's going to use component or parent texture lengths
 
-        
+        currentS = component.length_s;
+        currentT = component.length_t;
+
+        if (component.texture == "inherit") {
+
+            if (component.length_s == null)
+                currentS = parentS;
+
+            if (component.length_t == null)
+                currentT = parentT;
+        }
+
         //SETTING THE CORRECT TEXTURE
         if (currentTexture != "none")
             currentMaterial.setTexture(currentTexture);
@@ -1545,6 +1571,10 @@ class MySceneGraph {
         //==========================================================================
         //DISPLAYING PRIMITIVES
         for (var key in component.primitives) {
+
+            if (currentTexture != "none")
+                component.primitives[key].updateTexCoords(currentS, currentT);
+
             component.primitives[key].display();
         }
 
