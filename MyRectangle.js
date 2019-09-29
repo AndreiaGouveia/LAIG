@@ -70,12 +70,16 @@ class MyRectangle extends CGFobject {
 	 */
 	updateTexCoords(s, t) {
 
-		this.texCoords = this.originalTextCoord.slice();
+		const width = Math.abs(this.x2 - this.x1);
+		const height = Math.abs(this.y2 - this.y1);
 
-		for(var i = 0; i < this.texCoords.length; i+=2){
-			this.texCoords[i] /= s;
-			this.texCoords[i+1] /= t;
-		}
+
+		this.texCoords = [
+			0, width/s,
+			height/t, width/s,
+			0, 0,
+			height/t, 0
+		];
 
 		this.updateTexCoordsGLBuffers();
 	}
