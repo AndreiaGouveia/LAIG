@@ -8,7 +8,7 @@
         </perspective>
     </views>
 
-<!-- colocar global em vez de ambiente-->
+    <!-- colocar global em vez de ambiente-->
     <globals>
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
         <background r="0.0" g="0.0" b="0.0" a="1.0" />
@@ -54,17 +54,22 @@
         </primitive>
 
         <primitive id="demoCylinder">
-            <cylinder base="2" top="2" height="2" slices="20" stacks="20" />
+            <cylinder base="0" top="2" height="2" slices="20" stacks="20" />
         </primitive>
+
+        <primitive id="demoSphere">
+            <sphere radius="2" slices="10" stacks="10" />
+        </primitive>
+
     </primitives>
 
     <components>
 
         <component id="demoRoot">
             <transformation>
-                <transformationref id="demoTransform"/>
+                <!-- <transformationref id="demoTransform"/>
                 <translate x="0" y="0" z="1" />
-                <scale x="2" y="1" z="1" />
+                <scale x="2" y="1" z="1" /> -->
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -86,6 +91,20 @@
             <texture id="inherit"/>
             <children>
                 <primitiveref id="demoRectangle" />
+                <componentref id="demoV3" />
+            </children>
+        </component>
+
+        <component id="demoV3">
+            <transformation>
+                <translate x="3" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="demoSphere" />
             </children>
         </component>
 

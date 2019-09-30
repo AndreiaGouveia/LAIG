@@ -3,7 +3,7 @@ var DEGREE_TO_RAD = Math.PI / 180;
 // Order of the groups in the XML document.
 var SCENE_INDEX = 0;
 var VIEWS_INDEX = 1;
-var AMBIENT_INDEX = 2;
+var GLOBAL_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
@@ -118,7 +118,7 @@ class MySceneGraph {
         if ((index = nodeNames.indexOf("globals")) == -1)
             return "tag <ambient> missing";
         else {
-            if (index != AMBIENT_INDEX)
+            if (index != GLOBAL_INDEX)
                 this.onXMLMinorError("tag <ambient> out of order");
 
             //Parse ambient block
@@ -954,6 +954,11 @@ class MySceneGraph {
                 if( (error = this.parseCylinder(primitiveId, grandChildren)) != null)
                     return error;
 
+            } else if (primitiveType == 'sphere'){
+
+                var error;
+                if( (error = this.parseSphere(primitiveId, grandChildren)) != null)
+                    return error;
             }
             else {
                 console.warn("To do: Parse other primitives.");
@@ -1074,6 +1079,28 @@ class MySceneGraph {
         var cyl = new MyCylinder(this.scene, primitiveId, base, top, height, slices, stacks);
 
         this.primitives[primitiveId] = cyl;
+    }
+
+    parseSphere(primitiveId, grandChildren) {
+
+        // radius
+        var radius = this.reader.getFloat(grandChildren[0], 'radius');
+        if (radius == null || isNaN(radius))
+            return "unable to parse radius of the primitive coordinates for ID = " + primitiveId;
+
+        // slices
+        var slices = this.reader.getFloat(grandChildren[0], 'slices');
+        if (slices == null || isNaN(slices))
+            return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+
+        // stacks
+        var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+        if (stacks == null && isNaN(stacks))
+            return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
+
+        var sph = new MySphere(this.scene, primitiveId, radius, slices, stacks);
+
+        this.primitives[primitiveId] = sph;
     }
 
     /**
