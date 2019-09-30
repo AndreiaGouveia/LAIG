@@ -945,19 +945,24 @@ class MySceneGraph {
             else if (primitiveType == 'triangle') {
 
                 var error;
-                if( (error = this.parseTriangle(primitiveId, grandChildren)) != null)
+                if ((error = this.parseTriangle(primitiveId, grandChildren)) != null)
                     return error;
             }
-            else if (primitiveType == 'cylinder'){
+            else if (primitiveType == 'cylinder') {
 
                 var error;
-                if( (error = this.parseCylinder(primitiveId, grandChildren)) != null)
+                if ((error = this.parseCylinder(primitiveId, grandChildren)) != null)
                     return error;
 
-            } else if (primitiveType == 'sphere'){
+            } else if (primitiveType == 'sphere') {
 
                 var error;
-                if( (error = this.parseSphere(primitiveId, grandChildren)) != null)
+                if ((error = this.parseSphere(primitiveId, grandChildren)) != null)
+                    return error;
+            }else if (primitiveType == 'torus') {
+
+                var error;
+                if ((error = this.parseTorus(primitiveId, grandChildren)) != null)
                     return error;
             }
             else {
@@ -1099,6 +1104,33 @@ class MySceneGraph {
             return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
 
         var sph = new MySphere(this.scene, primitiveId, radius, slices, stacks);
+
+        this.primitives[primitiveId] = sph;
+    }
+
+    parseTorus(primitiveId, grandChildren) {
+
+        // inner_radius
+        var inner_radius = this.reader.getFloat(grandChildren[0], 'inner');
+        if (inner_radius == null || isNaN(inner_radius))
+            return "unable to parse inner_radius of the primitive coordinates for ID = " + primitiveId;
+
+        // outer_radius
+        var outer_radius = this.reader.getFloat(grandChildren[0], 'outer');
+        if (outer_radius == null || isNaN(outer_radius))
+            return "unable to parse outer_radius of the primitive coordinates for ID = " + primitiveId;
+
+        // slices
+        var slices = this.reader.getFloat(grandChildren[0], 'slices');
+        if (slices == null && isNaN(slices))
+            return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+
+        // loops
+        var loops = this.reader.getFloat(grandChildren[0], 'loops');
+        if (loops == null && isNaN(loops))
+            return "unable to parse loops of the primitive coordinates for ID = " + primitiveId;
+
+        var sph = new MySphere(this.scene, primitiveId, inner_radius, outer_radius, slices, loops);
 
         this.primitives[primitiveId] = sph;
     }

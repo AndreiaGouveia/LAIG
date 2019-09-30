@@ -24,7 +24,7 @@
     </lights>
 
     <textures>
-        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
+        <texture id="demoTexture" file="scenes/images/rocks.jpg" />
     </textures>
 
     <materials>
@@ -61,6 +61,11 @@
             <sphere radius="2" slices="10" stacks="10" />
         </primitive>
 
+        <primitive id="demoTorus">
+            <torus inner="2" outer="1" slices="10" loops="10" />
+        </primitive>
+
+
     </primitives>
 
     <components>
@@ -76,8 +81,8 @@
             </materials>
             <texture id="demoTexture" length_s="5"/>
             <children>
-                <primitiveref id="demoTriangle" />
-                <componentref id="demoRootV2" />
+                <primitiveref id="demoTorus" />
+                <!-- <componentref id="demoRootV2" /> -->
             </children>
         </component>
 
@@ -97,7 +102,7 @@
 
         <component id="demoV3">
             <transformation>
-                <translate x="3" y="0" z="0"/>
+                <!--<translate x="3" y="0" z="0"/>-->
             </transformation>
             <materials>
                 <material id="inherit" />
