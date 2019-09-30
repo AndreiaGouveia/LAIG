@@ -8,10 +8,11 @@
         </perspective>
     </views>
 
-    <ambient>
+<!-- colocar global em vez de ambiente-->
+    <globals>
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
         <background r="0.0" g="0.0" b="0.0" a="1.0" />
-    </ambient>
+    </globals>
 
     <lights>
         <omni id="demoLight" enabled="1">
@@ -61,9 +62,9 @@
 
         <component id="demoRoot">
             <transformation>
-                <!--<transformationref id="demoTransform"/>
+                <transformationref id="demoTransform"/>
                 <translate x="0" y="0" z="1" />
-                <scale x="2" y="1" z="1" />-->
+                <scale x="2" y="1" z="1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -71,7 +72,7 @@
             <texture id="demoTexture" length_s="5"/>
             <children>
                 <primitiveref id="demoTriangle" />
-                <!--<componentref id="demoRootV2" />
+                <componentref id="demoRootV2" />
             </children>
         </component>
 

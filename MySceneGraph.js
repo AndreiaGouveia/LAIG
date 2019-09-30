@@ -115,14 +115,14 @@ class MySceneGraph {
         }
 
         // <ambient>
-        if ((index = nodeNames.indexOf("ambient")) == -1)
+        if ((index = nodeNames.indexOf("globals")) == -1)
             return "tag <ambient> missing";
         else {
             if (index != AMBIENT_INDEX)
                 this.onXMLMinorError("tag <ambient> out of order");
 
             //Parse ambient block
-            if ((error = this.parseAmbient(nodes[index])) != null)
+            if ((error = this.parseGlobals(nodes[index])) != null)
                 return error;
         }
 
@@ -448,7 +448,7 @@ class MySceneGraph {
      * Parses the <ambient> node.
      * @param {ambient block element} ambientsNode
      */
-    parseAmbient(ambientsNode) {
+    parseGlobals(ambientsNode) {
 
         var children = ambientsNode.children;
 
