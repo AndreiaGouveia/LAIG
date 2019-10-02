@@ -54,7 +54,7 @@
         </primitive>
 
         <primitive id="demoCylinder">
-            <cylinder base="0" top="2" height="2" slices="20" stacks="20" />
+            <cylinder base="2" top="0" height="2" slices="20" stacks="20" />
         </primitive>
 
         <primitive id="demoSphere">
@@ -62,7 +62,7 @@
         </primitive>
 
         <primitive id="demoTorus">
-            <torus inner="2" outer="1" slices="10" loops="10" />
+            <torus inner="1" outer="3" slices="20" loops="20" />
         </primitive>
 
 
@@ -79,7 +79,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" length_s="5"/>
+            <texture id="demoTexture" length_t="5"/>
             <children>
                 <primitiveref id="demoTorus" />
                 <!-- <componentref id="demoRootV2" /> -->

@@ -1,23 +1,24 @@
 /**
-* MyTorus class, which represents a cylinder object
-*/
+ * MyTorus class, which represents a cylinder object
+ */
 class MyTorus extends CGFobject {
-	/**
-	* @constructor
-	* @param {XMLScene} scene  represents the CGFscene
-	* @param {number}   base   radius of cylinder's base
-	* @param {number}   top    radius of cylinder's top
-	* @param {number}   height cylinder's height
-	* @param {number}   slices number of circle slices
-	* @param {number}   stacks number of circle slices
-	*/
-    constructor(scene, id, inner_raidus, outer_radius, slices, stacks) {
+    /**
+     * @constructor
+     * @param {XMLScene} scene  represents the CGFscene
+     * @param {number}   base   radius of cylinder's base
+     * @param {number}   top    radius of cylinder's top
+     * @param {number}   height cylinder's height
+     * @param {number}   slices number of circle slices
+     * @param {number}   loops number of circle slices
+     */
+    constructor(scene, id, inner_radius, outer_radius, slices, loops) {
+
         super(scene);
 
-        this.inner_raidus = inner_raidus;
+        this.inner_radius = inner_radius;
         this.outer_radius = outer_radius;
         this.slices = slices;
-        this.stacks = stacks;
+        this.loops = loops;
 
         this.vertices = [];
         this.indices = [];
@@ -28,67 +29,39 @@ class MyTorus extends CGFobject {
         this.initBuffers();
     };
 
-	/**
-	* Creates vertices, indices, normals and texCoords
-	*/
+    /**
+     * Creates vertices, indices, normals and texCoords
+     */
     initBuffers() {
 
-        //Height of each stack
-        var stackStep = this.height / this.stacks;
 
-        //Difference of angle between each slice
-        var slicesStep = 2 * Math.PI / this.slices;
+        let sliceAngle = 2 * Math.PI / this.slices;
+        let loopAngle = 2 * Math.PI / this.loops;
 
-        //Difference between the size of each slice
-        var radiusStep = (this.top - this.base) / this.stacks;
+        for (let i = 0; i <= this.slices; ++i) {
 
+            for (let j = 0; j <= this.loops; ++j) {
 
-        //Cycle to parse each triangle
-        for (var i = 0; i <= this.slices; ++i) {
-
-            for (var j = 0; j <= this.stacks; ++j) {
-
-                
-                var centerLine = this.inner_raidus*Math.cos(stackStep*this.loops);
-
-                this.vertices.push(
-
-                    //Distance from the axis to    //Angle from the axis to
-                    //the point to be process      //the point to be process
-
-
-                    //Coordinates of a trig circle multiplide by the size of the circle
-                    centerLine * Math.cos(slicesStep * i),
-                    centerLine * Math.sin(slicesStep * i),
-                    this.inner_raidus * Math.sin(slicesStep*this.loops)
-                );
-
+                this.setVerticesAndNormals(sliceAngle, loopAngle, i, j);
 
                 this.texCoords.push(
                     i * 1 / this.slices,
-                    1 - (j * 1 / this.stacks)
-                );
-
-                this.normals.push(
-                    Math.cos(stackStep*j) * Math.cos(slicesStep*i), 
-                    Math.cos(stackStep*j) * Math.sin(slicesStep*i),
-                    0
+                    j * 1 / this.loops
                 );
 
             }
 
         }
 
-        //Cycle to parse each rectangle
-        for (var i = 0; i < this.slices; ++i) {
-            for (var j = 0; j < this.stacks; ++j) {
-
+        for (let i = 0; i < this.slices; ++i) {
+            for (let j = 0; j < this.loops; ++j) {
                 this.indices.push(
-                    (i + 1) * (this.stacks + 1) + j, i * (this.stacks + 1) + j + 1, i * (this.stacks + 1) + j,
-                    i * (this.stacks + 1) + j + 1, (i + 1) * (this.stacks + 1) + j, (i + 1) * (this.stacks + 1) + j + 1
+                    (i + 1) * (this.loops + 1) + j, i * (this.loops + 1) + j + 1, i * (this.loops + 1) + j,
+                    i * (this.loops + 1) + j + 1, (i + 1) * (this.loops + 1) + j, (i + 1) * (this.loops + 1) + j + 1
                 );
             }
         }
+
 
         this.defaultTexCoords = this.texCoords;
 
@@ -97,10 +70,10 @@ class MyTorus extends CGFobject {
     };
 
     /**
-    * Updates the cylinder's texCoords
-    * @param {number} s represents the amount of times the texture will be repeated in the s coordinate
-    * @param {number} t represents the amount of times the texture will be repeated in the t coordinate
-    */
+     * Updates the cylinder's texCoords
+     * @param {number} s represents the amount of times the texture will be repeated in the s coordinate
+     * @param {number} t represents the amount of times the texture will be repeated in the t coordinate
+     */
     updateTexCoords(s, t) {
 
         this.texCoords = this.defaultTexCoords.slice();
@@ -112,6 +85,46 @@ class MyTorus extends CGFobject {
 
         this.updateTexCoordsGLBuffers();
     };
+
+    setVerticesAndNormals(sliceAngle, loopAngle, i, j) {
+
+        //First Step calculate the coordinates of a circle
+        // a = cos(t)*radius    b = sin(t)*radius
+        // t = angle
+
+        //Second Step calculate the coordinates when we rotate that circle
+        //The circle will be moving in parallel with the plane Y^Z
+        //t = loopAngle * j
+        //radius = innerRadius
+
+        var circleCoordinatesInA = this.inner_radius * Math.cos(loopAngle * j);
+        var circleCoordinatesInB = this.inner_radius * Math.sin(loopAngle * j);
+
+        //The rotation will be made around the z axis. So we will apply the formula of the coordinates of a circle to x and y
+        //We will add the outer_radius to the movement of the circle so that we have a hole in the middle
+
+        //Now we apply the rotation
+        var rotationCoordinatesInX = (circleCoordinatesInA + this.outer_radius) * Math.cos(sliceAngle * i); //This is the coordinate 'a' in the circle
+        var rotationCoordinatesInY = (circleCoordinatesInA + this.outer_radius) * Math.sin(sliceAngle * i); //This is the coordinate 'b' in the circle
+        var rotationCoordinatesInZ = circleCoordinatesInB; //Remember: the rotation is made around the z axis so it doesn't affect its coordinates!
+
+        this.vertices.push(
+            rotationCoordinatesInX,
+            rotationCoordinatesInY,
+            rotationCoordinatesInZ
+        );
+
+
+        //The normal of a point in the torus will have the same coordinates of the point
+        this.normals.push(
+            rotationCoordinatesInX,
+            rotationCoordinatesInY,
+            rotationCoordinatesInZ
+        );
+
+        //Any More Doubts? Check this tutorial: https://lindenreid.wordpress.com/2017/11/06/procedural-torus-tutorial/
+
+    }
 
 
 

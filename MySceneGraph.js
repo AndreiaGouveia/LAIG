@@ -29,7 +29,7 @@ class MySceneGraph {
 
         this.textures = [];
 
-        this.idRoot = null;                    // The id of the root element.
+        this.idRoot = null; // The id of the root element.
 
         this.axisCoords = [];
         this.axisCoords['x'] = [1, 0, 0];
@@ -505,8 +505,7 @@ class MySceneGraph {
             if (children[i].nodeName != "omni" && children[i].nodeName != "spot") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
-            }
-            else {
+            } else {
                 attributeNames.push(...["location", "ambient", "diffuse", "specular"]);
                 attributeTypes.push(...["position", "color", "color", "color"]);
             }
@@ -553,8 +552,7 @@ class MySceneGraph {
                         return aux;
 
                     global.push(aux);
-                }
-                else
+                } else
                     return "light " + attributeNames[i] + " undefined for ID = " + lightId;
             }
 
@@ -578,8 +576,7 @@ class MySceneGraph {
                         return aux;
 
                     targetLight = aux;
-                }
-                else
+                } else
                     return "light target undefined for ID = " + lightId;
 
                 global.push(...[angle, exponent, targetLight])
@@ -605,15 +602,13 @@ class MySceneGraph {
 
         //For each texture in textures block, check ID and file URL
 
-
         var children = texturesNode.children;
-        this.log(children.length);
 
         for (var i = 0; i < children.length; i++) {
 
             var id = this.reader.getString(children[i], 'id');
 
-            if (typeof this.textures[id] != 'undefined')//ver se a textura ja existe
+            if (typeof this.textures[id] != 'undefined') //ver se a textura ja existe
             {
                 this.onXMLError("texture: already exists a texture with sucj id" + id + ".")
             }
@@ -625,24 +620,23 @@ class MySceneGraph {
     }
 
     parseEachTexture(texturesNode, id) {
-        //reads file
+            //reads file
 
-        var file = this.reader.getString(texturesNode, 'file');
-        this.log("id " + id);
+            var file = this.reader.getString(texturesNode, 'file');
 
-        if (file == null)//checks if reading was succesfull
-        {
-            return "unable to parse id and file components (null) on the <texture> " + id + " from the <texture> block";
+            if (file == null) //checks if reading was succesfull
+            {
+                return "unable to parse id and file components (null) on the <texture> " + id + " from the <texture> block";
+            }
+
+            this.textures[id] = new CGFtexture(this.scene, file); //creates new texture
+            this.log("Parsed texture");
+
         }
-
-        this.textures[id] = new CGFtexture(this.scene, file); //creates new texture
-        this.log("Parsed texture");
-
-    }
-    /**
-     * Parses the <materials> node.
-     * @param {materials block element} materialsNode
-     */
+        /**
+         * Parses the <materials> node.
+         * @param {materials block element} materialsNode
+         */
     parseMaterials(materialsNode) {
         var children = materialsNode.children;
 
@@ -941,14 +935,12 @@ class MySceneGraph {
             // Retrieves the primitive coordinates.
             if (primitiveType == 'rectangle') {
                 this.parseRectangle(primitiveId, grandChildren);
-            }
-            else if (primitiveType == 'triangle') {
+            } else if (primitiveType == 'triangle') {
 
                 var error;
                 if ((error = this.parseTriangle(primitiveId, grandChildren)) != null)
                     return error;
-            }
-            else if (primitiveType == 'cylinder') {
+            } else if (primitiveType == 'cylinder') {
 
                 var error;
                 if ((error = this.parseCylinder(primitiveId, grandChildren)) != null)
@@ -959,13 +951,12 @@ class MySceneGraph {
                 var error;
                 if ((error = this.parseSphere(primitiveId, grandChildren)) != null)
                     return error;
-            }else if (primitiveType == 'torus') {
+            } else if (primitiveType == 'torus') {
 
                 var error;
                 if ((error = this.parseTorus(primitiveId, grandChildren)) != null)
                     return error;
-            }
-            else {
+            } else {
                 console.warn("To do: Parse other primitives.");
             }
         }
@@ -1130,15 +1121,15 @@ class MySceneGraph {
         if (loops == null && isNaN(loops))
             return "unable to parse loops of the primitive coordinates for ID = " + primitiveId;
 
-        var sph = new MySphere(this.scene, primitiveId, inner_radius, outer_radius, slices, loops);
+        var sph = new MyTorus(this.scene, primitiveId, inner_radius, outer_radius, slices, loops);
 
         this.primitives[primitiveId] = sph;
     }
 
     /**
-   * Parses the <components> block.
-   * @param {components block element} componentsNode
-   */
+     * Parses the <components> block.
+     * @param {components block element} componentsNode
+     */
     parseComponents(componentsNode) {
         var children = componentsNode.children;
 
@@ -1598,7 +1589,6 @@ class MySceneGraph {
                 //To test the parsing/creation of the primitives, call the display function directly
                 this.components[this.idRoot].primitives[0].display();
                 //this.primitives['demoTriangle'].display();*/
-
 
         this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
 
