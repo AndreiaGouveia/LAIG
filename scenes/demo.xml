@@ -17,6 +17,11 @@
             <to x="0" y="-2" z="0" />
             <up x="-15" y="1" z="0" /> <!-- opcional, default 0,1,0 -->
         </ortho>
+
+        <ortho id="orthoCamera2"  near="0.1" far="500" left="-10" right="10" top="10" bottom="-10" >
+            <from x="30" y="15" z="20" />
+            <to x="0" y="-2" z="0" />
+        </ortho>
     </views>
 
     <!-- colocar global em vez de ambiente-->

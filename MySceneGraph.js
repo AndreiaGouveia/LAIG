@@ -353,13 +353,16 @@ class MySceneGraph {
 
         //=======================================================================================================
         //UP BLOCK
+        var returnValueUp;
+
         if (upIndex == -1)
-            return "tag <Up> is not present on the <perpective> node " + perpectiveID + " from the <materials> block";
+            returnValueUp = { x: 0, y: 1, z: 0 };
+        else {
+            returnValueUp = this.parseFromToUpView(perspectiveChildren[upIndex], perpectiveID);
 
-        var returnValueUp = this.parseFromToUpView(perspectiveChildren[upIndex], perpectiveID);
-
-        if (returnValueUp instanceof String)
-            return returnValueUp;
+            if (returnValueUp instanceof String)
+                return returnValueUp;
+        }
 
         this.views[perpectiveID].up = returnValueUp;
 
