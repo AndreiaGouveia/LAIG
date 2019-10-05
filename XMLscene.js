@@ -41,10 +41,22 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+
+        this.interface.setActiveCamera(this.camera);
     }
-    /**
-     * Initializes the scene lights with the values read from the XML file.
-     */
+
+    initXMLCameras() {
+        this.camera = this.graph.cameras[this.graph.defaultViewId];
+        this.interface.setActiveCamera(this.camera);
+    }
+
+    setCurrentCamera(newCameraID) {
+            this.camera = this.graph.cameras[newCameraID];
+            this.interface.setActiveCamera(this.camera);
+        }
+        /**
+         * Initializes the scene lights with the values read from the XML file.
+         */
     initLights() {
         var i = 0;
         // Lights index.
@@ -52,7 +64,7 @@ class XMLscene extends CGFscene {
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
-                break;              // Only eight lights allowed by WebGL.
+                break; // Only eight lights allowed by WebGL.
 
             if (this.graph.lights.hasOwnProperty(key)) {
                 var light = this.graph.lights[key];
@@ -82,15 +94,16 @@ class XMLscene extends CGFscene {
     }
 
     setDefaultAppearance() {
-        this.setAmbient(0.2, 0.4, 0.8, 1.0);
-        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
-        this.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.setShininess(10.0);
-    }
-    /** Handler called when the graph is finally loaded. 
-     * As loading is asynchronous, this may be called already after the application has started the run loop
-     */
+            this.setAmbient(0.2, 0.4, 0.8, 1.0);
+            this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+            this.setSpecular(0.2, 0.4, 0.8, 1.0);
+            this.setShininess(10.0);
+        }
+        /** Handler called when the graph is finally loaded. 
+         * As loading is asynchronous, this may be called already after the application has started the run loop
+         */
     onGraphLoaded() {
+
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
         this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
@@ -98,6 +111,7 @@ class XMLscene extends CGFscene {
         this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
 
         this.initLights();
+        this.initXMLCameras();
 
         this.sceneInited = true;
     }

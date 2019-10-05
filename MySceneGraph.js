@@ -31,6 +31,9 @@ class MySceneGraph {
 
         this.idRoot = null; // The id of the root element.
 
+        this.cameras = [];
+        this.defaultViewId = null; // The id of the root element.
+
         this.axisCoords = [];
         this.axisCoords['x'] = [1, 0, 0];
         this.axisCoords['y'] = [0, 1, 0];
@@ -66,6 +69,7 @@ class MySceneGraph {
 
         // As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
         this.scene.onGraphLoaded();
+        this.scene.interface.createCamerasDropdown(this);
     }
 
     /**
@@ -271,7 +275,7 @@ class MySceneGraph {
         if (this.views[defaultView] == null)
             return "The Default Id given in the <views> block is not from a valid view.";
 
-        this.default = defaultView;
+        this.defaultViewId = defaultView;
 
         this.log("Parsed views");
 
@@ -326,30 +330,49 @@ class MySceneGraph {
         if (fromIndex == -1)
             return "tag <from> is not present on the <perpective> node " + perpectiveID + " from the <materials> block";
 
-        var returnValueFrom = this.parseFromToUpView(this.views[perpectiveID].from, perspectiveChildren[fromIndex], perpectiveID);
+        var returnValueFrom = this.parseFromToUpView(perspectiveChildren[fromIndex], perpectiveID);
 
-        if (returnValueFrom != null)
+        if (returnValueFrom instanceof String)
             return returnValueFrom;
+
+
+        this.views[perpectiveID].from = returnValueFrom;
 
         //=======================================================================================================
         //TO BLOCK
         if (toIndex == -1)
             return "tag <To> is not present on the <perpective> node " + perpectiveID + " from the <materials> block";
 
-        var returnValueTo = this.parseFromToUpView(this.views[perpectiveID].to, perspectiveChildren[toIndex], perpectiveID);
+        var returnValueTo = this.parseFromToUpView(perspectiveChildren[toIndex], perpectiveID);
 
-        if (returnValueTo != null)
+        if (returnValueTo instanceof String)
             return returnValueTo;
+
+
+        this.views[perpectiveID].to = returnValueTo;
 
         //=======================================================================================================
         //UP BLOCK
         if (upIndex == -1)
             return "tag <Up> is not present on the <perpective> node " + perpectiveID + " from the <materials> block";
 
-        var returnValueUp = this.parseFromToUpView(this.views[perpectiveID].up, perspectiveChildren[upIndex], perpectiveID);
+        var returnValueUp = this.parseFromToUpView(perspectiveChildren[upIndex], perpectiveID);
 
-        if (returnValueUp != null)
+        if (returnValueUp instanceof String)
             return returnValueUp;
+
+        this.views[perpectiveID].up = returnValueUp;
+
+
+        this.cameras[perpectiveID] = new CGFcameraOrtho(
+            left, right, bottom, top,
+            near, far,
+            vec3.fromValues(...Object.values(returnValueFrom)),
+            vec3.fromValues(...Object.values(returnValueTo)),
+            vec3.fromValues(...Object.values(returnValueUp))
+        );
+
+        return null;
 
     }
 
@@ -397,20 +420,33 @@ class MySceneGraph {
         if (fromIndex == -1)
             return "tag <from> is not present on the <perpective> node " + perpectiveID + " from the <materials> block";
 
-        var returnValueFrom = this.parseFromToUpView(this.views[perpectiveID].from, perspectiveChildren[fromIndex], perpectiveID);
+        var returnValueFrom = this.parseFromToUpView(perspectiveChildren[fromIndex], perpectiveID);
 
-        if (returnValueFrom != null)
+        if (returnValueFrom instanceof String)
             return returnValueFrom;
+
+        this.views[perpectiveID].from = returnValueFrom;
 
         //=======================================================================================================
         //TO BLOCK
         if (toIndex == -1)
             return "tag <To> is not present on the <perpective> node " + perpectiveID + " To the <materials> block";
 
-        var returnValueTo = this.parseFromToUpView(this.views[perpectiveID].to, perspectiveChildren[toIndex], perpectiveID);
+        var returnValueTo = this.parseFromToUpView(perspectiveChildren[toIndex], perpectiveID);
 
-        if (returnValueTo != null)
+        if (returnValueTo instanceof String)
             return returnValueTo;
+
+        this.views[perpectiveID].to = returnValueTo;
+
+
+        this.cameras[perpectiveID] = new CGFcamera(
+            angle, near,
+            far, vec3.fromValues(...Object.values(returnValueFrom)),
+            vec3.fromValues(...Object.values(returnValueTo))
+        );
+
+        return null;
 
     }
 
@@ -426,7 +462,7 @@ class MySceneGraph {
     }
 
 
-    parseFromToUpView(addingTo, fromNode, viewID) {
+    parseFromToUpView(fromNode, viewID) {
 
         var x = this.reader.getFloat(fromNode, 'x');
         var y = this.reader.getFloat(fromNode, 'y');
@@ -436,12 +472,7 @@ class MySceneGraph {
         if (error != null)
             return error;
 
-        addingTo = [];
-        addingTo.x = x;
-        addingTo.y = y;
-        addingTo.z = z;
-
-        return null;
+        return { x, y, z };
     }
 
     /**
@@ -1675,6 +1706,7 @@ class MySceneGraph {
 
 
         this.scene.popMatrix();
+
 
     }
 }

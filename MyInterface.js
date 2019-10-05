@@ -1,6 +1,6 @@
 /**
-* MyInterface class, creating a GUI interface.
-*/
+ * MyInterface class, creating a GUI interface.
+ */
 class MyInterface extends CGFinterface {
     /**
      * @constructor
@@ -20,7 +20,7 @@ class MyInterface extends CGFinterface {
 
         this.gui = new dat.GUI();
 
-        // add a group of controls (and open/expand by defult)
+        // add a group of controls (and open/expand by default)
 
         this.initKeys();
 
@@ -31,20 +31,34 @@ class MyInterface extends CGFinterface {
      * initKeys
      */
     initKeys() {
-        this.scene.gui=this;
-        this.processKeyboard=function(){};
-        this.activeKeys={};
+        this.scene.gui = this;
+        this.processKeyboard = function() {};
+        this.activeKeys = {};
     }
 
     processKeyDown(event) {
-        this.activeKeys[event.code]=true;
+        this.activeKeys[event.code] = true;
     };
 
     processKeyUp(event) {
-        this.activeKeys[event.code]=false;
+        this.activeKeys[event.code] = false;
     };
 
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
+    }
+
+    createCamerasDropdown(graph) {
+
+
+        const cameraDropdownModel = [
+            ...Object.keys(graph.cameras)
+        ];
+
+        this.scene.cameraIndex = graph.defaultViewId;
+
+        this.gui.add(this.scene, "cameraIndex", cameraDropdownModel)
+            .name("Current camera")
+            .onChange(val => this.scene.setCurrentCamera(val));
     }
 }
