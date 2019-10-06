@@ -339,7 +339,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="grass" length_s ="1" length_t="1"/>
+            <texture id="grass" length_s ="0.4" length_t="0.2"/>
             <children>
                 <primitiveref id="Rectangle" />
             </children>

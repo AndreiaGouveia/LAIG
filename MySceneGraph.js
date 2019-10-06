@@ -1690,6 +1690,7 @@ class MySceneGraph {
         else
             currentMaterial.setTexture(null);
 
+        currentMaterial.setTextureWrap('REPEAT', 'REPEAT');
         currentMaterial.apply();
 
         //==========================================================================
