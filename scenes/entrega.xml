@@ -299,7 +299,35 @@
                 <componentref id="Arms" />
             </children>
         </component>
-        
+
+        <component id="donut1">
+            <transformation>
+                <rotate axis="y" angle="50"/>
+                <translate x="-6" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="finalDonut" />
+            </children>
+        </component>
+
+        <component id="donut2">
+            <transformation>
+                <rotate axis="y" angle="-35"/>
+                <translate x="6" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="finalDonut" />
+            </children>
+        </component>
+
         <!--Floor Component-->
 
         <component id="floor">
@@ -321,14 +349,14 @@
 
         <component id="deliveryRoot">
             <transformation>
-                <translate x="0" y="0" z="0" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
             <texture id="donut" length_s="1" length_t="1"/>
             <children>
-                <componentref id="finalDonut" />
+                <componentref id="donut1" />
+                <componentref id="donut2" />
                 <componentref id="floor" />
             </children>
         </component>
