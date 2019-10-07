@@ -1,16 +1,16 @@
 /**
-* MyCylinder class, which represents a cylinder object
-*/
+ * MyCylinder class, which represents a cylinder object
+ */
 class MySphere extends CGFobject {
-	/**
-	* @constructor
-	* @param {XMLScene} scene  represents the CGFscene
-	* @param {number}   base   radius of cylinder's base
-	* @param {number}   top    radius of cylinder's top
-	* @param {number}   height cylinder's height
-	* @param {number}   slices number of circle slices
-	* @param {number}   stacks number of circle slices
-	*/
+    /**
+     * @constructor
+     * @param {XMLScene} scene  represents the CGFscene
+     * @param {number}   base   radius of cylinder's base
+     * @param {number}   top    radius of cylinder's top
+     * @param {number}   height cylinder's height
+     * @param {number}   slices number of circle slices
+     * @param {number}   stacks number of circle slices
+     */
     constructor(scene, id, radius, slices, stacks) {
         super(scene);
 
@@ -22,18 +22,18 @@ class MySphere extends CGFobject {
         this.indices = [];
         this.normals = [];
         this.texCoords = [];
-        this.defaultTexCoords =[];
+        this.defaultTexCoords = [];
 
         this.initBuffers();
     };
 
-	/**
-	* Creates vertices, indices, normals and texCoords
-	*/
+    /**
+     * Creates vertices, indices, normals and texCoords
+     */
     initBuffers() {
 
         // loop through stacks.
-        for (var i = -this.stacks/2; i <= this.stacks/2; ++i) {
+        for (var i = -this.stacks / 2; i <= this.stacks / 2; ++i) {
 
             var V = i / this.stacks;
             var phi = V * Math.PI;
@@ -49,11 +49,11 @@ class MySphere extends CGFobject {
                 var y = Math.cos(phi) * Math.sin(theta);
                 var z = Math.sin(phi);
 
-                this.vertices.push(this.radius * x,  this.radius * y, this.radius * z);
-                this.normals.push(x, y, z);
-                
-                //0.5 to look more natural
-                this.texCoords.push(U, V);
+                var length = Math.sqrt(x * x + y * y + z * z);
+                this.vertices.push(this.radius * x, this.radius * y, this.radius * z);
+                this.normals.push(x / length, y / length, z / length);
+
+                this.texCoords.push(1 - U, 1 - (V + 1 / 2));
             }
         }
 
@@ -70,7 +70,7 @@ class MySphere extends CGFobject {
         }
 
         this.defaultTexCoords = this.texCoords;
-        
+
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     };
@@ -86,7 +86,7 @@ class MySphere extends CGFobject {
 
         this.updateTexCoordsGLBuffers();
 
-	}
+    }
 
 
 };

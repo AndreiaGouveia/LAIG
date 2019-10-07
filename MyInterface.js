@@ -48,6 +48,7 @@ class MyInterface extends CGFinterface {
         return this.activeKeys[keyCode] || false;
     }
 
+
     createCamerasDropdown(graph) {
 
 
@@ -58,7 +59,7 @@ class MyInterface extends CGFinterface {
         this.scene.cameraIndex = graph.defaultViewId;
 
         this.gui.add(this.scene, "cameraIndex", cameraDropdownModel)
-            .name("Current camera")
+            .name("View ")
             .onChange(val => this.scene.setCurrentCamera(val));
     }
 }

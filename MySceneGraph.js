@@ -1624,6 +1624,7 @@ class MySceneGraph {
                 this.components[this.idRoot].primitives[0].display();
                 //this.primitives['demoTriangle'].display();*/
 
+
         this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
 
     }
