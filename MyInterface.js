@@ -67,14 +67,17 @@ class MyInterface extends CGFinterface {
         const lights = graph.lights;
 
         var folder = this.gui.addFolder("Lights");
+        folder.open();
 
+        this.scene.lightValues = [];
         for (var lightKey in lights) {
 
-
-            this.scene.lightIndex = true;
-
-            folder.add(this.scene, "lightIndex")
-                .name(lightKey).onChange(val => this.scene.setCurrentCamera(lightKey));
+            if (lights.hasOwnProperty(lightKey)) {
+                this.scene.lightValues[lightKey] = true;
+                folder.add(this.scene.lightValues, lightKey).onChange(val => {
+                    this.scene.setLightState(lightKey, val);
+                })
+            }
 
         }
 

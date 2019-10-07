@@ -61,6 +61,8 @@ class XMLscene extends CGFscene {
         var i = 0;
         // Lights index.
 
+        this.lightsMapIndex = [];
+
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
@@ -68,6 +70,7 @@ class XMLscene extends CGFscene {
 
             if (this.graph.lights.hasOwnProperty(key)) {
                 var light = this.graph.lights[key];
+                this.lightsMapIndex[key] = i;
 
                 this.lights[i].setPosition(light[2][0], light[2][1], light[2][2], light[2][3]);
                 this.lights[i].setAmbient(light[3][0], light[3][1], light[3][2], light[3][3]);
@@ -93,6 +96,21 @@ class XMLscene extends CGFscene {
         }
     }
 
+    setLightState(lightId, turnOn_Off) {
+
+        var lightIndex = this.lightsMapIndex[lightId];
+
+        if (lightIndex == -1)
+            return;
+
+        if (turnOn_Off)
+            this.lights[0].enable();
+        else
+            this.lights[0].disable();
+
+        this.lights[0].update();
+    }
+
     setDefaultAppearance() {
             this.setAmbient(0.2, 0.4, 0.8, 1.0);
             this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -114,12 +132,6 @@ class XMLscene extends CGFscene {
         this.initXMLCameras();
 
         this.sceneInited = true;
-    }
-
-    setLightState(lightId) {
-
-        console.log(lightID)
-        this.graph.lights[lightId].enable();
     }
 
     /**
