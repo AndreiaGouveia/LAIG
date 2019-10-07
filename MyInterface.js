@@ -62,4 +62,21 @@ class MyInterface extends CGFinterface {
             .name("View ")
             .onChange(val => this.scene.setCurrentCamera(val));
     }
+
+    createLightsCheckboxes(graph) {
+        const lights = graph.lights;
+
+        var folder = this.gui.addFolder("Lights");
+
+        for (var lightKey in lights) {
+
+
+            this.scene.lightIndex = true;
+
+            folder.add(this.scene, "lightIndex")
+                .name(lightKey).onChange(val => this.scene.setCurrentCamera(lightKey));
+
+        }
+
+    }
 }

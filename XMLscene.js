@@ -116,6 +116,12 @@ class XMLscene extends CGFscene {
         this.sceneInited = true;
     }
 
+    setLightState(lightId) {
+
+        console.log(lightID)
+        this.graph.lights[lightId].enable();
+    }
+
     /**
      * Displays the scene.
      */
