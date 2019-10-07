@@ -45,8 +45,8 @@ class MyTorus extends CGFobject {
                 this.setVerticesAndNormals(sliceAngle, loopAngle, i, j);
 
                 this.texCoords.push(
-                    i * 1 / this.slices,
-                    j * 1 / this.loops
+                    j / this.loops,
+                    i / this.slices
                 );
 
             }

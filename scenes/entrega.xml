@@ -539,7 +539,7 @@
             </materials>
             <texture id="demoTexture" length_s="1" length_t="1"/>
             <children>
-                <primitiveref id="Sphere" />
+                <primitiveref id="Torus" />
         </component>
 
 
