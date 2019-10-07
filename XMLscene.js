@@ -104,11 +104,11 @@ class XMLscene extends CGFscene {
             return;
 
         if (turnOn_Off)
-            this.lights[0].enable();
+            this.lights[lightIndex].enable();
         else
-            this.lights[0].disable();
+            this.lights[lightIndex].disable();
 
-        this.lights[0].update();
+        this.lights[lightIndex].update();
     }
 
     setDefaultAppearance() {
