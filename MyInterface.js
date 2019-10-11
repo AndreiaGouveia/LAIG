@@ -48,6 +48,7 @@ class MyInterface extends CGFinterface {
         return this.activeKeys[keyCode] || false;
     }
 
+
     createCamerasDropdown(graph) {
 
 
@@ -58,7 +59,27 @@ class MyInterface extends CGFinterface {
         this.scene.cameraIndex = graph.defaultViewId;
 
         this.gui.add(this.scene, "cameraIndex", cameraDropdownModel)
-            .name("Current camera")
+            .name("View ")
             .onChange(val => this.scene.setCurrentCamera(val));
+    }
+
+    createLightsCheckboxes(graph) {
+        const lights = graph.lights;
+
+        var folder = this.gui.addFolder("Lights");
+        folder.open();
+
+        this.scene.lightValues = [];
+        for (var lightKey in lights) {
+
+            if (lights.hasOwnProperty(lightKey)) {
+                this.scene.lightValues[lightKey] = true;
+                folder.add(this.scene.lightValues, lightKey).onChange(val => {
+                    this.scene.setLightState(lightKey, val);
+                })
+            }
+
+        }
+
     }
 }

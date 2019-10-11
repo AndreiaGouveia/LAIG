@@ -1,19 +1,38 @@
 <lxs>
     <scene root="deliveryRoot" axis_length="5"/>
 
-    <views default="defaultCamera">
+    <!-- Cameras -->
+    <views default="camera2">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="30" y="15" z="30" />
+            <from x="60" y="25" z="50" />
             <to x="0" y="-2" z="0" />
         </perspective>
+
+        <perspective id="camera2" near="0.1" far="500" angle="45">
+            <from x="10" y="5" z="15" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+
+        <ortho id="orthoCamera" near="0.1" far="500" left="-10" right="10" top="10" bottom="-10">
+            <from x="30" y="15" z="20" />
+            <to x="0" y="-2" z="0" />
+            <up x="-15" y="1" z="0" />
+            <!-- opcional, default 0,1,0 -->
+        </ortho>
+
+        <ortho id="orthoCamera2" near="0.1" far="500" left="-10" right="10" top="10" bottom="-10">
+            <from x="30" y="15" z="20" />
+            <to x="0" y="-2" z="0" />
+        </ortho>
     </views>
 
-    <!-- colocar global em vez de ambiente-->
+    <!-- Ambient Light-->
     <globals>
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
         <background r="0.0" g="0.0" b="0.0" a="1.0" />
     </globals>
 
+    <!-- Other Lights-->
     <lights>
         <omni id="demoLight" enabled="0">
             <location x="9.8" y="11.9" z="10" w="1.0" />
@@ -24,7 +43,7 @@
     </lights>
 
     <textures>
-        <texture id="demoTexture" file="scenes/images/rocks.jpg" />
+        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
         <texture id="donut" file="scenes/images/donut.jpg" />
         <texture id="chapeu" file="scenes/images/chapeu.jpg" />
         <texture id="olho" file="scenes/images/eye.jpg" />
@@ -63,7 +82,7 @@
         </primitive>
 
         <primitive id="Triangle">
-            <triangle x1="0" y1="0" z1="0" x2="1" y2="0" z2="0" x3="0" y3="1" z3="0" />
+            <triangle x1="0" y1="0" z1="0" x2="1" y2="0" z2="0" x3="0.5" y3="1" z3="0" />
         </primitive>
 
         <primitive id="CylinderHat">
@@ -92,12 +111,14 @@
 
         <component id="DemoEye">
             <transformation>
+                <rotate axis="y" angle="80"/>
+                <rotate axis="x" angle="-90"/>
                 <scale x="0.25" y="0.25" z="0.25" />
             </transformation>
             <materials>
                 <material id="black" />
             </materials>
-            <texture id="inherit" length_s="1" length_t="1"/>
+            <texture id="inherit" />
             <children>
                 <primitiveref id="Sphere" />
             </children>
@@ -110,7 +131,7 @@
             <materials>
                 <material id="black" />
             </materials>
-            <texture id="inherit" length_s="1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="DemoEye" />
             </children>
@@ -123,7 +144,7 @@
             <materials>
                 <material id="black" />
             </materials>
-            <texture id="inherit" length_s="1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="DemoEye" />
             </children>
@@ -279,7 +300,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="donut" length_t="5"/>
+            <texture id="donut" length_s="0.5" length_t="0.5"/>
             <children>
                 <primitiveref id="Torus" />
             </children>
@@ -330,7 +351,7 @@
             </children>
         </component>
 
-         <component id="donut3">
+        <component id="donut3">
             <transformation>
                 <rotate axis="y" angle="45"/>
                 <translate x="17" y="0" z="20" />
@@ -395,7 +416,7 @@
         <component id="Trunk">
             <transformation>
                 <rotate axis="x" angle="-90" />
-                <scale x="1" y="1" z="7" />
+                <scale x="0.5" y="0.5" z="7" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -464,7 +485,7 @@
 
         <component id="Tree5">
             <transformation>
-            <translate x="-10" y="0" z="32" />
+                <translate x="-10" y="0" z="32" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -476,7 +497,7 @@
             </children>
         </component>
 
-        <component id="Tree">
+        <component id="Trees">
             <transformation>
             </transformation>
             <materials>
@@ -507,10 +528,9 @@
                 <componentref id="donut3" />
                 <componentref id="donut4" />
                 <componentref id="floor" />
-                <componentref id="Tree" />"
+                <componentref id="Trees" />
             </children>
         </component>
 
-
-    </components>
-</lxs>
+        </components>
+    </lxs>

@@ -70,6 +70,7 @@ class MySceneGraph {
         // As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
         this.scene.onGraphLoaded();
         this.scene.interface.createCamerasDropdown(this);
+        this.scene.interface.createLightsCheckboxes(this);
     }
 
     /**
@@ -1421,7 +1422,15 @@ class MySceneGraph {
                 return "unable to length_t components (out of 0-inf. range) on tag <texture> on the <component> node " + componentID + " from the <components> block";
         }
 
-        // Checks if id exists
+        // Sets length_s, length_t
+        if (length_s != null) {
+            this.components[componentID].length_s = length_s;
+        }
+
+        if (length_t != null) {
+            this.components[componentID].length_t = length_t;
+        }
+
         if (textureID == "inherit" || textureID == "none") {
             this.components[componentID].texture = textureID;
             return null;
@@ -1432,14 +1441,6 @@ class MySceneGraph {
 
         this.components[componentID].texture = this.textures[textureID];
 
-        // Sets length_s, length_t
-        if (length_s != null) {
-            this.components[componentID].length_s = length_s;
-        }
-
-        if (length_t != null) {
-            this.components[componentID].length_t = length_t;
-        }
     }
 
     parseComponentChildren(componentsNode, componentID) {
@@ -1623,6 +1624,7 @@ class MySceneGraph {
                 //To test the parsing/creation of the primitives, call the display function directly
                 this.components[this.idRoot].primitives[0].display();
                 //this.primitives['demoTriangle'].display();*/
+
 
         this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
 
