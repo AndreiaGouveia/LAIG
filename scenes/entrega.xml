@@ -299,6 +299,7 @@
             </transformation>
             <materials>
                 <material id="demoMaterial" />
+                <material id="black" />
             </materials>
             <texture id="donut" length_s="0.5" length_t="0.5"/>
             <children>
