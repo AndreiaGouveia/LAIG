@@ -9,7 +9,7 @@
         </perspective>
 
         <perspective id="camera2" near="0.1" far="500" angle="45">
-            <from x="10" y="5" z="15" />
+            <from x="2" y="5" z="3" />
             <to x="0" y="-2" z="0" />
         </perspective>
 
@@ -51,6 +51,9 @@
         <texture id="trunk" file="scenes/images/trunk-image.jpg" />
         <texture id="leaves" file="scenes/images/leaves.jpg" />
         <texture id="gold" file="scenes/images/gold.jpg" />
+        <texture id="columns" file="scenes/images/columns.png" />
+        <texture id="capitalColumns" file="scenes/images/capitalColumns.jpg" />
+        <texture id="gravel" file="scenes/images/gravel.jpg" />
     </textures>
 
     <materials>
@@ -83,7 +86,7 @@
         </primitive>
 
         <primitive id="Triangle">
-            <triangle x1="0" y1="0" z1="0" x2="1" y2="0" z2="0" x3="0.5" y3="1" z3="0" />
+            <triangle x1="0.5" y1="-0.35" z1="-0.35" x2="1.2" y2="0.35" z2="-0.35" x3="0.5" y3="0.35" z3="0.35" />
         </primitive>
 
         <primitive id="Cone">
@@ -104,6 +107,10 @@
 
         <primitive id="Base">
             <torus inner="1" outer="0" slices="20" loops="20" />
+        </primitive>
+
+        <primitive id="CylinderCapital">
+            <cylinder base="1" top="2" height="2" slices="20" stacks="20" />
         </primitive>
 
 
@@ -314,7 +321,7 @@
 
         <component id="finalDonut">
             <transformation>
-                <translate x="0" y="4" z="0" />
+                <translate x="0" y="5" z="0" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -386,24 +393,6 @@
             <texture id="donut" length_s="0.5" length_t="0.5"/>
             <children>
                 <componentref id="finalDonut" />
-            </children>
-        </component>
-
-
-        <!--Floor Component-->
-
-        <component id="floor">
-            <transformation>
-                <translate x="0" y="-1" z="0" />
-                <scale x="60" y="60" z="60" />
-                <rotate axis="x" angle="-90" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="marble" length_s ="0.4" length_t="0.2"/>
-            <children>
-                <primitiveref id="Rectangle" />
             </children>
         </component>
 
@@ -601,7 +590,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="chapeu" length_s ="1" length_t="1"/>
+            <texture id="marble" length_s ="0.5" length_t="0.5"/>
             <children>
                 <primitiveref id="Base" />
             </children>
@@ -609,30 +598,77 @@
 
         <component id="TopTemple">
             <transformation>
-                <translate x="0" y="30" z="0"/>
+                <scale x="1.2" y="1" z="1.2"/>
+                <translate x="0" y="32" z="0"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="chapeu" length_s ="1" length_t="1"/>
+            <texture id="marble" length_s ="0.5" length_t="0.5"/>
             <children>
                 <componentref id="BaseTemple" />
             </children>
         </component>
 
-        <component id="Column">
-            <transformation>
+        <!--SecondBottomTemple Component-->
 
-                <translate x="0" y="0" z="-13"/>
+        <component id="SecondBottomTemple">
+            <transformation>
+                <scale x="40" y="0.01" z="40" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="gravel" length_s ="0.1" length_t="0.1"/>
+            <children>
+                <primitiveref id="Base" />
+            </children>
+        </component>
+
+        <!-- CAPITAL (TOP OF COLUMN) -->
+
+        <component id="Capital">
+            <transformation>
+                <translate x="0" y="30" z="0"/>
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="capitalColumns" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="CylinderCapital" />
+            </children>
+        </component>
+
+        <!-- END OF CAPITAL-->
+
+        <component id="ColumnBase">
+            <transformation>
                 <scale x="0.5" y="15" z="0.5" />
                 <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="marble" length_s ="1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="Cylinder" />
+            </children>
+        </component>
+
+        <component id="Column">
+            <transformation>
+                <translate x="0" y="0" z="-13"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="columns" length_s ="1" length_t="1"/>
+            <children>
+                <componentref id="ColumnBase" />
+                <componentref id="Capital" />
             </children>
         </component>
 
@@ -814,7 +850,7 @@
 
         <component id="BasePodium">
             <transformation>
-                <scale x="4" y="8" z="4"/>
+                <scale x="8" y="8" z="4"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -831,7 +867,7 @@
 
         <component id="DonutForTemple">
             <transformation>
-                <translate x="0" y="5" z="0"/>
+                <translate x="0" y="4" z="0"/>
                 <rotate axis="y" angle="180"/>
             </transformation>
             <materials>
@@ -860,13 +896,9 @@
 
         <!-- END Podium -->
 
-        <!-- DonutStatiu-->
-
-        <!-- Statue-->
-
         <component id="Temple">
             <transformation>
-                <translate x="0" y="1" z="45"/>
+                <translate x="0" y="0" z="45"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -884,6 +916,7 @@
                 <componentref id="Column8" />
                 <componentref id="TopTemple" />
                 <componentref id="Podium" />
+                <componentref id="SecondBottomTemple" />
             </children>
         </component>
 
@@ -901,10 +934,8 @@
                 <componentref id="donut2" />
                 <componentref id="donut3" />
                 <componentref id="donut4" />
-                <componentref id="floor" />
                 <componentref id="Trees" />
                 <componentref id="Temple" />
-
             </children>
         </component>
 
