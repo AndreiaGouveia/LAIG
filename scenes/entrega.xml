@@ -2,7 +2,7 @@
     <scene root="deliveryRoot" axis_length="5"/>
 
     <!-- Cameras -->
-    <views default="camera2">
+    <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
             <from x="60" y="25" z="50" />
             <to x="0" y="-2" z="0" />
@@ -85,7 +85,7 @@
             <triangle x1="0" y1="0" z1="0" x2="1" y2="0" z2="0" x3="0.5" y3="1" z3="0" />
         </primitive>
 
-        <primitive id="CylinderHat">
+        <primitive id="Cone">
             <cylinder base="2" top="0" height="2" slices="20" stacks="20" />
         </primitive>
 
@@ -99,6 +99,10 @@
 
         <primitive id="Torus">
             <torus inner="1" outer="3" slices="20" loops="20" />
+        </primitive>
+
+         <primitive id="Base">
+            <torus inner="1" outer="0" slices="20" loops="20" />
         </primitive>
 
 
@@ -175,7 +179,7 @@
             </materials>
             <texture id="chapeu" length_t="5"/>
             <children>
-                <primitiveref id="CylinderHat" />
+                <primitiveref id="Cone" />
             </children>
         </component>
 
@@ -399,6 +403,70 @@
         </component>
 
         <!-- Tree Component -->
+        <component id="Branch1">
+            <transformation>
+                <translate x="2" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Sphere" />
+            </children>
+        </component>
+
+        <component id="Branch2">
+            <transformation>
+                <translate x="-2" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Sphere" />
+            </children>
+        </component>
+
+        <component id="Branch3">
+            <transformation>
+                <translate x="0" y="0" z="-2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Sphere" />
+            </children>
+        </component>
+
+         <component id="Branch4">
+            <transformation>
+                <translate x="0" y="0" z="2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Sphere" />
+            </children>
+        </component>
+
+        <component id="Branch5">
+            <transformation>
+                <translate x="0" y="2" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Sphere" />
+            </children>
+        </component>
 
         <component id="Leaves">
             <transformation>
@@ -410,7 +478,11 @@
             </materials>
             <texture id="leaves" length_s ="0.4" length_t="0.2"/>
             <children>
-                <primitiveref id="Sphere" />
+                <componentref id="Branch1" />
+                <componentref id="Branch2" />
+                <componentref id="Branch3" />
+                <componentref id="Branch4" />
+                <componentref id="Branch5" />
             </children>
         </component>
 
@@ -430,7 +502,7 @@
 
         <component id="Tree1">
             <transformation>
-                <translate x="20" y="0" z="14" />
+                <translate x="20" y="0" z="20" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -458,7 +530,7 @@
 
         <component id="Tree3">
             <transformation>
-                <translate x="10" y="0" z="25" />
+                <translate x="20" y="0" z="-25" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -472,7 +544,7 @@
 
         <component id="Tree4">
             <transformation>
-                <translate x="16" y="0" z="-14" />
+                <translate x="-10" y="0" z="14" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -486,7 +558,7 @@
 
         <component id="Tree5">
             <transformation>
-                <translate x="-10" y="0" z="32" />
+                <translate x="15" y="0" z="5" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -514,6 +586,271 @@
             </children>
         </component>
 
+        <!-- Donut temple -->
+
+        <component id="BaseTemple">
+            <transformation>
+                <scale x="15" y="1" z="15" />
+                <rotate axis="x" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="chapeu" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="Base" />
+            </children>
+        </component>
+
+        <component id="TopTemple">
+            <transformation>
+                <translate x="0" y="30" z="0"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="chapeu" length_s ="1" length_t="1"/>
+            <children>
+                <componentref id="BaseTemple" />
+            </children>
+        </component>
+
+        <component id="Column">
+            <transformation>
+            
+            <translate x="0" y="0" z="-13"/>
+                <scale x="0.5" y="15" z="0.5" />
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="marble" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="Cylinder" />
+            </children>
+        </component>
+
+        <component id="Column1">
+            <transformation>
+            <rotate axis="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="Column" />
+            </children>
+        </component>
+        
+        <component id="Column2">
+            <transformation>
+            <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="Column" />
+            </children>
+        </component>
+
+        <component id="Column3">
+            <transformation>
+            <rotate axis="y" angle="135"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="Column" />
+            </children>
+        </component>
+
+        <component id="Column4">
+            <transformation>
+            <rotate axis="y" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="Column" />
+            </children>
+        </component>
+
+        <component id="Column5">
+            <transformation>
+            <rotate axis="y" angle="225"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="Column" />
+            </children>
+        </component>
+
+        <component id="Column6">
+            <transformation>
+            <rotate axis="y" angle="270"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="Column" />
+            </children>
+        </component>
+
+        <component id="Column7">
+            <transformation>
+            <rotate axis="y" angle="315"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="Column" />
+            </children>
+        </component>
+
+        <component id="Column8">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="Column" />
+            </children>
+        </component>
+
+        <!-- Podium --> 
+        <component id="side1">
+            <transformation>
+            <translate x="0" y="0" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="side2">
+            <transformation>
+            <translate x="0" y="0" z="-0.5"/>
+            <rotate axis="y" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="side3">
+            <transformation>
+            <translate x="-0.5" y="0" z="0"/>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="side4">
+            <transformation>
+            
+            <translate x="0.5" y="0" z="0"/>
+                <rotate axis="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="top">
+            <transformation>
+            <translate x="0" y="1" z="0"/>
+            <scale x="1" y="1" z="0.5"/>
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+         <component id="Podium">
+            <transformation>
+                <translate x="0" y="5" z="0"/>
+                <scale x="4" y="4" z="4"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="marble" length_s ="1" length_t="1"/>
+            <children>
+                <componentref id="side1" />
+                <componentref id="side2" />
+                <componentref id="side3" />
+                <componentref id="side4" />
+                <componentref id="top" />
+            </children>
+        </component>
+
+        <!-- DonutStatiu-->
+
+        <!-- Statue-->
+
+        <component id="Temple">
+            <transformation>
+            <translate x="0" y="1" z="45"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="BaseTemple" />
+                <componentref id="Column1" />
+                <componentref id="Column2" />
+                <componentref id="Column3" />
+                <componentref id="Column4" />
+                <componentref id="Column5" />
+                <componentref id="Column6" />
+                <componentref id="Column7" />
+                <componentref id="Column8" />
+                <componentref id="TopTemple" />
+                <componentref id="Podium" />
+            </children>
+        </component>
+
         <!-- Other Component-->
 
         <component id="deliveryRoot">
@@ -530,6 +867,8 @@
                 <componentref id="donut4" />
                 <componentref id="floor" />
                 <componentref id="Trees" />
+                <componentref id="Temple" />
+
             </children>
         </component>
 
