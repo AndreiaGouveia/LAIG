@@ -4,8 +4,8 @@
     <!-- Cameras -->
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="60" y="25" z="50" />
-            <to x="0" y="-2" z="0" />
+            <from x="120" y="50" z="120" />
+            <to x="0" y="10" z="0" />
         </perspective>
 
         <perspective id="camera2" near="0.1" far="500" angle="45">
@@ -47,13 +47,14 @@
         <texture id="donut" file="scenes/images/donut.jpg" />
         <texture id="chapeu" file="scenes/images/chapeu.jpg" />
         <texture id="olho" file="scenes/images/eye.jpg" />
-        <texture id="marble" file="scenes/images/grass.jpg" />
+        <texture id="marble" file="scenes/images/marble.jpg" />
         <texture id="trunk" file="scenes/images/trunk-image.jpg" />
         <texture id="leaves" file="scenes/images/leaves.jpg" />
         <texture id="gold" file="scenes/images/gold.jpg" />
         <texture id="columns" file="scenes/images/columns.png" />
         <texture id="capitalColumns" file="scenes/images/capitalColumns.jpg" />
-        <texture id="gravel" file="scenes/images/gravel.jpg" />
+        <texture id="marble3" file="scenes/images/marble3.jpg" />
+        <texture id="grass" file="scenes/images/grass.jpg" />
     </textures>
 
     <materials>
@@ -496,7 +497,7 @@
 
         <component id="Tree1">
             <transformation>
-                <translate x="20" y="0" z="20" />
+                <translate x="20" y="0" z="90" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -510,7 +511,7 @@
 
         <component id="Tree2">
             <transformation>
-                <translate x="-20" y="0" z="-10" />
+                <translate x="-20" y="0" z="90" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -524,7 +525,7 @@
 
         <component id="Tree3">
             <transformation>
-                <translate x="20" y="0" z="-25" />
+                <translate x="30" y="0" z="85" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -538,7 +539,7 @@
 
         <component id="Tree4">
             <transformation>
-                <translate x="-10" y="0" z="14" />
+                <translate x="-10" y="0" z="95" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -552,7 +553,7 @@
 
         <component id="Tree5">
             <transformation>
-                <translate x="15" y="0" z="5" />
+                <translate x="15" y="0" z="85" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -620,7 +621,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="gravel" length_s ="0.1" length_t="0.1"/>
+            <texture id="marble3" length_s ="0.1" length_t="0.1"/>
             <children>
                 <primitiveref id="Base" />
             </children>
@@ -920,6 +921,21 @@
             </children>
         </component>
 
+        <component id="Floor">
+            <transformation>
+                <translate x="0" y="-0.5" z="0"/>
+                <scale x="100" y="0.01" z="100" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="grass" length_s ="0.1" length_t="0.1"/>
+            <children>
+                <primitiveref id="Base" />
+            </children>
+        </component>
+
         <!-- Other Component-->
 
         <component id="deliveryRoot">
@@ -936,6 +952,7 @@
                 <componentref id="donut4" />
                 <componentref id="Trees" />
                 <componentref id="Temple" />
+                <componentref id="Floor" />
             </children>
         </component>
 
