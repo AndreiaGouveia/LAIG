@@ -121,7 +121,7 @@ class MySceneGraph {
 
         // <ambient>
         if ((index = nodeNames.indexOf("globals")) == -1)
-            return "tag <ambient> missing";
+            return "tag <globals> missing";
         else {
             if (index != GLOBAL_INDEX)
                 this.onXMLMinorError("tag <ambient> out of order");
