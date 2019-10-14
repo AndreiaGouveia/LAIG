@@ -50,6 +50,7 @@
         <texture id="marble" file="scenes/images/grass.jpg" />
         <texture id="trunk" file="scenes/images/trunk-image.jpg" />
         <texture id="leaves" file="scenes/images/leaves.jpg" />
+        <texture id="gold" file="scenes/images/gold.jpg" />
     </textures>
 
     <materials>
@@ -78,7 +79,7 @@
 
     <primitives>
         <primitive id="Rectangle">
-            <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
+            <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
         </primitive>
 
         <primitive id="Triangle">
@@ -101,7 +102,7 @@
             <torus inner="1" outer="3" slices="20" loops="20" />
         </primitive>
 
-         <primitive id="Base">
+        <primitive id="Base">
             <torus inner="1" outer="0" slices="20" loops="20" />
         </primitive>
 
@@ -192,7 +193,7 @@
             <materials>
                 <material id="black" />
             </materials>
-            <texture id="inherit" length_s= "1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="Cylinder" />
             </children>
@@ -207,7 +208,7 @@
             <materials>
                 <material id="black" />
             </materials>
-            <texture id="inherit" length_s= "1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="DemoArm" />
             </children>
@@ -222,7 +223,7 @@
             <materials>
                 <material id="black" />
             </materials>
-            <texture id="inherit" length_s= "1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="DemoArm" />
             </children>
@@ -234,7 +235,7 @@
             <materials>
                 <material id="black" />
             </materials>
-            <texture id="donut" length_s="1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="ArmLeft"/>
                 <componentref id="ArmRight"/>
@@ -251,7 +252,7 @@
             <materials>
                 <material id="black" />
             </materials>
-            <texture id="inherit" length_s= "1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="Cylinder" />
             </children>
@@ -264,7 +265,7 @@
             <materials>
                 <material id="black" />
             </materials>
-            <texture id="inherit" length_s= "1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="DemoLeg" />
             </children>
@@ -277,7 +278,7 @@
             <materials>
                 <material id="black" />
             </materials>
-            <texture id="inherit" length_s= "1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="DemoLeg" />
             </children>
@@ -289,7 +290,7 @@
             <materials>
                 <material id="black" />
             </materials>
-            <texture id="donut" length_t="5"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="LegRight"/>
                 <componentref id="LegLeft"/>
@@ -305,7 +306,7 @@
                 <material id="demoMaterial" />
                 <material id="black" />
             </materials>
-            <texture id="donut" length_s="0.5" length_t="0.5"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="Torus" />
             </children>
@@ -318,7 +319,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" length_s="1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="Donut" />
                 <componentref id="Eyes" />
@@ -336,7 +337,8 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" length_s="1" length_t="1"/>
+            
+            <texture id="donut" length_s="0.5" length_t="0.5"/>
             <children>
                 <componentref id="finalDonut" />
             </children>
@@ -350,7 +352,8 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" length_s="1" length_t="1"/>
+            
+            <texture id="donut" length_s="0.5" length_t="0.5"/>
             <children>
                 <componentref id="finalDonut" />
             </children>
@@ -364,7 +367,8 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" length_s="1" length_t="1"/>
+            
+            <texture id="donut" length_s="0.5" length_t="0.5"/>
             <children>
                 <componentref id="finalDonut" />
             </children>
@@ -378,7 +382,8 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" length_s="1" length_t="1"/>
+            
+            <texture id="donut" length_s="0.5" length_t="0.5"/>
             <children>
                 <componentref id="finalDonut" />
             </children>
@@ -442,7 +447,7 @@
             </children>
         </component>
 
-         <component id="Branch4">
+        <component id="Branch4">
             <transformation>
                 <translate x="0" y="0" z="2" />
             </transformation>
@@ -617,8 +622,8 @@
 
         <component id="Column">
             <transformation>
-            
-            <translate x="0" y="0" z="-13"/>
+
+                <translate x="0" y="0" z="-13"/>
                 <scale x="0.5" y="15" z="0.5" />
                 <rotate axis="x" angle="-90"/>
             </transformation>
@@ -633,7 +638,7 @@
 
         <component id="Column1">
             <transformation>
-            <rotate axis="y" angle="90"/>
+                <rotate axis="y" angle="90"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -643,10 +648,10 @@
                 <componentref id="Column" />
             </children>
         </component>
-        
+
         <component id="Column2">
             <transformation>
-            <rotate axis="y" angle="45"/>
+                <rotate axis="y" angle="45"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -659,7 +664,7 @@
 
         <component id="Column3">
             <transformation>
-            <rotate axis="y" angle="135"/>
+                <rotate axis="y" angle="135"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -672,7 +677,7 @@
 
         <component id="Column4">
             <transformation>
-            <rotate axis="y" angle="180"/>
+                <rotate axis="y" angle="180"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -685,7 +690,7 @@
 
         <component id="Column5">
             <transformation>
-            <rotate axis="y" angle="225"/>
+                <rotate axis="y" angle="225"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -698,7 +703,7 @@
 
         <component id="Column6">
             <transformation>
-            <rotate axis="y" angle="270"/>
+                <rotate axis="y" angle="270"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -711,7 +716,7 @@
 
         <component id="Column7">
             <transformation>
-            <rotate axis="y" angle="315"/>
+                <rotate axis="y" angle="315"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -734,10 +739,12 @@
             </children>
         </component>
 
-        <!-- Podium --> 
+        <!-- END Donut temple -->
+
+        <!-- Podium -->
         <component id="side1">
             <transformation>
-            <translate x="0" y="0" z="0.5"/>
+                <translate x="0" y="0" z="0.5"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -750,8 +757,8 @@
 
         <component id="side2">
             <transformation>
-            <translate x="0" y="0" z="-0.5"/>
-            <rotate axis="y" angle="180"/>
+                <translate x="0" y="0" z="-0.5"/>
+                <rotate axis="y" angle="180"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -764,7 +771,7 @@
 
         <component id="side3">
             <transformation>
-            <translate x="-0.5" y="0" z="0"/>
+                <translate x="-0.5" y="0" z="0"/>
                 <rotate axis="y" angle="-90"/>
             </transformation>
             <materials>
@@ -778,8 +785,8 @@
 
         <component id="side4">
             <transformation>
-            
-            <translate x="0.5" y="0" z="0"/>
+
+                <translate x="0.5" y="0" z="0"/>
                 <rotate axis="y" angle="90"/>
             </transformation>
             <materials>
@@ -793,8 +800,7 @@
 
         <component id="top">
             <transformation>
-            <translate x="0" y="1" z="0"/>
-            <scale x="1" y="1" z="0.5"/>
+                <translate x="0" y="0.5" z="0"/>
                 <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
@@ -806,10 +812,9 @@
             </children>
         </component>
 
-         <component id="Podium">
+        <component id="BasePodium">
             <transformation>
-                <translate x="0" y="5" z="0"/>
-                <scale x="4" y="4" z="4"/>
+                <scale x="4" y="8" z="4"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -824,13 +829,44 @@
             </children>
         </component>
 
+        <component id="DonutForTemple">
+            <transformation>
+                <translate x="0" y="5" z="0"/>
+                <rotate axis="y" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="gold" length_s ="0.5" length_t="1"/>
+            <children>
+                <componentref id="finalDonut" />
+            </children>
+        </component>
+
+
+        <component id="Podium">
+            <transformation>
+                <translate x="0" y="5" z="0"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="marble" length_s ="1" length_t="1"/>
+            <children>
+                <componentref id="DonutForTemple" />
+                <componentref id="BasePodium" />
+            </children>
+        </component>
+
+        <!-- END Podium -->
+
         <!-- DonutStatiu-->
 
         <!-- Statue-->
 
         <component id="Temple">
             <transformation>
-            <translate x="0" y="1" z="45"/>
+                <translate x="0" y="1" z="45"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -872,5 +908,5 @@
             </children>
         </component>
 
-        </components>
-    </lxs>
+    </components>
+</lxs>
