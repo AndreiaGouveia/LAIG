@@ -9,8 +9,8 @@
         </perspective>
 
         <perspective id="frontView" near="0.1" far="500" angle="45">
-            <from x="1" y="10" z="6" />
-            <to x="0" y="10" z="15" />
+            <from x="1" y="2" z="-15" />
+            <to x="0" y="6" z="-5" />
         </perspective>
 
         <perspective id="sideView" near="0.1" far="500" angle="45">
@@ -23,16 +23,23 @@
             <to x="0" y="80" z="-25" />
         </perspective>
 
-        <ortho id="orthoCamera" near="0.1" far="500" left="-10" right="10" top="10" bottom="-10">
-            <from x="30" y="15" z="20" />
-            <to x="0" y="-2" z="0" />
-            <up x="-15" y="1" z="0" />
+        <ortho id="orthoFrontCamera" near="0.1" far="500" left="-10" right="10" top="10" bottom="-10">
+             <from x="1" y="3" z="-50" />
+            <to x="0" y="5" z="-20" />
+            <up x="0" y="1" z="0" />
             <!-- opcional, default 0,1,0 -->
         </ortho>
 
-        <ortho id="orthoCamera2" near="0.1" far="500" left="-10" right="10" top="10" bottom="-10">
-            <from x="30" y="15" z="20" />
-            <to x="0" y="-2" z="0" />
+        <ortho id="orthoSideCamera" near="0.1" far="500" left="-10" right="10" top="10" bottom="-10">
+           <from x="80" y="10" z="20" />
+            <to x="10" y="10" z="25" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+
+        <ortho id="orthoTopCamera" near="0.1" far="500" left="-10" right="10" top="10" bottom="-10">
+            <from x="1" y="80" z="-120" />
+            <to x="0" y="45" z="-40" />
+            <up x="0" y="1" z="0" />
         </ortho>
     </views>
 
