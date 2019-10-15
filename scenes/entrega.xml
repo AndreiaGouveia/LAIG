@@ -65,6 +65,13 @@
         <texture id="capitalColumns" file="scenes/images/capitalColumns.jpg" />
         <texture id="marble3" file="scenes/images/marble3.jpg" />
         <texture id="grass" file="scenes/images/grass.jpg" />
+        <texture id="water" file="scenes/images/water.jpg" />
+        <texture id="skybox_bottom" file="scenes/images/skybox/negy.jpg" />
+        <texture id="skybox_front" file="scenes/images/skybox/negx.jpg" />
+        <texture id="skybox_back" file="scenes/images/skybox/posx.jpg" />
+        <texture id="skybox_right" file="scenes/images/skybox/posz.jpg" />
+        <texture id="skybox_left" file="scenes/images/skybox/negz.jpg" />
+        <texture id="skybox_top" file="scenes/images/skybox/posy.jpg" />
     </textures>
 
     <materials>
@@ -507,7 +514,7 @@
 
         <component id="Tree1">
             <transformation>
-                <translate x="20" y="0" z="90" />
+                <translate x="20" y="0" z="70" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -521,7 +528,7 @@
 
         <component id="Tree2">
             <transformation>
-                <translate x="-20" y="0" z="90" />
+                <translate x="-20" y="0" z="70" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -535,7 +542,7 @@
 
         <component id="Tree3">
             <transformation>
-                <translate x="30" y="0" z="85" />
+                <translate x="30" y="0" z="65" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -549,7 +556,7 @@
 
         <component id="Tree4">
             <transformation>
-                <translate x="-10" y="0" z="95" />
+                <translate x="-10" y="0" z="75" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -563,7 +570,7 @@
 
         <component id="Tree5">
             <transformation>
-                <translate x="15" y="0" z="85" />
+                <translate x="15" y="0" z="75" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -909,7 +916,7 @@
 
         <component id="Temple">
             <transformation>
-                <translate x="0" y="0" z="45"/>
+                <translate x="0" y="0" z="25"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -931,10 +938,10 @@
             </children>
         </component>
 
-        <component id="Floor">
+        <component id="Grass">
             <transformation>
                 <translate x="0" y="-0.5" z="0"/>
-                <scale x="100" y="0.01" z="100" />
+                <scale x="80" y="0.01" z="80" />
                 <rotate axis="x" angle="-90" />
             </transformation>
             <materials>
@@ -945,6 +952,132 @@
                 <primitiveref id="Base" />
             </children>
         </component>
+
+        <component id="Water">
+            <transformation>
+                <translate x="0" y="-6" z="0"/>
+                <scale x="110" y="5" z="110" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="water" length_s ="0.05" length_t="0.05"/>
+            <children>
+                <primitiveref id="Base" />
+            </children>
+        </component>
+
+        <!-- SkyBox-->
+
+        <component id="SkyBoxBottom">
+            <transformation>
+                <translate x="0" y="-7" z="0"/>
+                <scale x="300" y="1" z="300" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="skybox_bottom" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="SkyBoxFront">
+            <transformation>
+                <translate x="-149" y="3" z="0"/>
+                <scale x="300" y="300" z="300" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="skybox_front" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="SkyBoxBack">
+            <transformation>
+                <translate x="149" y="3" z="0"/>
+                <scale x="300" y="300" z="300" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="skybox_back" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="SkyBoxRight">
+            <transformation>
+                <translate x="0" y="3" z="-149"/>
+                <scale x="300" y="300" z="300" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="skybox_right" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="SkyBoxLeft">
+            <transformation>
+                <translate x="0" y="3" z="149"/>
+                <scale x="300" y="300" z="300" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="skybox_left" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="SkyBoxTop">
+            <transformation>
+                <translate x="0" y="149" z="0"/>
+                <scale x="300" y="1" z="300" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="skybox_top" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+
+        <component id="SkyBox">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="skybox_bottom" length_s ="1" length_t="1"/>
+            <children>
+                <componentref id="SkyBoxBottom" />
+                <componentref id="SkyBoxFront" />
+                <componentref id="SkyBoxBack" />
+                <componentref id="SkyBoxRight" />
+                <componentref id="SkyBoxLeft" />
+                <componentref id="SkyBoxTop" />
+            </children>
+        </component>
+
+        <!-- End of SkyBox-->
 
         <!-- Other Component-->
 
@@ -962,7 +1095,9 @@
                 <componentref id="donut4" />
                 <componentref id="Trees" />
                 <componentref id="Temple" />
-                <componentref id="Floor" />
+                <componentref id="Grass" />
+                <componentref id="Water" />
+                <componentref id="SkyBox" />
             </children>
         </component>
 
