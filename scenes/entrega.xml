@@ -958,6 +958,8 @@
             </children>
         </component>
 
+        <!-- SkyBox-->
+
         <component id="SkyBoxBottom">
             <transformation>
                 <translate x="0" y="-7" z="0"/>
@@ -975,7 +977,7 @@
 
         <component id="SkyBoxFront">
             <transformation>
-                <translate x="-150" y="3" z="0"/>
+                <translate x="-149" y="3" z="0"/>
                 <scale x="300" y="300" z="300" />
                 <rotate axis="y" angle="90" />
             </transformation>
@@ -990,7 +992,7 @@
 
         <component id="SkyBoxBack">
             <transformation>
-                <translate x="150" y="3" z="0"/>
+                <translate x="149" y="3" z="0"/>
                 <scale x="300" y="300" z="300" />
                 <rotate axis="y" angle="-90" />
             </transformation>
@@ -1005,7 +1007,7 @@
 
         <component id="SkyBoxRight">
             <transformation>
-                <translate x="0" y="3" z="-150"/>
+                <translate x="0" y="3" z="-149"/>
                 <scale x="300" y="300" z="300" />
             </transformation>
             <materials>
@@ -1019,7 +1021,7 @@
 
         <component id="SkyBoxLeft">
             <transformation>
-                <translate x="0" y="3" z="150"/>
+                <translate x="0" y="3" z="149"/>
                 <scale x="300" y="300" z="300" />
                 <rotate axis="y" angle="180" />
             </transformation>
@@ -1034,7 +1036,7 @@
 
         <component id="SkyBoxTop">
             <transformation>
-                <translate x="0" y="150" z="0"/>
+                <translate x="0" y="149" z="0"/>
                 <scale x="300" y="1" z="300" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -1064,6 +1066,8 @@
                 <componentref id="SkyBoxTop" />
             </children>
         </component>
+
+        <!-- End of SkyBox-->
 
         <!-- Other Component-->
 
