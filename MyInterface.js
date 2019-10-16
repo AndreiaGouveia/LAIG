@@ -41,8 +41,9 @@ class MyInterface extends CGFinterface {
     };
 
     processKeyUp(event) {
-        if(event.code == "KeyM") 
-        this.scene.rotateMaterials():
+        if (event.code === "KeyM") {
+            this.scene.materialKeyCounter++;
+        }
     };
 
     isKeyPressed(keyCode) {

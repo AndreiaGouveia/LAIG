@@ -121,7 +121,7 @@ class MySceneGraph {
 
         // <ambient>
         if ((index = nodeNames.indexOf("globals")) == -1)
-            return "tag <ambient> missing";
+            return "tag <globals> missing";
         else {
             if (index != GLOBAL_INDEX)
                 this.onXMLMinorError("tag <ambient> out of order");
@@ -1640,7 +1640,7 @@ class MySceneGraph {
         var currentMaterial;
         var currentTexture;
         var allMaterials = [];
-        var materialIndex = 0; //TO DO: In the future change this acoordingly to the user pressing de M key
+        var materialIndex = this.scene.materialKeyCounter;
         var i = 0;
         var currentS;
         var currentT;
