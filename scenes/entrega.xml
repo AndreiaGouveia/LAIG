@@ -578,7 +578,7 @@
 
         <component id="Tree3">
             <transformation>
-                <translate x="30" y="0" z="65" />
+                <translate x="30" y="0" z="-45" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -592,7 +592,7 @@
 
         <component id="Tree4">
             <transformation>
-                <translate x="-10" y="0" z="75" />
+                <translate x="-10" y="0" z="-75" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -606,7 +606,63 @@
 
         <component id="Tree5">
             <transformation>
-                <translate x="15" y="0" z="75" />
+                <translate x="-15" y="0" z="-25" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" length_s ="0.4" length_t="0.2"/>
+            <children>
+                <componentref id="Leaves" />
+                <componentref id="Trunk" />
+            </children>
+        </component>
+
+        <component id="Tree6">
+            <transformation>
+                <translate x="-55" y="0" z="-41" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" length_s ="0.4" length_t="0.2"/>
+            <children>
+                <componentref id="Leaves" />
+                <componentref id="Trunk" />
+            </children>
+        </component>
+
+         <component id="Tree7">
+            <transformation>
+                <translate x="55" y="0" z="-5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" length_s ="0.4" length_t="0.2"/>
+            <children>
+                <componentref id="Leaves" />
+                <componentref id="Trunk" />
+            </children>
+        </component>
+
+         <component id="Tree8">
+            <transformation>
+                <translate x="-50" y="0" z="25" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" length_s ="0.4" length_t="0.2"/>
+            <children>
+                <componentref id="Leaves" />
+                <componentref id="Trunk" />
+            </children>
+        </component>
+
+         <component id="Tree9">
+            <transformation>
+                <translate x="40" y="0" z="35" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -631,6 +687,10 @@
                 <componentref id="Tree3" />
                 <componentref id="Tree4" />
                 <componentref id="Tree5" />
+                <componentref id="Tree6" />
+                <componentref id="Tree7" />
+                <componentref id="Tree8" />
+                <componentref id="Tree9" />
             </children>
         </component>
 
