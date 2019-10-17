@@ -88,7 +88,10 @@ class XMLscene extends CGFscene {
 
                 this.lights[i].setVisible(true);
 
-                this.lights[i].enable();
+                if (light[0])
+                    this.lights[i].enable();
+                else
+                    this.lights[i].disable();
 
 
                 this.lights[i].update();
@@ -99,6 +102,9 @@ class XMLscene extends CGFscene {
     }
 
     setLightState(lightIndex) {
+
+        if (this.lightsMapId == undefined)
+            return;
 
         var lightId = this.lightsMapId[lightIndex];
 
