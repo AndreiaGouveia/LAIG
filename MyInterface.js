@@ -72,13 +72,15 @@ class MyInterface extends CGFinterface {
         folder.open();
 
         this.scene.lightValues = [];
+
         for (var lightKey in lights) {
 
+            console.log("aqui passou " + lightKey);
+
             if (lights.hasOwnProperty(lightKey)) {
-                this.scene.lightValues[lightKey] = true;
-                folder.add(this.scene.lightValues, lightKey).onChange(val => {
-                    this.scene.setLightState(lightKey, val);
-                })
+
+                this.scene.lightValues[lightKey] = lights[lightKey][0];
+                folder.add(this.scene.lightValues, lightKey);
             }
 
         }

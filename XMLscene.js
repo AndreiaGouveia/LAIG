@@ -63,7 +63,7 @@ class XMLscene extends CGFscene {
         var i = 0;
         // Lights index.
 
-        this.lightsMapIndex = [];
+        this.lightsMapId = [];
 
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
@@ -72,7 +72,8 @@ class XMLscene extends CGFscene {
 
             if (this.graph.lights.hasOwnProperty(key)) {
                 var light = this.graph.lights[key];
-                this.lightsMapIndex[key] = i;
+
+                this.lightsMapId[i] = key;
 
                 this.lights[i].setPosition(light[2][0], light[2][1], light[2][2], light[2][3]);
                 this.lights[i].setAmbient(light[3][0], light[3][1], light[3][2], light[3][3]);
@@ -86,10 +87,9 @@ class XMLscene extends CGFscene {
                 }
 
                 this.lights[i].setVisible(true);
-                if (light[0])
-                    this.lights[i].enable();
-                else
-                    this.lights[i].disable();
+
+                this.lights[i].enable();
+
 
                 this.lights[i].update();
 
@@ -98,14 +98,14 @@ class XMLscene extends CGFscene {
         }
     }
 
-    setLightState(lightId, turnOn_Off) {
+    setLightState(lightIndex) {
 
-        var lightIndex = this.lightsMapIndex[lightId];
+        var lightId = this.lightsMapId[lightIndex];
 
-        if (lightIndex == -1)
+        if (lightId == -1)
             return;
 
-        if (turnOn_Off)
+        if (this.lightValues[lightId])
             this.lights[lightIndex].enable();
         else
             this.lights[lightIndex].disable();
@@ -157,8 +157,7 @@ class XMLscene extends CGFscene {
         this.axis.display();
 
         for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(true);
-            this.lights[i].enable();
+            this.setLightState(i);
         }
 
         if (this.sceneInited) {

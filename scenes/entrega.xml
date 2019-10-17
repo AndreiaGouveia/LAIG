@@ -4,18 +4,18 @@
     <!-- Cameras -->
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="120" y="50" z="120" />
-            <to x="0" y="10" z="0" />
+            <from x="-100" y="90" z="-140" />
+            <to x="-20" y="0" z="-20" />
         </perspective>
 
         <perspective id="frontView" near="0.1" far="500" angle="45">
-            <from x="1" y="2" z="-15" />
-            <to x="0" y="6" z="-5" />
+            <from x="-15" y="8" z="-15" />
+            <to x="-5" y="9" z="-5" />
         </perspective>
 
         <perspective id="sideView" near="0.1" far="500" angle="45">
-            <from x="80" y="10" z="40" />
-            <to x="40" y="10" z="40" />
+            <from x="80" y="10" z="20" />
+            <to x="40" y="10" z="20" />
         </perspective>
 
         <perspective id="topView" near="0.1" far="500" angle="45">
@@ -24,10 +24,9 @@
         </perspective>
 
         <ortho id="orthoFrontCamera" near="0.1" far="500" left="-10" right="10" top="10" bottom="-10">
-             <from x="1" y="3" z="-50" />
-            <to x="0" y="5" z="-20" />
+             <from x="0" y="10" z="-50" />
+            <to x="0" y="10" z="-25" />
             <up x="0" y="1" z="0" />
-            <!-- opcional, default 0,1,0 -->
         </ortho>
 
         <ortho id="orthoSideCamera" near="0.1" far="500" left="-10" right="10" top="10" bottom="-10">
@@ -45,8 +44,8 @@
 
     <!-- Ambient Light-->
     <globals>
-        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
-        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+        <ambient r="0.5" g="0.5" b="0.6" a="1.0" />
+        <background r="1" g="1" b="0.85" a="1.0" />
     </globals>
 
     <!-- Other Lights-->
@@ -98,7 +97,7 @@
 
     <materials>
         <material id="demoMaterial" shininess="10">
-            <emission r="1.0" g="1.0" b="1.0" a="1.0" />
+            <emission r="0.3" g="0.3" b="0.3" a="1" />
             <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
             <specular r="0.5" g="0.5" b="0.5" a="1.0" />
@@ -366,6 +365,7 @@
             <materials>
                 <material id="demoMaterial" />
                 <material id="black" />
+                <material id="blue"/>
             </materials>
             <texture id="inherit"/>
             <children>
@@ -422,8 +422,8 @@
 
         <component id="donut3">
             <transformation>
-                <rotate axis="y" angle="45"/>
-                <translate x="17" y="0" z="20" />
+                <translate x="27" y="0" z="5" />
+                <rotate axis="y" angle="-135"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -437,8 +437,8 @@
 
         <component id="donut4">
             <transformation>
-                <rotate axis="y" angle="45"/>
-                <translate x="-17" y="0" z="15" />
+                <translate x="17" y="0" z="-5" />
+                <rotate axis="y" angle="-90"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -1077,7 +1077,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="skybox_bottom" length_s ="1" length_t="1"/>
+            <texture id="skybox_bottom" length_s ="0.5" length_t="0.5"/>
             <children>
                 <primitiveref id="Rectangle" />
             </children>
