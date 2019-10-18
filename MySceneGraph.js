@@ -1431,9 +1431,15 @@ class MySceneGraph {
             this.components[componentID].length_t = length_t;
         }
 
-        if (textureID == "inherit" || textureID == "none") {
-            this.components[componentID].texture = textureID;
-            return null;
+        if (textureID == "inherit" || textureID == "none" ) {
+            if(length_s == null && length_t == null)
+            {
+                this.components[componentID].texture = textureID;
+                return null;
+            }
+            else {
+                return "id '" + textureID + ":cannot instanciate the inherit/none and attribute a lenght_s and lenght_t " + componentID + " from the <components> block";
+            }
         }
 
         if (this.textures[textureID] == null)
@@ -1542,7 +1548,7 @@ class MySceneGraph {
         // w
         var w = this.reader.getFloat(node, 'w');
         if (!(w != null && !isNaN(w)))
-            return "unable to parse w-coordinate of the " + messageError;
+            return "Unable to parse w-coordinate of the " + messageError;
 
         position.push(w);
 
@@ -1560,12 +1566,12 @@ class MySceneGraph {
         // R
         var r = this.reader.getFloat(node, 'r');
         if (!(r != null && !isNaN(r) && r >= 0 && r <= 1))
-            return "unable to parse R component of the " + messageError;
+            return "Unable to parse R component of the color component of" + messageError;
 
         // G
         var g = this.reader.getFloat(node, 'g');
         if (!(g != null && !isNaN(g) && g >= 0 && g <= 1))
-            return "unable to parse G component of the " + messageError;
+            return "Unable to parse G component of the " + messageError;
 
         // B
         var b = this.reader.getFloat(node, 'b');
