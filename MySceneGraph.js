@@ -1406,12 +1406,33 @@ class MySceneGraph {
         if (textureID == null)
             return "unable to parse id component (null) on tag <texture> on the <component> node " + componentID + " from the <components> block";
 
+        if (textureID == "inherit" || textureID == "none" ) {
+            if(length_s != null || length_t != null)
+            {
+                return "id '" + textureID + ":cannot instanciate the inherit/none and attribute a lenght_s and lenght_t " + componentID + " from the <components> block";
+            }
+            else{
+                this.components[componentID].texture = textureID;
+                return null;
+            }
+        }
+        else{
+
+            if(length_t==null || length_s ==null)
+            {
+                return "missing lenght_t or lenght_s on tag <texture> on the <component> node " + componentID + " from the <components> block";
+            }
+        }
+       
+        //setting length_s and length_t 
         if (length_s != null) {
             if (isNaN(length_s))
                 return "unable to length_s components (NaN) on tag <texture> on the <component> node " + componentID + " from the <components> block";
 
             if (length_s <= 0)
                 return "unable to length_s components (out of 0-inf. range) on tag <texture> on the <component> node " + componentID + " from the <components> block";
+            
+            this.components[componentID].length_s = length_s;
         }
 
         if (length_t != null) {
@@ -1420,26 +1441,8 @@ class MySceneGraph {
 
             if (length_t <= 0)
                 return "unable to length_t components (out of 0-inf. range) on tag <texture> on the <component> node " + componentID + " from the <components> block";
-        }
-
-        // Sets length_s, length_t
-        if (length_s != null) {
-            this.components[componentID].length_s = length_s;
-        }
-
-        if (length_t != null) {
+            
             this.components[componentID].length_t = length_t;
-        }
-
-        if (textureID == "inherit" || textureID == "none" ) {
-            if(length_s == null && length_t == null)
-            {
-                this.components[componentID].texture = textureID;
-                return null;
-            }
-            else {
-                return "id '" + textureID + ":cannot instanciate the inherit/none and attribute a lenght_s and lenght_t " + componentID + " from the <components> block";
-            }
         }
 
         if (this.textures[textureID] == null)

@@ -312,7 +312,7 @@
             <materials>
                 <material id="darker" />
             </materials>
-            <texture id="chapeu" length_t="5"/>
+            <texture id="chapeu" length_s= "1" length_t="5"/>
             <children>
                 <primitiveref id="Cone" />
             </children>
