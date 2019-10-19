@@ -1569,7 +1569,7 @@ class MySceneGraph {
         // R
         var r = this.reader.getFloat(node, 'r');
         if (!(r != null && !isNaN(r) && r >= 0 && r <= 1))
-            return "Unable to parse R component of the color component of" + messageError;
+            return "Unable to parse R component of the " + messageError;
 
         // G
         var g = this.reader.getFloat(node, 'g');
@@ -1620,20 +1620,6 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-
-        /*
-                this.scene.multMatrix(this.components[this.idRoot].transformation);
-                
-                this.primitives['demoTriangle'].updateTexCoords(3, 3);
-        
-                this.components[this.idRoot].materials['demoMaterial'].apply();
-        
-                this.components[this.idRoot].texture.bind();
-        
-                //To test the parsing/creation of the primitives, call the display function directly
-                this.components[this.idRoot].primitives[0].display();
-                //this.primitives['demoTriangle'].display();*/
-
 
         this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
 
