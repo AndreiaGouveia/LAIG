@@ -1261,7 +1261,6 @@
 
         <component id="StreetLamps">
             <transformation>
-            <translate x="7" y="0" z="0"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
