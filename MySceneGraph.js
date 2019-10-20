@@ -542,8 +542,8 @@ class MySceneGraph {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             } else {
-                attributeNames.push(...["location", "ambient", "diffuse", "specular"]);
-                attributeTypes.push(...["position", "color", "color", "color"]);
+                attributeNames.push(...["location", "ambient", "diffuse", "specular", "attenuation"]);
+                attributeTypes.push(...["position", "color", "color", "color", "typeAttenuation"]);
             }
 
             // Get id of the current light.
@@ -581,8 +581,10 @@ class MySceneGraph {
                 if (attributeIndex != -1) {
                     if (attributeTypes[j] == "position")
                         var aux = this.parseCoordinates4D(grandChildren[attributeIndex], "light position for ID" + lightId);
-                    else
+                    else if (attributeTypes[j] == "color")
                         var aux = this.parseColor(grandChildren[attributeIndex], attributeNames[j] + " illumination for ID" + lightId);
+                    else
+                        var aux = this.parseAttenuation(grandChildren[attributeIndex], attributeNames[j] + " parseAttenuation for ID" + lightId);
 
                     if (!Array.isArray(aux))
                         return aux;
@@ -628,6 +630,34 @@ class MySceneGraph {
 
         this.log("Parsed lights");
         return null;
+    }
+
+    /**
+     * Parse the attenuation components from a node
+     * @param {block element} node
+     * @param {message to be displayed in case of error} messageError
+     */
+    parseAttenuation(node, messageError) {
+        var attenuation = [];
+
+        // constant
+        var constant = this.reader.getFloat(node, 'constant');
+        if (!(constant != null && !isNaN(constant) && constant >= 0 && constant <= 1))
+            return "Unable to parse constant component of the " + messageError;
+
+        // linear
+        var linear = this.reader.getFloat(node, 'linear');
+        if (!(linear != null && !isNaN(linear) && linear >= 0 && linear <= 1))
+            return "Unable to parse linear component of the " + messageError;
+
+        // quadratic
+        var quadratic = this.reader.getFloat(node, 'quadratic');
+        if (!(quadratic != null && !isNaN(quadratic) && quadratic >= 0 && quadratic <= 1))
+            return "unable to parse quadratic component of the " + messageError;
+
+        attenuation.push(...[constant, linear, quadratic]);
+
+        return attenuation;
     }
 
     /**
@@ -1407,24 +1437,20 @@ class MySceneGraph {
         if (textureID == null)
             return "unable to parse id component (null) on tag <texture> on the <component> node " + componentID + " from the <components> block";
 
-        if (textureID == "inherit" || textureID == "none" ) {
-            if(length_s != null || length_t != null)
-            {
+        if (textureID == "inherit" || textureID == "none") {
+            if (length_s != null || length_t != null) {
                 return "id '" + textureID + ":cannot instanciate the inherit/none and attribute a lenght_s and lenght_t " + componentID + " from the <components> block";
-            }
-            else{
+            } else {
                 this.components[componentID].texture = textureID;
                 return null;
             }
-        }
-        else{
+        } else {
 
-            if(length_t==null || length_s ==null)
-            {
+            if (length_t == null || length_s == null) {
                 return "missing lenght_t or lenght_s on tag <texture> on the <component> node " + componentID + " from the <components> block";
             }
         }
-       
+
         //setting length_s and length_t 
         if (length_s != null) {
             if (isNaN(length_s))
@@ -1432,7 +1458,7 @@ class MySceneGraph {
 
             if (length_s <= 0)
                 return "unable to length_s components (out of 0-inf. range) on tag <texture> on the <component> node " + componentID + " from the <components> block";
-            
+
             this.components[componentID].length_s = length_s;
         }
 
@@ -1442,7 +1468,7 @@ class MySceneGraph {
 
             if (length_t <= 0)
                 return "unable to length_t components (out of 0-inf. range) on tag <texture> on the <component> node " + componentID + " from the <components> block";
-            
+
             this.components[componentID].length_t = length_t;
         }
 

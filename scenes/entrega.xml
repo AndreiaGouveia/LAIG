@@ -60,6 +60,7 @@
             <ambient r="0.7" g="0.7" b="0.7" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="1" linear="0" quadratic="0" />  
         </omni>
 
         <spot id="statueSpotFront" enabled="1" angle="1" exponent="4">
@@ -68,6 +69,7 @@
             <ambient r="0" g="0" b="0" a="1" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="1" linear="0" quadratic="0" /> 
         </spot>
 
         <spot id="statueSpotFrontUp" enabled="1" angle="1" exponent="4">
@@ -76,6 +78,7 @@
             <ambient r="0" g="0" b="0" a="1" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="1" linear="0" quadratic="0" /> 
         </spot>
 
         <spot id="statueSpotBack" enabled="1" angle="1" exponent="4">
@@ -84,6 +87,7 @@
             <ambient r="0" g="0" b="0" a="1" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="1" linear="0" quadratic="0" /> 
         </spot>
 
         <spot id="statueSpotBackUp" enabled="1" angle="1" exponent="4">
@@ -92,6 +96,7 @@
             <ambient r="0" g="0" b="0" a="1" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="1" linear="0" quadratic="0" /> 
         </spot>
 
         <spot id="StreetLamp1" enabled="1" angle="0" exponent="8">
@@ -100,6 +105,7 @@
             <ambient r="0" g="0" b="0" a="1" />
             <diffuse r="1.0" g="1.0" b="0" a="1.0" />
             <specular r="1.0" g="1.0" b="0" a="1.0" />
+            <attenuation constant="1" linear="0" quadratic="0" /> 
         </spot>
 
         <spot id="StreetLamp2" enabled="1" angle="0" exponent="8">
@@ -108,6 +114,7 @@
             <ambient r="0" g="0" b="0" a="1" />
             <diffuse r="1.0" g="1.0" b="0" a="1.0" />
             <specular r="1.0" g="1.0" b="0" a="1.0" />
+            <attenuation constant="1" linear="0" quadratic="0" /> 
         </spot>
 
         <spot id="StreetLamp3" enabled="1" angle="0" exponent="8">
@@ -116,6 +123,7 @@
             <ambient r="0" g="0" b="0" a="1" />
             <diffuse r="1.0" g="1.0" b="0" a="1.0" />
             <specular r="1.0" g="1.0" b="0" a="1.0" />
+            <attenuation constant="1" linear="0" quadratic="0" /> 
         </spot>
 
     </lights>
