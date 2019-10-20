@@ -142,6 +142,7 @@ class MySceneGraph {
             if ((error = this.parseLights(nodes[index])) != null)
                 return error;
         }
+
         // <textures>
         if ((index = nodeNames.indexOf("textures")) == -1)
             return "tag <textures> missing";
@@ -222,7 +223,7 @@ class MySceneGraph {
         if (axis_length == null)
             this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
 
-        this.referenceLength = axis_length || 1;
+        this.referenceLength = axis_length || 1; // if axis_length doesn't exist, assumes that length is 1
 
         this.log("Parsed scene");
 
@@ -234,7 +235,6 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseView(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
 
         // Reads views children and node names
         var children = viewsNode.children;
@@ -468,6 +468,7 @@ class MySceneGraph {
 
     parseFromToUpView(fromNode, viewID) {
 
+        //gets x , y , x coordinates
         var x = this.reader.getFloat(fromNode, 'x');
         var y = this.reader.getFloat(fromNode, 'y');
         var z = this.reader.getFloat(fromNode, 'z');
