@@ -1650,8 +1650,12 @@ class MySceneGraph {
 
         //==========================================================================
         //Recursively calls displayComponent for all component's children
-        for (var i = 0; i < component.children.length; i++)
+        for (var i = 0; i < component.children.length; i++) {
+
+            if (this.components[component.children[i]] == null)
+                continue;
             this.displayComponent(this.components[component.children[i]], currentMaterial, currentTexture, currentS, currentT);
+        }
 
         this.scene.popMatrix();
 
