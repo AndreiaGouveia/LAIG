@@ -456,9 +456,9 @@
             <transformation>
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="inherit"/>
             </materials>
-            <texture id="inherit"/>
+            <texture id="inherit" />
             <children>
                 <primitiveref id="Torus" />
             </children>
