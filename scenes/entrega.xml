@@ -617,6 +617,8 @@
             </transformation>
             <materials>
                 <material id="demoMaterial" />
+                <material id="gold" />
+                <material id="blue" />
             </materials>
             <texture id="leaves" length_s ="0.4" length_t="0.2"/>
             <children>
@@ -873,7 +875,7 @@
                 <translate x="0" y="0" z="-13"/>
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="columns" length_s ="1" length_t="1"/>
             <children>
@@ -1083,6 +1085,8 @@
             <materials>
                 <material id="gold" />
                 <material id="demoMaterial" />
+                <material id="blue" />
+                <material id="aleatorio" />
             </materials>
             <texture id="gold" length_s ="0.5" length_t="1"/>
             <children>
@@ -1182,6 +1186,7 @@
             </transformation>
             <materials>
                 <material id="light" />
+                <material id="gold" />
             </materials>
             <texture id="lamp" length_s = "0.9" length_t = "0.9"/>
             <children>
