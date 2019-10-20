@@ -75,8 +75,6 @@ class MyInterface extends CGFinterface {
 
         for (var lightKey in lights) {
 
-            console.log("aqui passou " + lightKey);
-
             if (lights.hasOwnProperty(lightKey)) {
 
                 this.scene.lightValues[lightKey] = lights[lightKey][0];
