@@ -2,12 +2,13 @@
  * MyTriangle
  * @constructor
  * @param scene - Reference to MyScene object
- * @param x - Scale of rectangle in X
- * @param y - Scale of rectangle in Y
+ * @param x1, y1, ... - Coordinates of Vertices
  */
 class MyTriangle extends CGFobject {
     constructor(scene, id, x1, x2, x3, y1, y2, y3, z1, z2, z3) {
         super(scene);
+
+        this.id = id;
         this.x1 = x1;
         this.x2 = x2;
         this.x3 = x3;

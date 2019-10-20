@@ -1,19 +1,19 @@
 /**
- * MyCylinder class, which represents a cylinder object
+ * MySphere class, which represents a Sphere object
  */
 class MySphere extends CGFobject {
     /**
      * @constructor
      * @param {XMLScene} scene  represents the CGFscene
-     * @param {number}   base   radius of cylinder's base
-     * @param {number}   top    radius of cylinder's top
-     * @param {number}   height cylinder's height
-     * @param {number}   slices number of circle slices
-     * @param {number}   stacks number of circle slices
+     * @param {number}   id     represents the Id of the Sphere
+     * @param {number}   radius radius of Sphere
+     * @param {number}   slices number of Sphere slices
+     * @param {number}   stacks number of Sphere stacks
      */
     constructor(scene, id, radius, slices, stacks) {
         super(scene);
 
+        this.id = id;
         this.radius = radius;
         this.slices = slices;
         this.stacks = stacks;

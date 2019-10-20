@@ -1,20 +1,21 @@
 /**
- * MyTorus class, which represents a cylinder object
+ * MyTorus class, which represents a Torus object
  */
 class MyTorus extends CGFobject {
     /**
      * @constructor
-     * @param {XMLScene} scene  represents the CGFscene
-     * @param {number}   base   radius of cylinder's base
-     * @param {number}   top    radius of cylinder's top
-     * @param {number}   height cylinder's height
-     * @param {number}   slices number of circle slices
-     * @param {number}   loops number of circle slices
+     * @param {XMLScene} scene          represents the CGFscene
+     * @param {number}   id             represents the Id of the Torus
+     * @param {number}   inner_radius   inner_radius of the Torus
+     * @param {number}   outer_radius   outer_radius of the Torus
+     * @param {number}   slices         number of Torus slices
+     * @param {number}   loops          number of Torus slices
      */
     constructor(scene, id, inner_radius, outer_radius, slices, loops) {
 
         super(scene);
 
+        this.id = id;
         this.inner_radius = inner_radius;
         this.outer_radius = outer_radius;
         this.slices = slices;
