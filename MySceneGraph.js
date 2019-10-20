@@ -1705,9 +1705,7 @@ class MySceneGraph {
         for (var i = 0; i < component.children.length; i++)
             this.displayComponent(this.components[component.children[i]], currentMaterial, currentTexture, currentS, currentT);
 
-
         this.scene.popMatrix();
-
 
     }
 }
