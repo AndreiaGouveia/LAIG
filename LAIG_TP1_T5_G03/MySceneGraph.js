@@ -1422,9 +1422,12 @@ class MySceneGraph {
                 // Validates id
                 if (childrenID == null)
                     return "id of component is not valid (null) on component " + componentID;
-                
-                if(this.components[childrenID]==null)
-                    return "id of componentref of component" + componentID + "has not yet been defined";
+
+                if (childrenID == componentID)
+                    return "component " + componentID + " is calling its self";
+
+                if (this.components[childrenID] == null)
+                    this.onXMLMinorError("id of componentref of component " + componentID + " has not yet been defined");
 
                 this.components[componentID].addChild(childrenID);
 
