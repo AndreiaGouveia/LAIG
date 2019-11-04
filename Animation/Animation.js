@@ -5,7 +5,7 @@ class Animation {
         this.animationId = animationId;
 
         this.timeElapsed = 0;
-
+        this.endOfAnimation = false;
         this.animationMatrix = mat4.create();
 
     }

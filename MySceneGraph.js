@@ -1574,8 +1574,9 @@ class MySceneGraph {
 
         this.scene.pushMatrix();
 
+        if (component.id == this.idRoot)
+            this.scene.KeyFrameAnimation.apply();
 
-        this.scene.KeyFrameAnimation.apply();
         //TRANSFORMATION
         this.scene.multMatrix(component.transformation);
 

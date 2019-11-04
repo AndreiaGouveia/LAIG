@@ -40,7 +40,7 @@ class XMLscene extends CGFscene {
         this.materialKeyCounter = 0;
 
         this.KeyFrameAnimation = new KeyframeAnimation(this, "id1");
-        this.KeyFrameAnimation.addKeyFrame(new KeyframeModel(this, 10, [10, 10, 10], [0, 360, 0], [2, 2, 2]));
+        this.KeyFrameAnimation.addKeyFrame(new KeyframeModel(this, 10, [10, 10, 10], [0, 360, 0], [1, 1, 1]));
     }
 
     update(currTime) {

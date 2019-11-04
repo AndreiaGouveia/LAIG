@@ -16,10 +16,10 @@ class KeyframeAnimation extends Animation {
 
             var newMatrix = mat4.create();
 
-            var keyFrameToUse = this.keyFrames[0];
-            var timeKeyFrame = this.keyFrames[0].endInstant;
+            var keyFrameToUse = null;
+            var timeKeyFrame = 1000;
 
-            /*for (var i = 0; i < this.keyFrames.length; i++) {
+            for (var i = 0; i < this.keyFrames.length; i++) {
 
                 if (this.timeElapsed > this.keyFrames[i].endInstant)
                     continue;
@@ -30,20 +30,24 @@ class KeyframeAnimation extends Animation {
                     keyFrameToUse = this.keyFrames[i];
                 }
 
-            }*/
+            }
 
-            this.percentageOfMovement = 1 - ((keyFrameToUse.endInstant - this.timeElapsed) / keyFrameToUse.endInstant);
+            if (keyFrameToUse == null) {
+                this.endOfAnimation = true;
+            } else {
 
-            console.log("aqui " + this.percentageOfMovement)
-            mat4.translate(newMatrix, newMatrix, keyFrameToUse.translation.map(x => x * this.percentageOfMovement));
+                this.percentageOfMovement = 1 - ((keyFrameToUse.endInstant - this.timeElapsed) / keyFrameToUse.endInstant);
 
-            /*mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[0] * this.percentageOfMovement, [1, 0, 0]); // rotation in x
-            mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[1] * this.percentageOfMovement, [0, 1, 0]); // rotation in y
-            mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[2] * this.percentageOfMovement, [0, 0, 1]); // rotation in z
+                mat4.translate(newMatrix, newMatrix, keyFrameToUse.translation.map(x => x * this.percentageOfMovement));
 
-            mat4.scale(newMatrix, newMatrix, keyFrameToUse.scale * this.percentageOfMovement);*/
+                mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[0] * DEGREE_TO_RAD * this.percentageOfMovement, [1, 0, 0]); // rotation in x
+                mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[1] * DEGREE_TO_RAD * this.percentageOfMovement, [0, 1, 0]); // rotation in y
+                mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[2] * DEGREE_TO_RAD * this.percentageOfMovement, [0, 0, 1]); // rotation in z
 
-            this.animationMatrix = newMatrix;
+                mat4.scale(newMatrix, newMatrix, keyFrameToUse.scale.map(x => x * this.percentageOfMovement));
+
+                this.animationMatrix = newMatrix;
+            }
         }
 
         this.scene.multMatrix(this.animationMatrix);
