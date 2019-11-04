@@ -1,41 +1,52 @@
 class KeyframeAnimation extends Animation {
 
-    constructor(scene, animationId, animationSpan) {
-        super(scene, animationId, animationSpan);
+    constructor(scene, animationId) {
+        super(scene, animationId);
 
         this.keyFrames = [];
     }
 
     addKeyFrame(keyFrameModel) {
-        this.keyFrames.add(keyFrameModel);
+        this.keyFrames.push(keyFrameModel);
     }
 
     apply() {
 
-        var newMatrix = mat4.create();
+        if (!this.endOfAnimation && this.keyFrames.length != 0) {
 
-        var keyFrameToUse;
-        var timeKeyFrame = 1000;
+            var newMatrix = mat4.create();
 
-        for (var i = 0; i < this.keyFrames.length; i++) {
+            var keyFrameToUse = this.keyFrames[0];
+            var timeKeyFrame = this.keyFrames[0].endInstant;
 
-            if (timeKeyFrame > this.keyFrames[i].endInstant) {
-                timeKeyFrame = this.keyFrames[i].endInstant;
-                keyFrameToUse = this.keyFrames[i];
-            }
+            /*for (var i = 0; i < this.keyFrames.length; i++) {
 
+                if (this.timeElapsed > this.keyFrames[i].endInstant)
+                    continue;
+
+                //If currentFrame ends after this one, than we should use this one
+                if (timeKeyFrame > this.keyFrames[i].endInstant) {
+                    timeKeyFrame = this.keyFrames[i].endInstant;
+                    keyFrameToUse = this.keyFrames[i];
+                }
+
+            }*/
+
+            this.percentageOfMovement = 1 - ((keyFrameToUse.endInstant - this.timeElapsed) / keyFrameToUse.endInstant);
+
+            console.log("aqui " + this.percentageOfMovement)
+            mat4.translate(newMatrix, newMatrix, keyFrameToUse.translation.map(x => x * this.percentageOfMovement));
+
+            /*mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[0] * this.percentageOfMovement, [1, 0, 0]); // rotation in x
+            mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[1] * this.percentageOfMovement, [0, 1, 0]); // rotation in y
+            mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[2] * this.percentageOfMovement, [0, 0, 1]); // rotation in z
+
+            mat4.scale(newMatrix, newMatrix, keyFrameToUse.scale * this.percentageOfMovement);*/
+
+            this.animationMatrix = newMatrix;
         }
 
-        this.percentageOfMovement = 1 - ((this.endInstant - this.timeElapsed) / this.endInstant);
-
-        mat4.translate(newMatrix, newMatrix, keyFrameToUse.translation);
-        mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[0], [1, 0, 0]); // rotation in x
-        mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[1], [0, 1, 0]); // rotation in y
-        mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[2], [0, 0, 1]); // rotation in z
-
-        mat4.scale(newMatrix, newMatrix, keyFrameToUse.scale);
-
-        super.apply();
+        this.scene.multMatrix(this.animationMatrix);
 
     }
 

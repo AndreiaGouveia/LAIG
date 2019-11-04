@@ -1,12 +1,10 @@
 class Animation {
 
-    constructor(scene, animationId, animationSpan) {
+    constructor(scene, animationId) {
         this.scene = scene;
         this.animationId = animationId;
-        this.animationSpan = animationSpan;
 
         this.timeElapsed = 0;
-        this.endOfAnimation = false;
 
         this.animationMatrix = mat4.create();
 
@@ -15,14 +13,11 @@ class Animation {
     update(currTime) {
 
         this.timeElapsed += currTime;
-
-        if (this.timeElapsed > this.animationSpan)
-            this.endOfAnimation = true;
     }
 
     apply() {
 
-        this.scene.multMatrix(this.currentMatrix);
+        return this.animationMatrix;
 
     }
 

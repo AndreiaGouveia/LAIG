@@ -5,6 +5,8 @@ class KeyframeModel {
         this.translation = translation;
         this.rotation = rotation;
         this.scale = scale;
+
+        console.log("endInstante " + endInstant);
     }
 
 }

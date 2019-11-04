@@ -38,6 +38,9 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(1000 / 60);
 
         this.materialKeyCounter = 0;
+
+        this.KeyFrameAnimation = new KeyframeAnimation(this, "id1");
+        this.KeyFrameAnimation.addKeyFrame(new KeyframeModel(this, 10, [10, 10, 10], [0, 360, 0], [2, 2, 2]));
     }
 
     update(currTime) {
@@ -52,6 +55,8 @@ class XMLscene extends CGFscene {
         if (this.delta > EXCESSIVE_DELTA) {
             return;
         }
+
+        this.KeyFrameAnimation.update(this.delta / 1000);
 
     }
 
