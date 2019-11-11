@@ -209,6 +209,30 @@
         </transformation>
     </transformations>
 
+    <animations>
+            <animation id="animacao1" >
+            <!-- Tem de ter pelo menos uma keyframe-->
+                <keyframe instant="0">
+                    <translate x="0" y="0" z="0" />
+                    <rotate angle_x="0" angle_y="0" angle_z="0" />
+                    <scale x="1" y="1" z="1" />
+                </keyframe>
+                
+                <keyframe instant="10">
+                    <translate x="10" y="10" z="10" />
+                    <rotate angle_x="0" angle_y="360" angle_z="0" />
+                    <scale x="1" y="1" z="1" />
+                </keyframe>
+
+                <keyframe instant="15">
+                    <translate x="0" y="0" z="0" />
+                    <rotate angle_x="0" angle_y="0" angle_z="0" />
+                    <scale x="1" y="1" z="1" />
+                </keyframe>
+       </animation>
+    </animations>
+    
+    
     <primitives>
         <primitive id="Rectangle">
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
@@ -468,6 +492,7 @@
             <transformation>
                 <translate x="0" y="5" z="0" />
             </transformation>
+            <animationref id="animation1" />
             <materials>
                 <material id="inherit" />
             </materials>

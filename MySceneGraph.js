@@ -8,8 +8,9 @@ var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
 var TRANSFORMATIONS_INDEX = 6;
-var PRIMITIVES_INDEX = 7;
-var COMPONENTS_INDEX = 8;
+var ANIMATIONS_INDEX = 7;
+var PRIMITIVES_INDEX = 8;
+var COMPONENTS_INDEX = 9;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -176,6 +177,18 @@ class MySceneGraph {
 
             //Parse transformations block
             if ((error = this.parseTransformations(nodes[index])) != null)
+                return error;
+        }
+
+        // <animation>
+        if ((index = nodeNames.indexOf("animations")) == -1)
+            return "tag <animations> missing";
+        else {
+            if (index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+
+            //Parse animations block
+            if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
 
@@ -893,6 +906,137 @@ class MySceneGraph {
     }
 
     /**
+     * Parses the <animations> block.
+     * @param {animations block element} animationsNode
+     */
+    parseAnimations(animationsNode) {
+        var children = animationsNode.children;
+
+        this.animations = [];
+
+        // Any number of animations.
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "animation") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            // Get id of the current animation.
+            var animationID = this.reader.getString(children[i], 'id');
+            if (animationID == null)
+                return "no ID defined for animation " + i;
+
+            // Checks for repeated IDs.
+            if (this.animations[animationID] != null)
+                return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+
+            var returnValueAnimation;
+            if ((returnValueAnimation = this.parseEachAnimation(children[i], animationID)) != null)
+                return returnValueAnimation;
+        }
+
+        this.log("Parsed animations");
+        return null;
+    }
+
+    /**
+     * Parses the <animations> block.
+     * @param {animations block element} animationsNode
+     */
+    parseEachAnimation(animationsNode, animationID) {
+         // Reads material children and node names
+         var animationChildren = animationsNode.children;
+         var animationNodeNames = [];
+         var animation = new KeyframeAnimation(animationID);
+
+        for (var j = 0; j < animationChildren.length; j++){
+            
+            console.log("children name :"+animationChildren[j].nodeName);
+            console.log("children length :"+animationChildren.length);
+            if(animationChildren[j].nodeName!="keyframe"){
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+            
+         //read intial time
+            var time = this.reader.getFloat(animationChildren[j], 'instant');
+ 
+            if (time == null)
+                return "unable to parse time (null) of the animation" + animationID;
+ 
+            if (isNaN(time))
+                return "unable to parse time (NaN) of the animation" + animationID;
+            
+            var grandChildren = animationChildren[j].children;
+
+            for(var i=0 ; i < grandChildren.length; i++)
+                animationNodeNames.push(grandChildren[i].nodeName);
+                // Gets indexes of translation, rotation and scale
+                
+            var translateIndex = animationNodeNames.indexOf("translate");
+            var rotateIndex = animationNodeNames.indexOf("rotate");
+            var scaleIndex = animationNodeNames.indexOf("scale");
+ 
+ 
+         //translate
+         if (translateIndex == -1)
+             return "unable to parse translate tag (missing) of the the animation " + animationID;
+ 
+         var translate = this.parseCoordinates3D(grandChildren[translateIndex], "translate tag of animation " + animationID);
+ 
+         if (!Array.isArray(translate))
+             return translate;
+        console.log("TRANSLATE: " + translate);
+         //=================================================================================================================
+         //rotate
+         if (rotateIndex == -1)
+             return "unable to parse rotate tag (missing) of the animation " + animationID;
+ 
+         // Reads axis, angle
+         var angle_x = this.reader.getFloat(grandChildren[rotateIndex], 'angle_x');
+         var angle_y = this.reader.getFloat(grandChildren[rotateIndex], 'angle_y');
+         var angle_z = this.reader.getFloat(grandChildren[rotateIndex], 'angle_z');
+         console.log("Rotate x: " + angle_x);
+         console.log("Rotate y: " + angle_y);
+         console.log("Rotate z: " + angle_z);
+         // Validates axis and angle
+         if (isNaN(angle_x) && isNaN(angle_y) && isNaN(angle_z))
+             return "unable to parse angle component (NaN) on tag <rotate> with index " + j + " on tag <transformation> with index " + transformationIndex + " from the <component> node with index " + i + " from the <components> block";
+
+         if (angle_x == null || angle_y == null || angle_z == null)
+             return "unable to parse angle components (null) on tag <rotate> with index " + j + " on tag <transformation> with index " + transformationIndex + " from the <component> node with index " + i + " from the <components> block";
+
+         // Adds rotation
+         var rotateArray = [];
+         rotateArray.push(angle_x);
+         rotateArray.push(angle_y);
+         rotateArray.push(angle_z);
+         
+         if (!Array.isArray(rotateArray))
+             return rotateArray;
+ 
+         //=================================================================================================================
+         //scale
+         if (scaleIndex == -1)
+             return "unable to parse scale tag (missing) of the animation " + animationID;
+ 
+         var scale = this.parseCoordinates3D(grandChildren[scaleIndex], "scale tag of animation " + animationID);
+ 
+         if (!Array.isArray(scale))
+             return scale;
+        console.log("scale: "+ scale);
+        console.log("-----------------");
+         var framModel = new KeyframeModel(this.scene, time,translate,rotateArray,scale);
+         animation.addKeyFrame(framModel); 
+        }
+
+        this.animations[animationID]=animation;
+
+         return null;
+    
+    }
+
+    /**
      * Parses the <primitives> block.
      * @param {primitives block element} primitivesNode
      */
@@ -1175,7 +1319,17 @@ class MySceneGraph {
             if (returnValueTransformation != null)
                 return returnValueTransformation;
 
+            //===============================================================================================
+            //Parse the animation within component
+            var animationIndex = nodeNames.indexOf("animation");
+            if (animationIndex != -1)
+                {
+                    var returnValueAnimations = this.parseComponentAnimation(grandChildren[animationIndex], componentID);
 
+                    if (returnValueAnimations != null)
+                        return returnValueAnimations;
+    
+                }
             //===============================================================================================
             //Parse the materials within component
             var materialsIndex = nodeNames.indexOf("materials");
@@ -1303,6 +1457,21 @@ class MySceneGraph {
         }
 
         this.components[componentID].transformation = transformationMatrix;
+    }
+
+    parseComponentAnimation(componentsNode, componentID) {
+
+        var animationID = this.reader.getString(componentsNode, 'id');
+        
+        // Validates id
+        if (animationID == null)
+            return "id of animation is not valid (null) of component " + componentID;
+
+        if (this.animations[animationID] == null)
+            return animationID + " is not valid on animation of component " + componentID;
+
+        this.components[componentID].animation = this.animations[animationID];
+
     }
 
     parseComponentMaterial(componentsNode, componentID) {
