@@ -14,6 +14,7 @@ class MyGraphNode {
         this.length_t = null;
         this.children = [];
         this.primitives = [];
+        this.animation = null;
     };
 
     addChild(child) {
@@ -25,4 +26,5 @@ class MyGraphNode {
 
         this.primitives.push(primitive);
     }
+
 }
