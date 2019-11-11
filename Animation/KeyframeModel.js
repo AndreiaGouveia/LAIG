@@ -1,6 +1,5 @@
 class KeyframeModel {
-    constructor(scene, endInstant, translation, rotation, scale) {
-        this.scene = scene;
+    constructor(endInstant, translation, rotation, scale) {
         this.endInstant = endInstant;
         this.translation = translation;
         this.rotation = rotation;
