@@ -3,11 +3,17 @@ class KeyframeAnimation extends Animation {
     constructor(scene, animationId) {
         super(scene, animationId);
 
+        this.stage = 0;
+
         this.keyFrames = [];
     }
 
     addKeyFrame(keyFrameModel) {
         this.keyFrames.push(keyFrameModel);
+
+        this.keyFrames.sort(function(a, b) {
+            return a.endOfAnimation < b.endOfAnimation;
+        });
     }
 
     apply() {
@@ -16,41 +22,58 @@ class KeyframeAnimation extends Animation {
 
             var newMatrix = mat4.create();
 
-            var keyFrameToUse = null;
-            var timeKeyFrame = 1000;
-
-            for (var i = 0; i < this.keyFrames.length; i++) {
-
-                if (this.timeElapsed > this.keyFrames[i].endInstant)
-                    continue;
-
-                //If currentFrame ends after this one, than we should use this one
-                if (timeKeyFrame > this.keyFrames[i].endInstant) {
-                    timeKeyFrame = this.keyFrames[i].endInstant;
-                    keyFrameToUse = this.keyFrames[i];
-                }
-
+            if (this.timeElapsed > this.keyFrames[this.stage].endInstant) {
+                this.stage++;
             }
 
-            if (keyFrameToUse == null) {
+            if (this.stage == this.keyFrames.length)
                 this.endOfAnimation = true;
-            } else {
+            else {
+                var currentTransformation = this.keyFrames[this.stage];
 
-                this.percentageOfMovement = 1 - ((keyFrameToUse.endInstant - this.timeElapsed) / keyFrameToUse.endInstant);
+                var formerTransformation;
 
-                mat4.translate(newMatrix, newMatrix, keyFrameToUse.translation.map(x => x * this.percentageOfMovement));
+                if (this.stage == 0)
+                    formerTransformation = new KeyframeModel(this.scene, 0, [0, 0, 0], [0, 0, 0], [1, 1, 1]);
+                else
+                    formerTransformation = this.keyFrames[this.stage - 1];
 
-                mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[0] * DEGREE_TO_RAD * this.percentageOfMovement, [1, 0, 0]); // rotation in x
-                mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[1] * DEGREE_TO_RAD * this.percentageOfMovement, [0, 1, 0]); // rotation in y
-                mat4.rotate(newMatrix, newMatrix, keyFrameToUse.rotation[2] * DEGREE_TO_RAD * this.percentageOfMovement, [0, 0, 1]); // rotation in z
+                var percentageTime = (this.timeElapsed - formerTransformation.endInstant) / (currentTransformation.endInstant - formerTransformation.endInstant);
 
-                mat4.scale(newMatrix, newMatrix, keyFrameToUse.scale.map(x => x * this.percentageOfMovement));
+                var translateX = this.lerp(formerTransformation.translation[0], currentTransformation.translation[0], percentageTime);
+                var translateY = this.lerp(formerTransformation.translation[1], currentTransformation.translation[1], percentageTime);
+                var translateZ = this.lerp(formerTransformation.translation[2], currentTransformation.translation[2], percentageTime);
+
+                mat4.translate(newMatrix, newMatrix, [translateX, translateY, translateZ]);
+
+                var rotateX = this.lerp(formerTransformation.rotation[0], currentTransformation.rotation[0], percentageTime) * DEGREE_TO_RAD;
+                mat4.rotate(newMatrix, newMatrix, rotateX, [1, 0, 0]); // rotation in x
+
+                var rotateY = this.lerp(formerTransformation.rotation[1], currentTransformation.rotation[1], percentageTime) * DEGREE_TO_RAD;
+                mat4.rotate(newMatrix, newMatrix, rotateY, [0, 1, 0]); // rotation in Y
+
+                var rotateZ = this.lerp(formerTransformation.rotation[2], currentTransformation.rotation[2], percentageTime) * DEGREE_TO_RAD;
+                mat4.rotate(newMatrix, newMatrix, rotateZ, [0, 0, 1]); // rotation in Z
+
+
+                var scaleX = this.lerp(formerTransformation.scale[0], currentTransformation.scale[0], percentageTime);
+                var scaleY = this.lerp(formerTransformation.scale[1], currentTransformation.scale[1], percentageTime);
+                var scaleZ = this.lerp(formerTransformation.scale[2], currentTransformation.scale[2], percentageTime);
+
+                mat4.scale(newMatrix, newMatrix, [scaleX, scaleY, scaleZ]);
 
                 this.animationMatrix = newMatrix;
             }
+
         }
 
         this.scene.multMatrix(this.animationMatrix);
+
+    }
+
+    lerp(v0, v1, t) {
+
+        return v0 + t * (v1 - v0);
 
     }
 

@@ -17,8 +17,6 @@ class Animation {
 
     apply() {
 
-        return this.animationMatrix;
-
     }
 
 
