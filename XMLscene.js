@@ -40,7 +40,7 @@ class XMLscene extends CGFscene {
         this.materialKeyCounter = 0;
 
         this.secObject = new MySecurityCamera(this); //create retangle object
-        this.secTexture = new CGFtextureRTT(this); //create render-to-texture texture
+        this.secTexture = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height); //create render-to-texture texture
     }
 
     update(currTime) {
@@ -75,18 +75,20 @@ class XMLscene extends CGFscene {
 
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 
-        this.cameraDefault = new CGFcamera(45 * DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(-100, 90, -140), vec3.fromValues(-20, 0, -20));
         this.interface.setActiveCamera(this.camera);
     }
 
     initXMLCameras() {
         this.camera = this.graph.cameras[this.graph.defaultViewId];
         this.interface.setActiveCamera(this.camera);
+
+        this.cameraDefault = this.graph.cameras[this.graph.defaultViewId];
     }
 
     setCurrentCamera(newCameraID) {
-            this.newCameraID = newCameraID;
+
             this.camera = this.graph.cameras[newCameraID];
+            this.newCamera = this.camera;
             this.interface.setActiveCamera(this.camera);
         }
         /**
@@ -183,15 +185,18 @@ class XMLscene extends CGFscene {
 
         this.secTexture.attachToFrameBuffer();
 
+        this.camera = this.cameraDefault || this.camera;
+        this.interface.setActiveCamera(this.camera);
+
         this.render();
 
         this.secTexture.detachFromFrameBuffer();
 
-
-        this.setCurrentCamera(this.newCameraID || this.graph.defaultViewId);
-
+        this.camera = this.newCamera || this.camera;
+        this.interface.setActiveCamera(this.camera);
 
         this.render();
+
 
         this.gl.disable(this.gl.DEPTH_TEST);
 
