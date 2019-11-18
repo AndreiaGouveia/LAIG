@@ -38,6 +38,9 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(1000 / 60);
 
         this.materialKeyCounter = 0;
+
+        this.secObject = new MySecurityCamera(this); //create retangle object
+        this.secTexture = new CGFtextureRTT(this); //create render-to-texture texture
     }
 
     update(currTime) {
@@ -69,8 +72,10 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
+
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 
+        this.cameraDefault = new CGFcamera(45 * DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(-100, 90, -140), vec3.fromValues(-20, 0, -20));
         this.interface.setActiveCamera(this.camera);
     }
 
@@ -80,6 +85,7 @@ class XMLscene extends CGFscene {
     }
 
     setCurrentCamera(newCameraID) {
+            this.newCameraID = newCameraID;
             this.camera = this.graph.cameras[newCameraID];
             this.interface.setActiveCamera(this.camera);
         }
@@ -173,10 +179,33 @@ class XMLscene extends CGFscene {
         this.sceneInited = true;
     }
 
+    display() {
+
+        this.secTexture.attachToFrameBuffer();
+
+        this.render();
+
+        this.secTexture.detachFromFrameBuffer();
+
+
+        this.setCurrentCamera(this.newCameraID || this.graph.defaultViewId);
+
+
+        this.render();
+
+        this.gl.disable(this.gl.DEPTH_TEST);
+
+        this.secObject.display();
+
+
+        this.gl.enable(this.gl.DEPTH_TEST);
+
+    }
+
     /**
      * Displays the scene.
      */
-    display() {
+    render() {
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
