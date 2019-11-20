@@ -270,6 +270,10 @@
             <cylinder base="1" top="2" height="2" slices="20" stacks="20" />
         </primitive>
 
+        <primitive id="Plano">
+            <plane npartsU="5" npartsV="8" />
+        </primitive>
+
 
     </primitives>
 
@@ -278,7 +282,7 @@
 
         <!-- Eye component-->
 
-        <component id="DemoEye">
+      <!--  <component id="DemoEye">
             <transformation>
                 <rotate axis="y" angle="80"/>
                 <rotate axis="x" angle="-90"/>
@@ -330,13 +334,13 @@
                 <componentref id="EyeRight" />
                 <componentref id="EyeLeft"/>
             </children>
-        </component>
+        </component>-->
 
         <!-- END Eye component-->
 
         <!-- Hat Component-->
 
-        <component id="hat">
+       <!-- <component id="hat">
             <transformation>
                 <translate x="0" y="4" z="0" />
                 <rotate axis="x" angle="-90" />
@@ -348,7 +352,7 @@
             <children>
                 <primitiveref id="Cone" />
             </children>
-        </component>
+        </component>-->
 
         <!-- END Component-->
 
@@ -356,7 +360,7 @@
 
         <!-- Arms -->
 
-        <component id="DemoArm">
+       <!-- <component id="DemoArm">
             <transformation>
                 <scale x="0.17" y="0.17" z="2.3"/>
             </transformation>
@@ -410,13 +414,13 @@
                 <componentref id="ArmLeft"/>
                 <componentref id="ArmRight"/>
             </children>
-        </component>
+        </component>-->
 
         <!-- END Arms -->
 
         <!-- Legs -->
 
-        <component id="DemoLeg">
+       <!-- <component id="DemoLeg">
             <transformation>
                 <rotate axis="z" angle="-90"/>
                 <rotate axis="y" angle="90"/>
@@ -468,7 +472,7 @@
                 <componentref id="LegRight"/>
                 <componentref id="LegLeft"/>
             </children>
-        </component>
+        </component>-->
 
         <!-- END Legs -->
 
@@ -478,17 +482,18 @@
 
         <component id="Donut">
             <transformation>
+                <scale x="50" y="50" z="50" />
             </transformation>
             <materials>
                 <material id="inherit"/>
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="Torus" />
+                <primitiveref id="Plano" />
             </children>
         </component>
 
-        <component id="finalDonut">
+       <!-- <component id="finalDonut">
             <transformation>
                 <translate x="0" y="5" z="0" />
             </transformation>
@@ -503,11 +508,11 @@
                 <componentref id="Legs" />
                 <componentref id="Arms" />
             </children>
-        </component>
+        </component>-->
 
         <!-- END Donut component-->
 
-        <component id="donut1">
+       <!-- <component id="donut1">
             <transformation>
                 <rotate axis="y" angle="50"/>
                 <translate x="-6" y="0" z="0" />
@@ -565,11 +570,11 @@
             <children>
                 <componentref id="finalDonut" />
             </children>
-        </component>
+        </component>-->
 
         <!-- Tree Component -->
 
-        <component id="Greenery1">
+       <!--<component id="Greenery1">
             <transformation>
                 <translate x="2" y="0" z="0" />
             </transformation>
@@ -812,13 +817,13 @@
                 <componentref id="Tree8" />
                 <componentref id="Tree9" />
             </children>
-        </component>
+        </component>-->
 
         <!-- END Tree Component -->
 
         <!-- Donut temple -->
 
-        <component id="BottomTemple">
+        <!--<component id="BottomTemple">
             <transformation>
                 <scale x="15" y="1" z="15" />
                 <rotate axis="x" angle="90"/>
@@ -858,13 +863,13 @@
             <children>
                 <primitiveref id="Base" />
             </children>
-        </component>
+        </component>-->
 
         <!-- COLUMN -->
 
         <!-- CAPITAL (TOP OF COLUMN) -->
 
-        <component id="Capital">
+        <!--<component id="Capital">
             <transformation>
                 <translate x="0" y="30" z="0"/>
                 <rotate axis="x" angle="-90"/>
@@ -876,11 +881,11 @@
             <children>
                 <primitiveref id="CylinderCapital" />
             </children>
-        </component>
+        </component>-->
 
         <!-- END OF CAPITAL-->
 
-        <component id="ColumnBase">
+       <!-- <component id="ColumnBase">
             <transformation>
                 <scale x="0.5" y="15" z="0.5" />
                 <rotate axis="x" angle="-90"/>
@@ -1009,12 +1014,12 @@
             <children>
                 <componentref id="Column" />
             </children>
-        </component>
+        </component>-->
 
         <!-- END COLUMN -->
 
         <!-- Podium -->
-        <component id="side1">
+        <!--<component id="side1">
             <transformation>
                 <translate x="0" y="0" z="0.5"/>
             </transformation>
@@ -1131,12 +1136,12 @@
                 <componentref id="DonutForTemple" />
                 <componentref id="BasePodium" />
             </children>
-        </component>
+        </component>-->
 
         <!-- END Podium -->
 
 
-        <component id="Temple">
+        <!--<component id="Temple">
             <transformation>
                 <translate x="0" y="0" z="25"/>
             </transformation>
@@ -1158,14 +1163,14 @@
                 <componentref id="Podium" />
                 <componentref id="SecondBottomTemple" />
             </children>
-        </component>
+        </component>-->
 
         <!-- END Donut temple -->
 
         <!-- Street Lamps-->
 
 
-        <component id="StreetLampSide1">
+        <!--<component id="StreetLampSide1">
             <transformation>
                 <rotate axis="y" angle="90"/>
             </transformation>
@@ -1300,11 +1305,11 @@
                 <componentref id="StreetLamp2" />
                 <componentref id="StreetLamp3" />
             </children>
-        </component>
+        </component>-->
 
         <!-- END Street Lamps-->
 
-        <component id="Grass">
+        <!--<component id="Grass">
             <transformation>
                 <translate x="0" y="-0.5" z="0"/>
                 <scale x="80" y="0.01" z="80" />
@@ -1332,7 +1337,7 @@
             <children>
                 <primitiveref id="Base" />
             </children>
-        </component>
+        </component>-->
 
         <!-- SkyBox-->
 
@@ -1456,16 +1461,17 @@
             <texture id="donut" length_s="1" length_t="1"/>
             <animationref id="animacao1" />
             <children>
-                <componentref id="donut1" />
+              <!--<componentref id="donut1" />
                 <componentref id="donut2" />
                 <componentref id="donut3" />
                 <componentref id="donut4" />
                 <componentref id="Trees" />
                 <componentref id="Temple" />
                 <componentref id="Grass" />
-                <componentref id="Water" />
+                <componentref id="Water" />-->
                 <componentref id="SkyBox" />
-                <componentref id="StreetLamps" />
+                <!--<componentref id="StreetLamps" />-->
+                <componentref id="Donut" />
             </children>
         </component>
 

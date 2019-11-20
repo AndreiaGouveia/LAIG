@@ -1068,8 +1068,8 @@ class MySceneGraph {
             if (grandChildren.length != 1 ||
                 (grandChildren[0].nodeName != 'rectangle' && grandChildren[0].nodeName != 'triangle' &&
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
-                    grandChildren[0].nodeName != 'torus')) {
-                return grandChildren[0].nodeName + " of " + primitiveID + " is not a valid primitive type. Valid primitive types: rectangle, triangle, cylinder, sphere or torus.";
+                    grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'plane')) {
+                return grandChildren[0].nodeName + " of " + primitiveID + " is not a valid primitive type. Valid primitive types: rectangle, triangle, cylinder, sphere , torus or plane.";
             }
 
             // Specifications for the current primitive.
@@ -1098,6 +1098,11 @@ class MySceneGraph {
 
                 var error;
                 if ((error = this.parseTorus(primitiveId, grandChildren)) != null)
+                    return error;
+            }else if (primitiveType == 'plane') {
+
+                var error;
+                if ((error = this.parsePlane(primitiveId, grandChildren)) != null)
                     return error;
             }
         }
@@ -1265,6 +1270,26 @@ class MySceneGraph {
         var sph = new MyTorus(this.scene, primitiveId, inner_radius, outer_radius, slices, loops);
 
         this.primitives[primitiveId] = sph;
+    }
+
+    parsePlane(primitiveId, grandChildren) {
+
+        console.log(grandChildren[0]);
+        // npartsU
+        var npartsU = this.reader.getFloat(grandChildren[0], 'npartsU');
+        if (npartsU == null || isNaN(npartsU))
+            return "unable to parse npartsU of the primitive coordinates of " + primitiveId;
+
+            console.log("U:"+npartsU);
+        // npartsV
+        var npartsV = this.reader.getFloat(grandChildren[0], 'npartsV');
+        if (npartsV == null || isNaN(npartsV))
+            return "unable to parse npartsV of the primitive coordinates of " + primitiveId;
+
+            console.log("V:"+npartsV);
+        var plane = new MyPlane(this.scene, npartsU, npartsV);
+
+        this.primitives[primitiveId] = plane;
     }
 
     /**
