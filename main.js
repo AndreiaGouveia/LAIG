@@ -42,7 +42,7 @@ function getUrlVars() {
 //Include additional files here
 serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'Primitives/MyRectangle.js', 'Primitives/MyTriangle.js',
     'MyGraphNode.js', 'Primitives/MyCylinder.js', 'Primitives/MySphere.js', 'Primitives/MyTorus.js', 'Animation/Animation.js',
-    'Animation/KeyframeAnimation.js', 'Animation/KeyframeModel.js', 'Primitives/MyPlane.js',
+    'Animation/KeyframeAnimation.js', 'Animation/KeyframeModel.js', 'Primitives/MySecurityCamera.js','Primitives/MyPlane.js',
 
     main = function() {
         // Standard application, scene and interface setup
