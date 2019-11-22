@@ -274,7 +274,18 @@
             <plane npartsU="5" npartsV="8" />
         </primitive>
 
+        <primitive id="Patch">
+            <patch npointsU="2" npointsV="2" npartsU="15" npartsV="2">
+                <controlpoint xx="2" yy="1.75" zz="0" />
+                <controlpoint xx="-2" yy="2.25" zz="0" />
+                <controlpoint xx="3" yy="-1.75" zz="7" />
+                <controlpoint xx="3" yy="3.35" zz="0" />
+            </patch>
+        </primitive>
 
+        <primitive id="Cylinder2">
+            <cylinder2 base="0.5" top="0.5" height="1" slices="50" stacks="5" />
+        </primitive>
     </primitives>
 
     <components>
@@ -286,7 +297,7 @@
             <transformation>
                 <rotate axis="y" angle="80"/>
                 <rotate axis="x" angle="-90"/>
-                <scale x="0.25" y="0.25" z="0.25" />
+                <scale x="0.35" y="0.25" z="0.25" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -490,6 +501,8 @@
             <texture id="inherit" />
             <children>
                 <primitiveref id="Plano" />
+                <primitiveref id="Patch" />
+                <primitiveref id="Cylinder2" />
             </children>
         </component>
 
