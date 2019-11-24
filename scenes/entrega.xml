@@ -1563,12 +1563,12 @@
 
         <component id="Marshmallow">
             <transformation>
-                <translate x="0" y="5" z="-10" />
+                <rotate axis="y" angle="180"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="marshmallow" length_s ="1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="MarshBody" /> 
                 <componentref id="MarshLegs" /> 
@@ -1580,6 +1580,58 @@
         </component>        
 
         <!-- Marshmallow-->
+
+         <component id="Marshmallow1">
+            <transformation>
+                <translate x="-20" y="0" z="-120" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="marshmallow" length_s ="1" length_t="1"/>
+            <children>
+                <componentref id="Marshmallow" /> 
+            </children>
+        </component> 
+
+        <component id="Marshmallow2">
+            <transformation>
+                <translate x="12" y="0" z="-120" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="marshmallow" length_s ="1" length_t="1"/>
+            <children>
+                <componentref id="Marshmallow" /> 
+            </children>
+        </component> 
+
+        <component id="Marshmallow3">
+            <transformation>
+                <translate x="27" y="0" z="-120" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="marshmallow" length_s ="1" length_t="1"/>
+            <children>
+                <componentref id="Marshmallow" /> 
+            </children>
+        </component> 
+
+        <component id="Marshmallow4">
+            <transformation>
+                <translate x="0" y="0" z="-120" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="marshmallow" length_s ="1" length_t="1"/>
+            <children>
+                <componentref id="Marshmallow" /> 
+            </children>
+        </component>    
 
         <!-- Root Component-->
 
@@ -1602,7 +1654,10 @@
                 <componentref id="SkyBox" />
                 <componentref id="StreetLamps" />
                 <componentref id="Donut" />
-                <componentref id="Marshmallow">
+                <componentref id="Marshmallow1"/>
+                <componentref id="Marshmallow2"/>
+                <componentref id="Marshmallow3"/>
+                <componentref id="Marshmallow4"/>
             </children>
         </component>
 
