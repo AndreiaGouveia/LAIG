@@ -397,10 +397,10 @@
 
         <primitive id="Patch">
             <patch npointsU="2" npointsV="2" npartsU="15" npartsV="2">
-                <controlpoint xx="2" yy="1.75" zz="0" />
-                <controlpoint xx="-2" yy="2.25" zz="0" />
-                <controlpoint xx="3" yy="-1.75" zz="7" />
-                <controlpoint xx="3" yy="3.35" zz="0" />
+                <controlpoint xx="-4.03" yy="-1.94" zz="0" />
+                <controlpoint xx="4" yy="4" zz="0" />
+                <controlpoint xx="-4" yy="4" zz="0" />
+                <controlpoint xx="3,929" yy="-1.346" zz="0" />
             </patch>
         </primitive>
 
@@ -1773,6 +1773,20 @@
             </children>
         </component>    
 
+
+        <component id="Ponte">
+            <transformation>
+                <translate x="0" y="0" z="-120" />
+                <scale x="20" y="20" z="20" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="marshmallow" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="Patch" /> 
+            </children>
+        </component>  
         <!-- Root Component-->
 
         <component id="deliveryRoot">
@@ -1797,6 +1811,7 @@
                 <componentref id="Marshmallow2"/>
                 <componentref id="Marshmallow3"/>
                 <componentref id="Marshmallow4"/>
+                <componentref id="Ponte" />  
             </children>
         </component>
 
