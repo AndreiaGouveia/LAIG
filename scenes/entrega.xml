@@ -13,9 +13,14 @@
             <to x="0" y="9" z="-40" />
         </perspective>
 
-        <perspective id="frontView" near="0.1" far="500" angle="45">
-            <from x="0" y="8" z="-15" />
-            <to x="-25" y="9" z="-5" />
+        <perspective id="banchView" near="0.1" far="500" angle="45">
+            <from x="-40" y="9" z="-12" />
+            <to x="-45" y="9" z="-12" />
+        </perspective>
+
+         <perspective id="frontView" near="0.1" far="500" angle="45">
+            <from x="-15" y="8" z="-15" />
+            <to x="-5" y="9" z="-5" />
         </perspective>
 
         <perspective id="sideView" near="0.1" far="500" angle="45">
@@ -156,6 +161,7 @@
         <texture id="marshmallow" file="scenes/images/marshmallow.jpg" />
         <texture id="metal" file="scenes/images/metal.jpg" />
         <texture id="wood_bridge" file="scenes/images/wood_bridge.jpg" />
+        <texture id="colorfullBanch" file="scenes/images/colorfull.png" />
     </textures>
 
     <materials>
@@ -236,7 +242,6 @@
         </animation>
 
         <animation id="waterAnimation">
-            <!-- Tem de ter pelo menos uma keyframe-->
             <keyframe instant="50">
                 <translate x="0" y="0" z="0" />
                 <rotate angle_x="0" angle_y="0" angle_z="360" />
@@ -453,7 +458,7 @@
             <cylinder base="1" top="2" height="2" slices="20" stacks="20" />
         </primitive>
 
-        <primitive id="Plano">
+        <primitive id="Plane">
             <plane npartsU="5" npartsV="8" />
         </primitive>
 
@@ -1857,6 +1862,116 @@
                 </children>
             </component>
 
+            <!-- Banch -->
+            <component id="TopBanch">
+                <transformation>
+                    <translate x="0" y="0" z="0" />
+                    <scale x="10" y="4" z="4"/>
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plane"/>
+                </children>
+            </component>
+
+            <component id="RightSideBanch">
+                <transformation>
+                    <translate x="-2.5" y="-1" z="0" />
+                    <rotate axis="z" angle="90"/>
+                    <scale x="4" y="4" z="4"/>
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plane"/>
+                </children>
+            </component>
+
+            <component id="LeftSideBanch">
+                <transformation>
+                    <translate x="2.5" y="-1" z="0" />
+                    <rotate axis="z" angle="-90"/>
+                    <scale x="4" y="4" z="4"/>
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plane"/>
+                </children>
+            </component>
+
+            <component id="FrontBanch">
+                <transformation>
+                    <translate x="0" y="-1" z="-1" />
+                    <rotate axis="x" angle="-90"/>
+                    <scale x="10" y="4" z="4"/>
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plane"/>
+                </children>
+            </component>
+
+            <component id="BackBanch">
+                <transformation>
+                    <translate x="0" y="1" z="1" />
+                    <rotate axis="x" angle="-90"/>
+                    <scale x="10" y="4" z="4"/>
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plane"/>
+                </children>
+            </component>
+
+            <component id="Back2Banch">
+                <transformation>
+                    <translate x="0" y="0" z="1" />
+                    <rotate axis="x" angle="90"/>
+                    <scale x="10" y="4" z="8"/>
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plane"/>
+                </children>
+            </component>
+
+            <component id="Banch">
+                <transformation>
+                <translate x="-70" y="6" z="-10" />
+                <scale x="3" y="3" z="3"/>
+                <rotate axis="y" angle="-90" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="colorfullBanch" length_s="1" length_t="1"/>
+                <children>
+                    <componentref id="TopBanch"/>
+                    <componentref id="RightSideBanch"/>
+                    <componentref id="LeftSideBanch"/>
+                    <componentref id="FrontBanch"/>
+                    <componentref id="BackBanch"/>
+                    <componentref id="Back2Banch"/>
+                </children>
+            </component>
+
             <!-- Root Component-->
 
             <component id="deliveryRoot">
@@ -1882,6 +1997,7 @@
                     <componentref id="Marshmallow3"/>
                     <componentref id="Marshmallow4"/>
                     <componentref id="Bridge"/>
+                    <componentref id="Banch"/>
                 </children>
             </component>
 
