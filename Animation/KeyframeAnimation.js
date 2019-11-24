@@ -1,5 +1,13 @@
+/**
+ * KeyframeAnimation class, which represents a KeyFrame Animation
+ */
 class KeyframeAnimation extends Animation {
 
+    /**
+     * @constructor
+     * @param {XMLScene} scene      represents the CGFscene
+     * @param {string}   id         Animation Id
+     */
     constructor(scene, animationId) {
         super(scene, animationId);
 
@@ -8,6 +16,14 @@ class KeyframeAnimation extends Animation {
         this.keyFrames = [];
     }
 
+    /**
+     * @addKeyFrame
+     * 
+     * Adds keyFrame to Animation
+     * 
+     * @param keyFrameModel   keyFrame to be added
+     * 
+     */
     addKeyFrame(keyFrameModel) {
         this.keyFrames.push(keyFrameModel);
 
@@ -16,6 +32,12 @@ class KeyframeAnimation extends Animation {
         });
     }
 
+    /** 
+     * @apply
+     * 
+     * Applies the Animation to the Scene
+     * 
+     */
     apply() {
 
         if (!this.endOfAnimation && this.keyFrames.length != 0) {

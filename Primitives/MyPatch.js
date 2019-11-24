@@ -1,4 +1,17 @@
+/**
+ * MyPatch class, which represents a Patch object
+ */
 class MyPatch extends CGFobject {
+
+    /**
+     * @constructor
+     * @param {XMLScene} scene           represents the CGFscene
+     * @param {number}   nPartsU         parts in U
+     * @param {number}   nPartsV         parts in V
+     * @param {number}   nPointsU        control vertexes U
+     * @param {number}   nPointsV        control vertexes V
+     * @param {array}    controlPoints   Array with ControlPoints (= nPoints*nPointsV)
+     */
     constructor(scene, nPartsU, nPartsV, nPointsU, nPointsV, controlPoints) {
         super(scene);
 
@@ -29,7 +42,9 @@ class MyPatch extends CGFobject {
     }
 
     display() {
+
         this.obj.display();
     }
+
     updateTexCoords(s, t) {}
 }

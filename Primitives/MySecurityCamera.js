@@ -1,5 +1,13 @@
+/**
+ * MySecurityCamera class, which represents a Security Camera
+ */
 class MySecurityCamera extends CGFobject {
 
+    /**
+     * @constructor
+     * @param {XMLScene} scene           represents the CGFscene
+     * 
+     */
     constructor(scene) {
         super(scene);
 
@@ -20,7 +28,7 @@ class MySecurityCamera extends CGFobject {
 
 
         this.scene.secTexture.bind(0); // bind RTTtexture
-        this.rectangle.display(); //display retangle
+        this.rectangle.display(); //display rectangle
 
         this.scene.setActiveShader(this.scene.defaultShader);
 

@@ -2,14 +2,16 @@
  * MyCylinder class, which represents a cylinder object
  */
 class MyCylinder extends CGFobject {
+
     /**
      * @constructor
      * @param {XMLScene} scene  represents the CGFscene
+     * @param {string}   id     cylinder's id
      * @param {number}   base   radius of cylinder's base
      * @param {number}   top    radius of cylinder's top
      * @param {number}   height cylinder's height
      * @param {number}   slices number of circle slices
-     * @param {number}   stacks number of circle slices
+     * @param {number}   stacks number of circle stacks
      */
     constructor(scene, id, base, top, height, slices, stacks) {
         super(scene);
