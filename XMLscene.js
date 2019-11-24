@@ -65,6 +65,8 @@ class XMLscene extends CGFscene {
             this.animations[key].update(timeInSeconds);
         }
 
+        this.secObject.updateTime(currTime / 150 % 1000);
+
 
     }
 

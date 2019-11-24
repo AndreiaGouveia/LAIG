@@ -7,10 +7,11 @@ class MySecurityCamera extends CGFobject {
 
         this.shader = new CGFshader(this.scene.gl, "Shaders/securityCamera.vert", "Shaders/securityCamera.frag");
         this.shader.setUniformsValues({ uSampler: 0 });
-        this.shader.setUniformsValues({ gradient_color: 1 });
 
-        this.textureExp = new CGFtexture(scene, "scenes/images/linear_gradient.png");
+    }
 
+    updateTime(t) {
+        this.shader.setUniformsValues({ timeFactor: t });
     }
 
     display() {
@@ -19,7 +20,6 @@ class MySecurityCamera extends CGFobject {
 
 
         this.scene.secTexture.bind(0); // bind RTTtexture
-        this.textureExp.bind(1);
         this.rectangle.display(); //display retangle
 
         this.scene.setActiveShader(this.scene.defaultShader);
