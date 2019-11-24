@@ -156,6 +156,11 @@
         <texture id="marshmallow" file="scenes/images/marshmallow.jpg" />
         <texture id="metal" file="scenes/images/metal.jpg" />
         <texture id="wood_bridge" file="scenes/images/wood_bridge.jpg" />
+        <texture id="glitter1" file="scenes/images/glitter1.jpg" />
+        <texture id="glitter2" file="scenes/images/glitter2.jpg" />
+        <texture id="glitter3" file="scenes/images/glitter3.jpg" />
+        <texture id="glitter4" file="scenes/images/glitter4.jpg" />
+        <texture id="cloud" file="scenes/images/cloud.jpg" />
     </textures>
 
     <materials>
@@ -412,6 +417,20 @@
             </keyframe>
         </animation>
 
+        <animation id="RainAnimation">
+            <keyframe instant = "0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "14">
+                <translate x="0" y="-50" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+        </animation>
 
     </animations>
 
@@ -1858,6 +1877,336 @@
             </component>
 
             <!-- Root Component-->
+            
+            <component id="StarUp">
+                <transformation>
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plano"/>
+                </children>
+            </component>
+
+            <component id="StarDown">
+                <transformation>
+                    <rotate axis="x" angle="-90" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plano"/>
+                </children>
+            </component>
+
+            <component id="StarSide1">
+                <transformation>
+                    <rotate axis="y" angle="90" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plano"/>
+                </children>
+            </component>
+
+            <component id="StarSide2">
+                <transformation>
+                    <rotate axis="y" angle="-90" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plano"/>
+                </children>
+            </component>
+
+            <component id="StarSide3">
+                <transformation>
+                    <rotate axis="x" angle="90" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plano"/>
+                </children>
+            </component>
+
+            <component id="StarSide4">
+                <transformation>
+                    <rotate axis="y" angle="180" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Plano"/>
+                </children>
+            </component>
+
+            <component id="Star">
+                <transformation>
+                    <translate x="0" y="15" z="1" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <componentref id="StarSide1" />
+                    <componentref id="StarSide2" />
+                    <componentref id="StarSide3" />
+                    <componentref id="StarSide4" />
+                    <componentref id="StarUp" />
+                    <componentref id="StarDown" />
+                </children>
+            </component>
+
+
+            <component id="Star1">
+                <transformation>
+                    <translate x="5" y="15" z="1" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="glitter1" length_s="1" length_t="1"/>
+                
+                <children>
+                    <componentref id="StarSide1" />
+                    <componentref id="StarSide2" />
+                    <componentref id="StarSide3" />
+                    <componentref id="StarSide4" />
+                    <componentref id="StarUp" />
+                    <componentref id="StarDown" />
+                </children>
+            </component>
+
+            <component id="Star2">
+                <transformation>
+                    <translate x="7" y="15" z="0" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="glitter2" length_s="1" length_t="1"/>
+                
+                <children>
+                    <componentref id="StarSide1" />
+                    <componentref id="StarSide2" />
+                    <componentref id="StarSide3" />
+                    <componentref id="StarSide4" />
+                    <componentref id="StarUp" />
+                    <componentref id="StarDown" />
+                </children>
+            </component>
+
+            <component id="Star3">
+                <transformation>
+                    <translate x="-5" y="15" z="2" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="glitter3" length_s="1" length_t="1"/>
+                
+                <children>
+                    <componentref id="StarSide1" />
+                    <componentref id="StarSide2" />
+                    <componentref id="StarSide3" />
+                    <componentref id="StarSide4" />
+                    <componentref id="StarUp" />
+                    <componentref id="StarDown" />
+                </children>
+            </component>
+
+            <component id="Star4">
+                <transformation>
+                    <translate x="5" y="15" z="5" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="glitter4" length_s="1" length_t="1"/>
+                
+                <children>
+                    <componentref id="StarSide1" />
+                    <componentref id="StarSide2" />
+                    <componentref id="StarSide3" />
+                    <componentref id="StarSide4" />
+                    <componentref id="StarUp" />
+                    <componentref id="StarDown" />
+                </children>
+            </component>
+
+            <component id="Rain">
+                <transformation>
+                    <scale x="20" y="20" z="20" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="none"/>
+                <children>
+                    <componentref id="Star1" />
+                    <componentref id="Star2" />
+                    <componentref id="Star3" />
+                    <componentref id="Star4" />
+                </children>
+                <animationref id="RainAnimation"/>
+            </component>
+
+            <!-- Rain -->
+
+             <component id="CloudComponent1">
+                <transformation>
+                    <translate x="1" y="21" z="1" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Sphere"/>
+                </children>
+            </component>
+
+            <component id="CloudComponent6">
+                <transformation>
+                    <translate x="0" y="18.5" z="0" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Sphere"/>
+                </children>
+            </component>
+
+             <component id="CloudComponent2">
+                <transformation>
+                    <translate x="1.5" y="20" z="-1.5" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Sphere"/>
+                </children>
+            </component>
+
+             <component id="CloudComponent3">
+                <transformation>
+                    <translate x="-1.5" y="20" z="1.5" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Sphere"/>
+                </children>
+            </component>
+
+             <component id="CloudComponent4">
+                <transformation>
+                    <translate x="-1.5" y="20" z="-1.5" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Sphere"/>
+                </children>
+            </component>
+
+             <component id="CloudComponent5">
+                <transformation>
+                    <translate x="1.5" y="20" z="1.5" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="inherit"/>
+                <children>
+                    <primitiveref id="Sphere"/>
+                </children>
+            </component>
+
+            <component id="Cloud1">
+                <transformation>
+                    <scale x="5" y="5" z="5" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="cloud" length_s="1" length_t="1"/>
+                <children>
+                    <componentref id="Rain"/>
+                    <componentref id="CloudComponent1"/>
+                    <componentref id="CloudComponent2"/>
+                    <componentref id="CloudComponent3"/>
+                    <componentref id="CloudComponent4"/>
+                    <componentref id="CloudComponent5"/>
+                    <componentref id="CloudComponent6"/>
+                </children>
+            </component>
+
+            <component id="Cloud2">
+                <transformation>
+                    <scale x="5" y="5" z="5" />
+                     <translate x="-10" y="0" z="5" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="cloud" length_s="1" length_t="1"/>
+                <children>
+                    <componentref id="Rain"/>
+                    <componentref id="CloudComponent1"/>
+                    <componentref id="CloudComponent2"/>
+                    <componentref id="CloudComponent3"/>
+                    <componentref id="CloudComponent4"/>
+                    <componentref id="CloudComponent5"/>
+                    <componentref id="CloudComponent6"/>
+                </children>
+            </component>
+
+            <component id="Cloud3">
+                <transformation>
+                    <scale x="5" y="5" z="5" />
+                     <translate x="15" y="0" z="-15" />
+                </transformation>
+                <materials>
+                    <material id="demoMaterial" />
+                </materials>
+                <texture id="cloud" length_s="1" length_t="1"/>
+                <children>
+                    <componentref id="Rain"/>
+                    <componentref id="CloudComponent1"/>
+                    <componentref id="CloudComponent2"/>
+                    <componentref id="CloudComponent3"/>
+                    <componentref id="CloudComponent4"/>
+                    <componentref id="CloudComponent5"/>
+                    <componentref id="CloudComponent6"/>
+                </children>
+            </component>
+
+            <!-- Cloud -->
 
             <component id="deliveryRoot">
                 <transformation>
@@ -1882,6 +2231,9 @@
                     <componentref id="Marshmallow3"/>
                     <componentref id="Marshmallow4"/>
                     <componentref id="Bridge"/>
+                    <componentref id="Cloud1" />
+                    <componentref id="Cloud2" />
+                    <componentref id="Cloud3" />
                 </children>
             </component>
 
