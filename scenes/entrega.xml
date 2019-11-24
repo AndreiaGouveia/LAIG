@@ -148,6 +148,8 @@
         <texture id="skybox_left" file="scenes/images/skybox/negz.jpg" />
         <texture id="skybox_top" file="scenes/images/skybox/posy.jpg" />
         <texture id="lamp" file="scenes/images/lamp.jpg" />
+        <texture id="marshmallow" file="scenes/images/marshmallow.jpg" />
+        <texture id="metal" file="scenes/images/metal.jpg" />
     </textures>
 
     <materials>
@@ -293,7 +295,7 @@
 
         <!-- Eye component-->
 
-      <!--  <component id="DemoEye">
+        <component id="DemoEye">
             <transformation>
                 <rotate axis="y" angle="80"/>
                 <rotate axis="x" angle="-90"/>
@@ -345,13 +347,13 @@
                 <componentref id="EyeRight" />
                 <componentref id="EyeLeft"/>
             </children>
-        </component>-->
+        </component>
 
         <!-- END Eye component-->
 
         <!-- Hat Component-->
 
-       <!-- <component id="hat">
+        <component id="hat">
             <transformation>
                 <translate x="0" y="4" z="0" />
                 <rotate axis="x" angle="-90" />
@@ -363,7 +365,7 @@
             <children>
                 <primitiveref id="Cone" />
             </children>
-        </component>-->
+        </component>
 
         <!-- END Component-->
 
@@ -371,7 +373,7 @@
 
         <!-- Arms -->
 
-       <!-- <component id="DemoArm">
+        <component id="DemoArm">
             <transformation>
                 <scale x="0.17" y="0.17" z="2.3"/>
             </transformation>
@@ -425,13 +427,13 @@
                 <componentref id="ArmLeft"/>
                 <componentref id="ArmRight"/>
             </children>
-        </component>-->
+        </component>
 
         <!-- END Arms -->
 
         <!-- Legs -->
 
-       <!-- <component id="DemoLeg">
+        <component id="DemoLeg">
             <transformation>
                 <rotate axis="z" angle="-90"/>
                 <rotate axis="y" angle="90"/>
@@ -483,7 +485,7 @@
                 <componentref id="LegRight"/>
                 <componentref id="LegLeft"/>
             </children>
-        </component>-->
+        </component>
 
         <!-- END Legs -->
 
@@ -493,20 +495,17 @@
 
         <component id="Donut">
             <transformation>
-                <scale x="50" y="50" z="50" />
             </transformation>
             <materials>
                 <material id="inherit"/>
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="Plano" />
-                <primitiveref id="Patch" />
-                <primitiveref id="Cylinder2" />
+                <primitiveref id="Torus" />
             </children>
         </component>
 
-       <!-- <component id="finalDonut">
+        <component id="finalDonut">
             <transformation>
                 <translate x="0" y="5" z="0" />
             </transformation>
@@ -521,11 +520,11 @@
                 <componentref id="Legs" />
                 <componentref id="Arms" />
             </children>
-        </component>-->
+        </component>
 
         <!-- END Donut component-->
 
-       <!-- <component id="donut1">
+        <component id="donut1">
             <transformation>
                 <rotate axis="y" angle="50"/>
                 <translate x="-6" y="0" z="0" />
@@ -583,11 +582,11 @@
             <children>
                 <componentref id="finalDonut" />
             </children>
-        </component>-->
+        </component>
 
         <!-- Tree Component -->
 
-       <!--<component id="Greenery1">
+       <component id="Greenery1">
             <transformation>
                 <translate x="2" y="0" z="0" />
             </transformation>
@@ -830,13 +829,13 @@
                 <componentref id="Tree8" />
                 <componentref id="Tree9" />
             </children>
-        </component>-->
+        </component>
 
         <!-- END Tree Component -->
 
         <!-- Donut temple -->
 
-        <!--<component id="BottomTemple">
+        <component id="BottomTemple">
             <transformation>
                 <scale x="15" y="1" z="15" />
                 <rotate axis="x" angle="90"/>
@@ -876,13 +875,13 @@
             <children>
                 <primitiveref id="Base" />
             </children>
-        </component>-->
+        </component>
 
         <!-- COLUMN -->
 
         <!-- CAPITAL (TOP OF COLUMN) -->
 
-        <!--<component id="Capital">
+        <component id="Capital">
             <transformation>
                 <translate x="0" y="30" z="0"/>
                 <rotate axis="x" angle="-90"/>
@@ -894,11 +893,11 @@
             <children>
                 <primitiveref id="CylinderCapital" />
             </children>
-        </component>-->
+        </component>
 
         <!-- END OF CAPITAL-->
 
-       <!-- <component id="ColumnBase">
+        <component id="ColumnBase">
             <transformation>
                 <scale x="0.5" y="15" z="0.5" />
                 <rotate axis="x" angle="-90"/>
@@ -1027,12 +1026,12 @@
             <children>
                 <componentref id="Column" />
             </children>
-        </component>-->
+        </component>
 
         <!-- END COLUMN -->
 
         <!-- Podium -->
-        <!--<component id="side1">
+        <component id="side1">
             <transformation>
                 <translate x="0" y="0" z="0.5"/>
             </transformation>
@@ -1149,12 +1148,12 @@
                 <componentref id="DonutForTemple" />
                 <componentref id="BasePodium" />
             </children>
-        </component>-->
+        </component>
 
         <!-- END Podium -->
 
 
-        <!--<component id="Temple">
+        <component id="Temple">
             <transformation>
                 <translate x="0" y="0" z="25"/>
             </transformation>
@@ -1176,14 +1175,14 @@
                 <componentref id="Podium" />
                 <componentref id="SecondBottomTemple" />
             </children>
-        </component>-->
+        </component>
 
         <!-- END Donut temple -->
 
         <!-- Street Lamps-->
 
 
-        <!--<component id="StreetLampSide1">
+        <component id="StreetLampSide1">
             <transformation>
                 <rotate axis="y" angle="90"/>
             </transformation>
@@ -1318,11 +1317,11 @@
                 <componentref id="StreetLamp2" />
                 <componentref id="StreetLamp3" />
             </children>
-        </component>-->
+        </component>
 
         <!-- END Street Lamps-->
 
-        <!--<component id="Grass">
+        <component id="Grass">
             <transformation>
                 <translate x="0" y="-0.5" z="0"/>
                 <scale x="80" y="0.01" z="80" />
@@ -1350,7 +1349,7 @@
             <children>
                 <primitiveref id="Base" />
             </children>
-        </component>-->
+        </component>
 
         <!-- SkyBox-->
 
@@ -1463,6 +1462,125 @@
 
         <!-- END SkyBox-->
 
+        <component id="HorizontalCylinder">
+            <transformation>
+                <translate x="2.5" y="2" z="0"/>
+                <rotate axis="z" angle="90"/>
+                <scale x="0.5" y="5" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="metal" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="Cylinder2" />
+            </children>
+        </component>  
+        
+        <component id="VerticalCylinder">
+            <transformation>
+                <scale x="0.5" y="10" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="metal" length_s ="1" length_t="1"/>
+            <children>
+                <primitiveref id="Cylinder2" />
+            </children>
+        </component>  
+
+        <component id="Sword">
+            <transformation>
+                <translate x="-5" y="-0.1" z="0" />
+                <rotate axis="x" angle="-45"/>
+                <rotate axis="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="metal" length_s ="1" length_t="1"/>
+            <children>
+                <componentref id="HorizontalCylinder" />
+                <componentref id="VerticalCylinder" />                
+            </children>
+        </component>  
+
+         <component id="MarshEyes">
+            <transformation>
+                <translate x="0" y="-2" z="1.5" />
+                <rotate axis="y" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="Eyes" />                
+            </children>
+        </component>
+
+        <component id="MarshLegs">
+            <transformation>
+                <translate x="0" y="-1" z="2" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="Legs" />                
+            </children>
+        </component>  
+
+        <component id="MarshBody">
+            <transformation>
+                <translate x="0" y="-4" z="-3" />
+                <scale x="6" y="6" z="6" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="Cylinder2" />          
+            </children>
+        </component>  
+
+        <component id="MarshHat">
+            <transformation>
+                <translate x="0" y="-6" z="2.5" />
+                <scale x="2" y="2" z="2" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="hat" />           
+            </children>
+        </component>  
+
+        <component id="Marshmallow">
+            <transformation>
+                <translate x="0" y="5" z="-10" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="marshmallow" length_s ="1" length_t="1"/>
+            <children>
+                <componentref id="MarshBody" /> 
+                <componentref id="MarshLegs" /> 
+                <componentref id="Arms" />   
+                <componentref id="MarshEyes" />   
+                <componentref id="Sword" />  
+                <componentref id="MarshHat"/>     
+            </children>
+        </component>        
+
+        <!-- Marshmallow-->
+
         <!-- Root Component-->
 
         <component id="deliveryRoot">
@@ -1472,19 +1590,19 @@
                 <material id="demoMaterial" />
             </materials>
             <texture id="donut" length_s="1" length_t="1"/>
-            <animationref id="animacao1" />
             <children>
-              <!--<componentref id="donut1" />
+                <componentref id="donut1" />
                 <componentref id="donut2" />
                 <componentref id="donut3" />
                 <componentref id="donut4" />
                 <componentref id="Trees" />
                 <componentref id="Temple" />
                 <componentref id="Grass" />
-                <componentref id="Water" />-->
+                <componentref id="Water" />
                 <componentref id="SkyBox" />
-                <!--<componentref id="StreetLamps" />-->
+                <componentref id="StreetLamps" />
                 <componentref id="Donut" />
+                <componentref id="Marshmallow">
             </children>
         </component>
 
