@@ -18,12 +18,12 @@ void main() {
 	float speed = 0.8;
 
 	if(mod(vTextureCoord.y * 30.0 + timeFactor*speed, 5.0) > 1.0)
-		color = vec4(original_color.rgb*5.0, 1.0); 
+		color = vec4(original_color.rgb*2.0, 1.0); 
 	else
 		color = vec4(2, 2, 2, 1.0); /* Light */
 
-	float d = dist(vTextureCoord.xy,vec2(0.5, 0.5))*2.0;
-	vec4 gradient = mix(vec4(1.0, 1.0, 1.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), d);
+	float d = dist(vTextureCoord.xy,vec2(0.5, 0.5))*2.8;
+	vec4 gradient = mix(vec4(1.0, 1.0, 1.0, 1.0), vec4(0.4, 0.4, 0.4, 1.0), d);
 
 /*0 is black*/
 	gl_FragColor = color*gradient;
