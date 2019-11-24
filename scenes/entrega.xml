@@ -8,14 +8,14 @@
             <to x="-20" y="0" z="-20" />
         </perspective>
 
-        <perspective angle="45" far="500" near="0.1" id="StreetLampView">
-            <from z="-20" y="30" x="-20"/>
-            <to z="-50" y="0" x="-50"/>
+        <perspective id="bridgeView" near="0.1" far="500" angle="45">
+            <from x="0" y="8" z="0" />
+            <to x="0" y="9" z="-40" />
         </perspective>
 
         <perspective id="frontView" near="0.1" far="500" angle="45">
-            <from x="-15" y="8" z="-15" />
-            <to x="-5" y="9" z="-5" />
+            <from x="0" y="8" z="-15" />
+            <to x="-25" y="9" z="-5" />
         </perspective>
 
         <perspective id="sideView" near="0.1" far="500" angle="45">
@@ -26,6 +26,11 @@
         <perspective id="topView" near="0.1" far="500" angle="45">
             <from x="1" y="120" z="-50" />
             <to x="0" y="80" z="-25" />
+        </perspective>
+
+        <perspective angle="45" far="500" near="0.1" id="StreetLampView">
+            <from z="-20" y="30" x="-20"/>
+            <to z="-50" y="0" x="-50"/>
         </perspective>
 
         <ortho id="orthoFrontCamera" near="0.1" far="500" left="-10" right="10" top="10" bottom="-10">
@@ -150,6 +155,7 @@
         <texture id="lamp" file="scenes/images/lamp.jpg" />
         <texture id="marshmallow" file="scenes/images/marshmallow.jpg" />
         <texture id="metal" file="scenes/images/metal.jpg" />
+        <texture id="wood_bridge" file="scenes/images/wood_bridge.jpg" />
     </textures>
 
     <materials>
@@ -367,7 +373,7 @@
             </keyframe>
 
             <keyframe instant = "14">
-                <translate x="0" y="0" z="40" />
+                <translate x="15" y="0" z="60" />
                 <rotate angle_x="0" angle_y="0" angle_z="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
@@ -381,8 +387,20 @@
                 <scale x="1" y="1" z="1" />
             </keyframe>
 
-            <keyframe instant = "9">
-                <translate x="0" y="12" z="-30" />
+            <keyframe instant = "7">
+                <translate x="0" y="0" z="-7" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "10">
+                <translate x="0" y="11" z="-32" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "13">
+                <translate x="0" y="6" z="-55" />
                 <rotate angle_x="0" angle_y="0" angle_z="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
@@ -911,7 +929,7 @@
 
         <component id="Tree4">
             <transformation>
-                <translate x="-10" y="0" z="-75" />
+                <translate x="55" y="0" z="20" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -1771,7 +1789,7 @@
 
             <component id="Marshmallow1">
                 <transformation>
-                    <translate x="-20" y="0" z="-120" />
+                    <translate x="-17" y="0" z="-120" />
                 </transformation>
                 <materials>
                     <material id="demoMaterial" />
@@ -1784,7 +1802,7 @@
 
             <component id="Marshmallow2">
                 <transformation>
-                    <translate x="12" y="0" z="-120" />
+                    <translate x="7" y="0" z="-120" />
                 </transformation>
                 <materials>
                     <material id="demoMaterial" />
@@ -1797,7 +1815,7 @@
 
             <component id="Marshmallow3">
                 <transformation>
-                    <translate x="27" y="0" z="-120" />
+                    <translate x="18" y="0" z="-120" />
                 </transformation>
                 <materials>
                     <material id="demoMaterial" />
@@ -1810,7 +1828,7 @@
 
             <component id="Marshmallow4">
                 <transformation>
-                    <translate x="0" y="0" z="-120" />
+                    <translate x="-5" y="0" z="-120" />
                 </transformation>
                 <materials>
                     <material id="demoMaterial" />
@@ -1821,23 +1839,25 @@
                 </children>
             </component>
 
-            <!-- Root Component-->
+            <!-- Bridge -->
 
             <component id="Bridge">
                 <transformation>
-                    <translate x="3" y="-5" z="-88" />
-                    <scale x="6" y="4" z="4"/>
+                    <translate x="0" y="-5" z="-88" />
+                    <scale x="4.5" y="3" z="4"/>
                     <rotate axis="y" angle="90"/>
                     <rotate axis="x" angle="-90"/>
                 </transformation>
                 <materials>
                     <material id="demoMaterial" />
                 </materials>
-                <texture id="trunk" length_s="1" length_t="1"/>
+                <texture id="wood_bridge" length_s="1" length_t="1"/>
                 <children>
                     <primitiveref id="Patch"/>
                 </children>
             </component>
+
+            <!-- Root Component-->
 
             <component id="deliveryRoot">
                 <transformation>
