@@ -325,6 +325,45 @@
 
         </animation>
 
+         <animation id="fightAnimation">
+            <keyframe instant = "6">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "7">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="90" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "9">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-90" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "11">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="90" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "13">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-90" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "14">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="90" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+        </animation>
+
         <animation id="runningDonut">
 
             <keyframe instant = "6">
@@ -1669,7 +1708,7 @@
                 <componentref id="HorizontalCylinder" />
                 <componentref id="VerticalCylinder" />
             </children>
-            <animationref id="rightLegAnimation"/>
+            <animationref id="fightAnimation"/>
             </component>
 
             <component id="MarshEyes">
