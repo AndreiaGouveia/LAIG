@@ -215,7 +215,6 @@
 
         <animation id="goldDonutAnimation">
 
-
             <keyframe instant="6">
                 <translate x="0" y="0" z="0" />
                 <rotate angle_x="0" angle_y="0" angle_z="0" />
@@ -344,7 +343,7 @@
             </keyframe>
 
             <keyframe instant = "14">
-                <translate x="0" y="0" z="-60" />
+                <translate x="0" y="6" z="-60" />
                 <rotate angle_x="0" angle_y="0" angle_z="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
