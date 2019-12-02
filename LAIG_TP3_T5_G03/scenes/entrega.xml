@@ -4,9 +4,9 @@
     <!-- Cameras -->
     <views default="defaultCamera">
 
-         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="-15" y="8" z="-15" />
-            <to x="-5" y="9" z="-5" />
+        <perspective id="defaultCamera" near="0.1" far="100" angle="45">
+            <from x="15" y="20" z="15" />
+            <to x="0" y="0" z="0" />
         </perspective>
 
     </views>
@@ -19,7 +19,7 @@
 
     <!-- Other Lights-->
     <lights>
-        <omni id="mainLightOmni" enabled="0">
+        <omni id="mainLightOmni" enabled="1">
             <location x="9.8" y="11.9" z="10" w="1.0" />
             <ambient r="0.7" g="0.7" b="0.7" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -30,6 +30,7 @@
     </lights>
 
     <textures>
+    <texture id="boardTexture" file="scenes/images/BoardTexture.jpg" />
     </textures>
 
     <materials>
@@ -46,7 +47,7 @@
 
     <animations>
 
-        
+
     </animations>
 
 
@@ -58,17 +59,258 @@
 
     <components>
 
-            <component id="deliveryRoot">
-                <transformation>
-                </transformation>
-                <materials>
-                    <material id="demoMaterial" />
-                </materials>
-                <texture id="none"/>
-                <children>
-                    <primitiveref id="Rectangle" />
-                </children>
-            </component>
+        <component id="Side Board Base">
+            <transformation>
+                <translate x="0" y="-0.25" z="5"/>
+                <scale x="10" y="0.5" z="10"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
 
-        </components>
-    </lxs>
+        <component id="Side Board 1">
+            <transformation>
+                <rotate axis="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Side Board Base" />
+            </children>
+        </component>
+
+        <component id="Side Board 2">
+            <transformation>
+                <rotate axis="y" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Side Board Base" />
+            </children>
+        </component>
+
+        <component id="Side Board 3">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Side Board Base" />
+            </children>
+        </component>
+
+        <component id="Side Boards Elevated">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="boardTexture" length_s="0.2" length_t="5"/>
+            <children>
+                <componentref id="Side Board Base" />
+                <componentref id="Side Board 1" />
+                <componentref id="Side Board 2" />
+                <componentref id="Side Board 3" />
+            </children>
+        </component>
+
+
+        <component id="Outside Board">
+            <transformation>
+                <translate x="0" y="-0.25" z="-10"/>
+                <scale x="20" y="0.5" z="20"/>
+                <rotate axis="y" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="Outside Board 2">
+            <transformation>
+                <rotate axis="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Outside Board" />
+            </children>
+        </component>
+
+
+        <component id="Outside Board 3">
+            <transformation>
+                <rotate axis="y" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Outside Board" />
+            </children>
+        </component>
+
+
+        <component id="Outside Board 4">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Outside Board" />
+            </children>
+        </component>
+
+        
+        <component id="Board Root">
+            <transformation>
+                <scale x="10" y="10" z="10"/>
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="Part 1 Elevated Board">
+            <transformation>
+                <translate x="-5" y="0.5" z="-5"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Board Root"/>
+                <componentref id="Side Boards Elevated"/>
+            </children>
+        </component>
+
+        <component id="Part 2 Elevated Board">
+            <transformation>
+                <translate x="5" y="0.5" z="5"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Board Root"/>
+                <componentref id="Side Boards Elevated"/>
+            </children>
+        </component>
+
+        <component id="Part 3 Board">
+            <transformation>
+                <translate x="5" y="0" z="-5"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Board Root"/>
+            </children>
+        </component>
+
+        <component id="Part 4 Board">
+            <transformation>
+                <translate x="-5" y="0" z="5"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Board Root"/>
+            </children>
+        </component>
+
+        <component id="Base Of Board">
+            <transformation>
+                <translate x="0" y="-0.5" z="0"/>
+                <scale x="20" y="20" z="20"/>
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="boardTexture" length_s="0.5" length_t="0.5"/>
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
+        <component id="All Boards Outside">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="boardTexture" length_s="0.2" length_t="10"/>
+            <children>
+                <componentref id="Outside Board"/>
+                <componentref id="Outside Board 2"/>
+                <componentref id="Outside Board 3"/>
+                <componentref id="Outside Board 4"/>
+            </children>
+        </component>
+
+        <component id="Board">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="boardTexture" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="Base Of Board" />
+                <componentref id="Part 1 Elevated Board" />
+                <componentref id="Part 2 Elevated Board" />
+                <componentref id="Part 3 Board" />
+                <componentref id="Part 4 Board" />
+                <componentref id="All Boards Outside"/>
+            </children>
+        </component>
+
+        <component id="deliveryRoot">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="Board" />
+            </children>
+        </component>
+
+    </components>
+</lxs>
