@@ -43,9 +43,7 @@
 
     <transformations>
     </transformations>
-
     <animations>
-
         
     </animations>
 
@@ -54,21 +52,169 @@
         <primitive id="Rectangle">
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
         </primitive>
+
+        <primitive id="Plane">
+            <plane npartsU="5" npartsV="8" />
+        </primitive>
+
+        <primitive id="Triangle">
+            <triangle x1="0" y1="0" z1="-0.5" x2="0.5" y2="0" z2="0.5" x3="-0.5" y3="0" z3="0.5" />
+        </primitive>
+
     </primitives>
 
     <components>
 
-            <component id="deliveryRoot">
-                <transformation>
-                </transformation>
-                <materials>
-                    <material id="demoMaterial" />
-                </materials>
-                <texture id="none"/>
+        <component id="CubeSideUp">
+            <transformation>
+                <translate x="0" y="0.5" z="0" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
                 <children>
-                    <primitiveref id="Rectangle" />
+                    <primitiveref id="Plane" />
                 </children>
-            </component>
+        </component>
+        <component id="CubeSideDown">
+            <transformation>
+                <rotate axis="x" angle="180" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+                <children>
+                    <primitiveref id="Plane" />
+                </children>
+        </component>
+        <component id="CubeSide1">
+            <transformation>
+                <translate x="0" y="0.25" z="0.25" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+                <children>
+                    <primitiveref id="Plane" />
+                </children>
+        </component>
+        <component id="CubeSide2">
+            <transformation>
+                <translate x="0" y="0.25" z="-0.25" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+                <children>
+                    <primitiveref id="Plane" />
+                </children>
+        </component>
+        <component id="CubeSide3">
+            <transformation>
+                <translate x="0.25" y="0.25" z="0" />
+                <rotate axis="z" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+                <children>
+                    <primitiveref id="Plane" />
+                </children>
+        </component>
+        <component id="CubeSide4">
+            <transformation>
+                <translate x="-0.25" y="0.25" z="0" />
+                <rotate axis="z" angle="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+                <children>
+                    <primitiveref id="Plane" />
+                </children>
+        </component>
 
-        </components>
+        <component id="Cube">
+            <transformation>
+                <scale x="10" y="10" z="10" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+                <children>
+                    <componentref id="CubeSideUp" />
+                    <componentref id="CubeSideDown" />
+                    <componentref id="CubeSide1" />
+                    <componentref id="CubeSide2" />
+                    <componentref id="CubeSide3" />
+                    <componentref id="CubeSide4" />
+                </children>
+        </component>
+
+    <!--    Cube    -->
+
+        <component id="FinUp">
+            <transformation>
+                <translate x="0" y="0.25" z="0" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+                <children>
+                    <primitiveref id="Triangle" />
+                </children>
+        </component>
+
+        <component id="FinDown">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+                <children>
+                    <primitiveref id="Triangle" />
+                </children>
+        </component>
+
+        <component id="Fin">
+            <transformation>
+                <scale x="10" y="10" z="10" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+                <children>
+                    <componentref id="FinDown" />
+                    <componentref id="FinUp" />
+                </children>
+        </component>
+    <!--    Fin     -->
+
+        <component id="deliveryRoot">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+                <children>
+                    <!--componentref id="Cube" /-->
+                    <componentref id="Fin" />
+                </children>
+        </component>
+
+    </components>
     </lxs>
