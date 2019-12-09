@@ -49,6 +49,8 @@ class MySceneGraph {
          * If any error occurs, the reader calls onXMLError on this object, with an error message
          */
         this.reader.open('scenes/' + filename, this);
+
+        this.board = new MyGameBoard(this.scene);
     }
 
     /*
@@ -1885,7 +1887,10 @@ class MySceneGraph {
      */
     displayScene() {
 
-        this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
+
+        this.board.display();
+
+        //this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
 
     }
 

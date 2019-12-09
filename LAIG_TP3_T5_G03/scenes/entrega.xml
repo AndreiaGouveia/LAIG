@@ -192,7 +192,7 @@
 
         <component id="Fin">
             <transformation>
-                <scale x="10" y="10" z="10" />
+               <!--<scale x="10" y="10" z="10" />-->
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -457,8 +457,8 @@
             </materials>
             <texture id="none"/>
             <children>
-                <componentref id="Board" />
-                <componentref id="Cube" />
+               <!-- <componentref id="Board" />-->
+               <!-- <componentref id="Cube" />-->
                 <componentref id="Fin" />
             </children>
         </component>
