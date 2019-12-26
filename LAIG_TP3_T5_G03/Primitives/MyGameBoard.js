@@ -15,8 +15,8 @@ class MyGameBoard extends CGFobject {
         this.pieces = [
             [new MyMarshmallow(this.scene), new MyMarshmallow(this.scene), new MyDonut(this.scene), new MyDonut(this.scene)],
             [null, null, null, null],
-            [null, null, new MyDonut(this.scene), new MyMarshmallow(this.scene)],
-            [null, null, null, null],
+            [null, new MyChristmasTree(this.scene), new MyDonut(this.scene), new MyMarshmallow(this.scene)],
+            [new MyIceCream(this.scene), null, null, null],
         ];
 
         this.grey = new CGFappearance(scene);
