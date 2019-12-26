@@ -51,7 +51,7 @@ class MySceneGraph {
         this.reader.open('scenes/' + filename, this);
 
         this.board = new MyGameBoard(this.scene);
-        this.iceCream = new MyIceCream(this.scene);
+        this.christmasTree = new MyChristmasTree(this.scene);
     }
 
     /*
@@ -1890,7 +1890,7 @@ class MySceneGraph {
 
 
         //this.board.display();
-        this.iceCream.display();
+        this.christmasTree.display();
 
         //this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
 
