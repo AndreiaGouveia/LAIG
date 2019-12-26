@@ -10,19 +10,22 @@ class MyDonut extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.donut = new CGFOBJModel(this.scene, '../models/donut.obj');
+        this.donut = new MyTorus(scene, "donut", 5, 10, 20, 20);
 
-        this.brown = new CGFappearance(scene);
-        this.brown.setAmbient(60 / 255, 30 / 255, 10 / 255, 1.0);
+        this.color = new CGFappearance(scene);
+        this.color.setAmbient(1, 1, 1, 1);
+        this.donutTexture = new CGFtexture(this.scene, "scenes/images/donut1.png");
+        this.color.setTexture(this.donutTexture);
 
 
     }
 
     display() {
 
-        this.brown.apply();
+        this.color.apply();
 
         this.scene.scale(0.01, 0.01, 0.01);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.donut.display();
 
     }

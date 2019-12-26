@@ -39,6 +39,9 @@ class MyGameBoard extends CGFobject {
 
         this.scene.popMatrix();
 
+        this.scene.translate(0, 3.5, 0);
+        this.scene.scale(15, 15, 15);
+
         for (let i = 0; i < this.pieces.length; i++) {
             for (let j = 0; j < this.pieces[i].length; j++) {
 
