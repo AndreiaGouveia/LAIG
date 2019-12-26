@@ -23,6 +23,8 @@ class MyBoard extends CGFobject {
 
         this.scene.pushMatrix();
 
+        this.scene.scale(1, 0.3, 1);
+
         this.scene.translate(-0.25 * (this.cubes.length / 4 - 1), 0, 0.25 * (this.cubes.length / 4 - 1));
 
         let higher = false;

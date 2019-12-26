@@ -13,9 +13,9 @@ class MyGameBoard extends CGFobject {
         this.board = new MyBoard(this.scene);
 
         this.pieces = [
-            [new MyDonut(this.scene), null, null, null],
+            [new MyMarshmallow(this.scene), new MyMarshmallow(this.scene), new MyDonut(this.scene), new MyDonut(this.scene)],
             [null, null, null, null],
-            [null, null, null, null],
+            [null, null, new MyDonut(this.scene), new MyMarshmallow(this.scene)],
             [null, null, null, null],
         ];
 
@@ -33,25 +33,33 @@ class MyGameBoard extends CGFobject {
 
         this.scene.pushMatrix();
 
-        this.scene.scale(15, 5, 15);
+        this.scene.scale(15, 15, 15);
 
         this.board.display();
 
-        this.scene.popMatrix();
+        this.scene.pushMatrix();
 
-        this.scene.translate(0, 3.5, 0);
-        this.scene.scale(15, 15, 15);
+        this.scene.translate(0, 0.2, 0);
 
         for (let i = 0; i < this.pieces.length; i++) {
             for (let j = 0; j < this.pieces[i].length; j++) {
 
-                if (this.pieces[i][j] == null)
-                    continue;
+                if (this.pieces[i][j] != null) {
 
-                this.pieces[i][j].display();
+                    this.scene.pushMatrix();
+
+                    this.scene.translate((i - 2) * 0.5 + 0.25, 0, (j - 2) * 0.5 + 0.25);
+                    this.pieces[i][j].display();
+
+                    this.scene.popMatrix();
+                }
             }
 
         }
+
+        this.scene.popMatrix();
+
+        this.scene.popMatrix();
 
     }
 
