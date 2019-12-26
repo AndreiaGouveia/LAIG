@@ -10,7 +10,7 @@ class MyGameBoard extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.board = new CGFOBJModel(this.scene, '../models/board.obj');
+        this.board = new MyBoard(this.scene);
 
         this.pieces = [
             [new MyDonut(this.scene), null, null, null],
@@ -31,7 +31,13 @@ class MyGameBoard extends CGFobject {
 
         this.grey.apply();
 
+        this.scene.pushMatrix();
+
+        this.scene.scale(15, 5, 15);
+
         this.board.display();
+
+        this.scene.popMatrix();
 
         for (let i = 0; i < this.pieces.length; i++) {
             for (let j = 0; j < this.pieces[i].length; j++) {
