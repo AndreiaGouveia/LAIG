@@ -10,7 +10,7 @@ class MyMarshmallow extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.marshmallow = new MyCylinder(scene, "marshmallow", 0.25, 0.25, 0.25, 20, 20);
+        this.marshmallow = new MyCylinder(scene, "marshmallow", 0.1, 0.1, 0.15, 20, 20);
         this.marshmallow.updateTexCoords(0.25, 1);
 
         this.top = new MyCircle(this.scene, 20);
@@ -30,15 +30,13 @@ class MyMarshmallow extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
-        this.scene.scale(0.8, 0.8, 0.8);
-        this.scene.translate(0, 0, -0.1);
         this.marshmallow.display();
 
 
         this.scene.pushMatrix();
 
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
-        this.scene.scale(0.25, 0.25, 0.25);
+        this.scene.scale(0.1, 0.1, 0.1);
         this.top.display();
 
         this.scene.popMatrix();
@@ -48,7 +46,8 @@ class MyMarshmallow extends CGFobject {
 
 
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
-        this.scene.scale(0.25, 0.25, 0.25);
+        this.scene.scale(0.1, 0.1, 0.1);
+        this.scene.translate(0, 1.5, 0);
         this.top.display();
 
         this.scene.popMatrix();

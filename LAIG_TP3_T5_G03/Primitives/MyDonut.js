@@ -10,7 +10,7 @@ class MyDonut extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.donut = new MyTorus(scene, "donut", 0.08, 0.15, 20, 20);
+        this.donut = new MyTorus(scene, "donut", 0.04, 0.08, 20, 20);
 
         this.color = new CGFappearance(scene);
         this.color.setAmbient(1, 1, 1, 1);
@@ -25,6 +25,8 @@ class MyDonut extends CGFobject {
         this.color.apply();
 
         this.scene.pushMatrix();
+
+        this.scene.translate(0, -0.01, 0);
 
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.donut.display();
