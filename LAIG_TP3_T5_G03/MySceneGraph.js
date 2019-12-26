@@ -51,6 +51,7 @@ class MySceneGraph {
         this.reader.open('scenes/' + filename, this);
 
         this.board = new MyGameBoard(this.scene);
+        this.iceCream = new MyIceCream(this.scene);
     }
 
     /*
@@ -1888,7 +1889,8 @@ class MySceneGraph {
     displayScene() {
 
 
-        this.board.display();
+        //this.board.display();
+        this.iceCream.display();
 
         //this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
 
