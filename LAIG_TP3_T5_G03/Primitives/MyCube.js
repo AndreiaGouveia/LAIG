@@ -11,6 +11,7 @@ class MyCube extends CGFobject {
         super(scene);
 
         this.plane = new MyPlane(scene, 10, 10);
+        this.sphere = new MySphere(scene, "sphere", 0.05, 20, 20);
 
     }
 
@@ -20,6 +21,7 @@ class MyCube extends CGFobject {
 
         this.scene.translate(0, 0.5, 0);
 
+        this.sphere.display();
         this.plane.display();
 
         this.scene.pushMatrix();
