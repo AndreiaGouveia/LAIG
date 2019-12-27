@@ -82,11 +82,5 @@ class MyBoard extends CGFobject {
 
     }
 
-    getTile(x, y) {
-
-        return this.cubes[x + y * 4];
-
-    }
-
     updateTexCoords(s, t) {}
 }
