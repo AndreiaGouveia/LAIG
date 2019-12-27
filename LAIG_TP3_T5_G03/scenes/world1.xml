@@ -457,9 +457,7 @@
             </materials>
             <texture id="none"/>
             <children>
-               <!-- <componentref id="Board" />-->
-               <!-- <componentref id="Cube" />-->
-                <componentref id="Fin" />
+                <componentref id="Cube" />
             </children>
         </component>
 
