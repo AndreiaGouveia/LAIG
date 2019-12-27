@@ -12,30 +12,34 @@ class MyBoard extends CGFobject {
 
         this.cubes = [];
 
-        for (let i = 0; i < 16; i++) {
+        for (let i = 0; i < 4; i++) {
 
-            this.cubes[i] = new MyCube(scene, 10, 10);
+            this.cubes.push([]);
+            for (let j = 0; j < 4; j++) {
+
+                this.cubes[i].push(new MyCube(scene, 10, 10));
+            }
         }
 
     }
 
-    display() {
+    display(board) {
 
         this.scene.pushMatrix();
 
         this.scene.scale(1, 0.3, 1);
 
-        this.scene.translate(-0.25 * (this.cubes.length / 4 - 1), 0, 0.25 * (this.cubes.length / 4 - 1));
+        this.scene.translate(-0.25 * (this.cubes.length - 1), 0, 0.25 * (this.cubes.length - 1));
 
         let higher = false;
 
-        for (let i = 0; i < this.cubes.length; i += 4) {
+        for (let i = 0; i < this.cubes.length; i++) {
 
             this.scene.pushMatrix();
 
-            for (let j = i; j < i + 4; j++) {
+            for (let j = 0; j < this.cubes[i].length; j++) {
 
-                let n_row = j - i;
+                let n_row = j;
 
                 this.scene.pushMatrix();
                 if (higher && (n_row == 0 || n_row == 1)) {
@@ -48,7 +52,16 @@ class MyBoard extends CGFobject {
 
                 }
 
-                this.cubes[j].display();
+
+                if (board[i][j] == null) {
+
+                    this.scene.registerForPick((j + 1) * 10 + i + 1, this.cubes[i][j]);
+                    this.cubes[i][j].display();
+                    this.scene.clearPickRegistration();
+                } else {
+
+                    this.cubes[i][j].display();
+                }
 
                 this.scene.popMatrix();
 
@@ -66,6 +79,12 @@ class MyBoard extends CGFobject {
         }
 
         this.scene.popMatrix();
+
+    }
+
+    getTile(x, y) {
+
+        return this.cubes[x + y * 4];
 
     }
 

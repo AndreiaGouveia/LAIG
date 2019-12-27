@@ -13,11 +13,13 @@ class MyGameBoard extends CGFobject {
         this.board = new MyBoard(this.scene);
 
         this.pieces = [
-            [new MyMarshmallow(this.scene), new MyMarshmallow(this.scene), new MyDonut(this.scene), new MyDonut(this.scene)],
+            [new MyMarshmallow(this.scene), null, new MyMarshmallow(this.scene), null],
+            [new MyDonut(this.scene), null, null, null],
             [null, null, null, null],
-            [null, new MyChristmasTree(this.scene), new MyDonut(this.scene), new MyMarshmallow(this.scene)],
-            [new MyIceCream(this.scene), null, null, null],
+            [null, null, null, null],
         ];
+
+        this.auxiliary = [new MyMarshmallow(this.scene), new MyMarshmallow(this.scene)];
 
         this.grey = new CGFappearance(scene);
         this.grey.setAmbient(0.3, 0.3, 0.3, 1.0);
@@ -25,17 +27,35 @@ class MyGameBoard extends CGFobject {
         this.grey.setSpecular(1, 1, 1, 1.0);
         this.grey.setShininess(10.0);
 
+        this.scene.setPickEnabled(true);
+
+    }
+
+    logPicking() {
+
+        if (this.scene.pickMode == false) {
+
+            if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
+
+                for (var i = 0; i < this.scene.pickResults.length; i++) {
+                    var obj = this.scene.pickResults[i][0];
+
+                    if (obj) {
+                        console.log(obj)
+                        var customId = this.scene.pickResults[i][1];
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                    }
+                }
+                this.scene.pickResults.splice(0, this.scene.pickResults.length);
+            }
+        }
     }
 
     display() {
 
-        this.grey.apply();
-
         this.scene.pushMatrix();
 
         this.scene.scale(15, 15, 15);
-
-        this.board.display();
 
         this.scene.pushMatrix();
 
@@ -46,14 +66,34 @@ class MyGameBoard extends CGFobject {
 
                 if (this.pieces[i][j] != null) {
 
+
                     this.scene.pushMatrix();
 
-                    this.scene.translate((i - 2) * 0.5 + 0.25, 0, (j - 2) * 0.5 + 0.25);
+                    this.scene.translate((j - 2) * 0.5 + 0.25, 0, (2 - i) * 0.5 - 0.25);
                     this.pieces[i][j].display();
 
                     this.scene.popMatrix();
+
                 }
+
             }
+
+        }
+
+        this.scene.popMatrix();
+
+        this.grey.apply();
+        this.board.display(this.pieces);
+
+        this.scene.pushMatrix();
+
+        this.scene.translate(-1.2, 0.25, -1.2);
+
+        for (let i = 0; i < this.auxiliary.length; i++) {
+
+            this.auxiliary[i].display();
+
+            this.scene.translate(0, 0, 0.3);
 
         }
 
