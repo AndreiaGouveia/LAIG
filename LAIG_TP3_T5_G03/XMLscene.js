@@ -41,6 +41,8 @@ class XMLscene extends CGFscene {
 
         this.secObject = new MySecurityCamera(this); //create retangle object
         this.secTexture = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height); //create render-to-texture texture
+
+        this.board = new MyGameBoard(this);
     }
 
     update(currTime) {
@@ -188,6 +190,10 @@ class XMLscene extends CGFscene {
     }
 
     display() {
+
+
+        this.board.logPicking();
+        this.clearPickRegistration();
 
         this.secTexture.attachToFrameBuffer();
 
