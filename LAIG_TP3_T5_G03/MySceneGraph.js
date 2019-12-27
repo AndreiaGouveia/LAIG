@@ -1888,7 +1888,7 @@ class MySceneGraph {
 
         this.scene.board.display();
 
-        //this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
+        this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
 
     }
 

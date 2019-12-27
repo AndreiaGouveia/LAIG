@@ -30,7 +30,10 @@
     </lights>
 
     <textures>
-        <texture id="boardTexture" file="scenes/images/BoardTexture.jpg" />
+        <texture id="galaxy" file="scenes/images/galaxy+X.png" />
+        <texture id="glitter" file="scenes/images/glitter.jpg" />
+        <texture id="glitter2" file="scenes/images/glitter2.jpg" />
+        <texture id="glitter3" file="scenes/images/glitter3.jpg" />
     </textures>
 
     <materials>
@@ -47,6 +50,38 @@
 
     <animations>
 
+        <animation id="RainAnimation">
+            <keyframe instant = "5">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "10">
+                <translate x="0" y="-25" z="0" />
+                <rotate angle_x="360" angle_y="0" angle_z="360" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "45">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="-360" angle_y="0" angle_z="-360" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "55">
+                <translate x="0" y="-25" z="0" />
+                <rotate angle_x="360" angle_y="0" angle_z="360" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "85">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="-360" angle_y="0" angle_z="-360" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+        </animation>
 
     </animations>
 
@@ -56,12 +91,32 @@
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
         </primitive>
 
-        <primitive id="Plane">
-            <plane npartsU="5" npartsV="8" />
+        <primitive id="Triangle">
+            <triangle x1="0.5" y1="-0.35" z1="-0.35" x2="1.2" y2="0.35" z2="-0.35" x3="0.5" y3="0.35" z3="0.35" />
+        </primitive>="-0.3" y1="0" z1="-0.3" x2="0" y2="0.4" z2="0" x3="0.3" y3="0" z3="-0.3" />
+
+        <primitive id="Cone">
+            <cylinder base="2" top="0" height="2" slices="20" stacks="20" />
         </primitive>
 
-        <primitive id="Triangle">
-            <triangle x1="0" y1="0" z1="-0.5" x2="0.5" y2="0" z2="0.5" x3="-0.5" y3="0" z3="0.5" />
+        <primitive id="Cylinder">
+            <cylinder base="2" top="2" height="2" slices="20" stacks="20" />
+        </primitive>
+
+        <primitive id="Cylinder2">
+            <cylinder2 base="0.5" top="0.5" height="1" slices="50" stacks="5" />
+        </primitive>
+
+        <primitive id="Sphere">
+            <sphere radius="2" slices="10" stacks="10" />
+        </primitive>
+
+        <primitive id="Torus">
+            <torus inner="1" outer="3" slices="20" loops="20" />
+        </primitive>
+
+        <primitive id="Plane">
+            <plane npartsU="5" npartsV="8" />
         </primitive>
     </primitives>
 
@@ -70,11 +125,13 @@
         <component id="CubeSideUp">
             <transformation>
                 <translate x="0" y="0.5" z="0" />
+                <rotate axis="z" angle="180" />
+                <scale x="5" y="5" z="5"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="Plane" />
             </children>
@@ -82,11 +139,13 @@
         <component id="CubeSideDown">
             <transformation>
                 <rotate axis="x" angle="180" />
+                <rotate axis="z" angle="180" />
+                <scale x="5" y="5" z="5"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="Plane" />
             </children>
@@ -95,11 +154,13 @@
             <transformation>
                 <translate x="0" y="0.25" z="0.25" />
                 <rotate axis="x" angle="90" />
+                <rotate axis="x" angle="180" />
+                <scale x="5" y="5" z="5"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="Plane" />
             </children>
@@ -108,11 +169,13 @@
             <transformation>
                 <translate x="0" y="0.25" z="-0.25" />
                 <rotate axis="x" angle="-90" />
+                <rotate axis="x" angle="180" />
+                <scale x="5" y="5" z="5"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="Plane" />
             </children>
@@ -121,11 +184,13 @@
             <transformation>
                 <translate x="0.25" y="0.25" z="0" />
                 <rotate axis="z" angle="-90" />
+                <rotate axis="x" angle="180" />
+                <scale x="5" y="5" z="5"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="Plane" />
             </children>
@@ -134,11 +199,13 @@
             <transformation>
                 <translate x="-0.25" y="0.25" z="0" />
                 <rotate axis="z" angle="90" />
+                <rotate axis="x" angle="180" />
+                <scale x="5" y="5" z="5"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="Plane" />
             </children>
@@ -146,12 +213,11 @@
 
         <component id="Cube">
             <transformation>
-                <scale x="10" y="10" z="10" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="CubeSideUp" />
                 <componentref id="CubeSideDown" />
@@ -164,290 +230,370 @@
 
         <!--    Cube    -->
 
-        <component id="FinUp">
+        <component id="RainSideUp">
             <transformation>
-                <translate x="0" y="0.25" z="0" />
+                <translate x="0" y="0.5" z="0" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Plane" />
+            </children>
+        </component>
+        <component id="RainSideDown">
+            <transformation>
                 <rotate axis="x" angle="180" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none"/>
-            <children>
-                <primitiveref id="Triangle" />
-            </children>
-        </component>
-
-        <component id="FinDown">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none"/>
-            <children>
-                <primitiveref id="Triangle" />
-            </children>
-        </component>
-
-        <component id="Fin">
-            <transformation>
-               <!--<scale x="10" y="10" z="10" />-->
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none"/>
-            <children>
-                <componentref id="FinDown" />
-                <componentref id="FinUp" />
-            </children>
-        </component>
-        <!--    Fin     -->
-
-        <!-- BOARD -->
-        <component id="Side Board Base">
-            <transformation>
-                <translate x="0" y="-0.25" z="5"/>
-                <scale x="10" y="0.5" z="10"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
             <texture id="inherit"/>
             <children>
-                <primitiveref id="Rectangle" />
+                <primitiveref id="Plane" />
             </children>
         </component>
-
-        <component id="Side Board 1">
+        <component id="RainSide1">
             <transformation>
-                <rotate axis="y" angle="90"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="Side Board Base" />
-            </children>
-        </component>
-
-        <component id="Side Board 2">
-            <transformation>
-                <rotate axis="y" angle="180"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="Side Board Base" />
-            </children>
-        </component>
-
-        <component id="Side Board 3">
-            <transformation>
-                <rotate axis="y" angle="-90"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="Side Board Base" />
-            </children>
-        </component>
-
-        <component id="Side Boards Elevated">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="boardTexture" length_s="0.2" length_t="5"/>
-            <children>
-                <componentref id="Side Board Base" />
-                <componentref id="Side Board 1" />
-                <componentref id="Side Board 2" />
-                <componentref id="Side Board 3" />
-            </children>
-        </component>
-
-
-        <component id="Outside Board">
-            <transformation>
-                <translate x="0" y="-0.25" z="-10"/>
-                <scale x="20" y="0.5" z="20"/>
-                <rotate axis="y" angle="180"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="Rectangle" />
-            </children>
-        </component>
-
-        <component id="Outside Board 2">
-            <transformation>
-                <rotate axis="y" angle="90"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="Outside Board" />
-            </children>
-        </component>
-
-
-        <component id="Outside Board 3">
-            <transformation>
-                <rotate axis="y" angle="180"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="Outside Board" />
-            </children>
-        </component>
-
-
-        <component id="Outside Board 4">
-            <transformation>
-                <rotate axis="y" angle="-90"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="Outside Board" />
-            </children>
-        </component>
-
-
-        <component id="Board Root">
-            <transformation>
-                <scale x="10" y="10" z="10"/>
-                <rotate axis="x" angle="-90" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="Rectangle" />
-            </children>
-        </component>
-
-        <component id="Part 1 Elevated Board">
-            <transformation>
-                <translate x="-5" y="0.5" z="-5"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="Board Root"/>
-                <componentref id="Side Boards Elevated"/>
-            </children>
-        </component>
-
-        <component id="Part 2 Elevated Board">
-            <transformation>
-                <translate x="5" y="0.5" z="5"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="Board Root"/>
-                <componentref id="Side Boards Elevated"/>
-            </children>
-        </component>
-
-        <component id="Part 3 Board">
-            <transformation>
-                <translate x="5" y="0" z="-5"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="Board Root"/>
-            </children>
-        </component>
-
-        <component id="Part 4 Board">
-            <transformation>
-                <translate x="-5" y="0" z="5"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="Board Root"/>
-            </children>
-        </component>
-
-        <component id="Base Of Board">
-            <transformation>
-                <translate x="0" y="-0.5" z="0"/>
-                <scale x="20" y="20" z="20"/>
+                <translate x="0" y="0.25" z="0.25" />
                 <rotate axis="x" angle="90" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="demoMaterial" />
             </materials>
-            <texture id="boardTexture" length_s="0.5" length_t="0.5"/>
+            <texture id="inherit"/>
             <children>
-                <primitiveref id="Rectangle" />
+                <primitiveref id="Plane" />
             </children>
         </component>
-
-        <component id="All Boards Outside">
+        <component id="RainSide2">
             <transformation>
+                <translate x="0" y="0.25" z="-0.25" />
+                <rotate axis="x" angle="-90" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="demoMaterial" />
             </materials>
-            <texture id="boardTexture" length_s="0.2" length_t="10"/>
+            <texture id="inherit"/>
             <children>
-                <componentref id="Outside Board"/>
-                <componentref id="Outside Board 2"/>
-                <componentref id="Outside Board 3"/>
-                <componentref id="Outside Board 4"/>
+                <primitiveref id="Plane" />
+            </children>
+        </component>
+        <component id="RainSide3">
+            <transformation>
+                <translate x="0.25" y="0.25" z="0" />
+                <rotate axis="z" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Plane" />
+            </children>
+        </component>
+        <component id="RainSide4">
+            <transformation>
+                <translate x="-0.25" y="0.25" z="0" />
+                <rotate axis="z" angle="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Plane" />
             </children>
         </component>
 
-        <component id="Board">
+        <component id="Rain">
             <transformation>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="boardTexture" length_s="1" length_t="1"/>
+            <texture id="inherit"/>
             <children>
-                <componentref id="Base Of Board" />
-                <componentref id="Part 1 Elevated Board" />
-                <componentref id="Part 2 Elevated Board" />
-                <componentref id="Part 3 Board" />
-                <componentref id="Part 4 Board" />
-                <componentref id="All Boards Outside"/>
+                <componentref id="RainSideUp" />
+                <componentref id="RainSideDown" />
+                <componentref id="RainSide1" />
+                <componentref id="RainSide2" />
+                <componentref id="RainSide3" />
+                <componentref id="RainSide4" />
             </children>
         </component>
 
-        <!-- END OF BOARD -->
+        <!-- Rain  -->
+
+        <component id="GlitterRain1">
+            <transformation>
+                <translate x="2" y="0" z="5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain11">
+            <transformation>
+                <translate x="5" y="0" z="-2" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain12">
+            <transformation>
+                <translate x="-3" y="0" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain13">
+            <transformation>
+                <translate x="-9" y="0" z="-8" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain14">
+            <transformation>
+                <translate x="-8" y="0" z="4" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain2">
+            <transformation>
+                <translate x="5" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter2" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain21">
+            <transformation>
+                <translate x="0" y="0" z="-10" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter2" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain22">
+            <transformation>
+                <translate x="0" y="0" z="10" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter2" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain23">
+            <transformation>
+                <translate x="1" y="0" z="9" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter2" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain24">
+            <transformation>
+                <translate x="6" y="0" z="11" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter2" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain3">
+            <transformation>
+                <translate x="-11" y="0" z="-11" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter3" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain31">
+            <transformation>
+                <translate x="-9" y="0" z="9" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter3" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain32">
+            <transformation>
+                <translate x="-5" y="0" z="-5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter3" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain33">
+            <transformation>
+                <translate x="-10" y="0" z="-18" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter3" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain34">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="glitter3" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Rain" />
+            </children>
+            
+            <animationref id="RainAnimation"/>
+        </component>
+
+        <component id="GlitterRain">
+            <transformation>
+                <translate x="0" y="25" z="0" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="GlitterRain1" />
+                <componentref id="GlitterRain11" />
+                <componentref id="GlitterRain12" />
+                <componentref id="GlitterRain13" />
+                <componentref id="GlitterRain14" />
+                <componentref id="GlitterRain2" />
+                <componentref id="GlitterRain21" />
+                <componentref id="GlitterRain22" />
+                <componentref id="GlitterRain23" />
+                <componentref id="GlitterRain24" />
+                <componentref id="GlitterRain3" />
+                <componentref id="GlitterRain31" />
+                <componentref id="GlitterRain32" />
+                <componentref id="GlitterRain33" />
+                <componentref id="GlitterRain34" />
+            </children>
+
+        </component>
+
+        <!--    Glitter rain    -->
+            <component id="SkyBox">
+            <transformation>
+                <translate x="0" y="-20" z="0" />
+                <scale x="90" y="90" z="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="galaxy" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="Cube" />
+            </children>
+        </component>
+
+        <!--  SkyBox  -->
 
         <component id="deliveryRoot">
             <transformation>
@@ -457,7 +603,8 @@
             </materials>
             <texture id="none"/>
             <children>
-                <componentref id="Cube" />
+                <componentref id="SkyBox" />
+                <componentref id="GlitterRain" />
             </children>
         </component>
 
