@@ -1,86 +1,85 @@
  /**
- * MyGameBoard class, which represents a Patch object
- */
-class MyBoard extends CGFobject {
+  * MyGameBoard class, which represents a Patch object
+  */
+ class MyBoard extends CGFobject {
 
-    /**
-     * @constructor
-     * @param {XMLScene} scene           represents the CGFscene
-     */
-    constructor(scene) {
-        super(scene);
+     /**
+      * @constructor
+      * @param {XMLScene} scene           represents the CGFscene
+      */
+     constructor(scene) {
+         super(scene);
 
-        this.cubes = [];
+         this.cubes = [];
 
-        for (let i = 0; i < 4; i++) {
+         for (let i = 0; i < 4; i++) {
 
-            this.cubes.push([]);
-            for (let j = 0; j < 4; j++) {
+             this.cubes.push([]);
+             for (let j = 0; j < 4; j++) {
 
-                this.cubes[i].push(new MyCube(scene, 10, 10));
-            }
-        }
+                 this.cubes[i].push(new MyCube(scene, 10, 10));
+             }
+         }
 
-    }
+     }
 
-    display(board) {
+     display(board) {
 
-        this.scene.pushMatrix();
+         this.scene.pushMatrix();
 
-        this.scene.scale(1, 0.3, 1);
+         this.scene.scale(1, 0.3, 1);
 
-        this.scene.translate(-0.25 * (this.cubes.length - 1), 0, 0.25 * (this.cubes.length - 1));
+         this.scene.translate(-0.25 * (this.cubes.length - 1), 0, 0.25 * (this.cubes.length - 1));
 
-        let higher = false;
+         let higher = false;
 
-        for (let i = 0; i < this.cubes.length; i++) {
+         for (let i = 0; i < this.cubes.length; i++) {
 
-            this.scene.pushMatrix();
+             this.scene.pushMatrix();
 
-            for (let j = 0; j < this.cubes[i].length; j++) {
+             for (let j = 0; j < this.cubes[i].length; j++) {
 
-                let n_row = j;
+                 this.scene.pushMatrix();
 
-                this.scene.pushMatrix();
-                if (higher && (n_row == 0 || n_row == 1)) {
+                 if (higher && (j == 0 || j == 1)) {
 
-                    this.scene.scale(1, 0.6, 1);
+                     this.scene.scale(1, 0.6, 1);
 
-                } else if (!higher && (n_row == 2 || n_row == 3)) {
+                 } else if (!higher && (j == 2 || j == 3)) {
 
-                    this.scene.scale(1, 0.6, 1);
+                     this.scene.scale(1, 0.6, 1);
 
-                }
+                 }
 
 
-                if (board[i][j] == null) {
+                 if (board[i][j] == null) {
 
-                    this.scene.registerForPick((j + 1) * 10 + i + 1, this.cubes[i][j]);
-                    this.cubes[i][j].display();
-                    this.scene.clearPickRegistration();
-                } else {
+                     this.scene.registerForPick((j + 1) * 10 + i + 1, this.cubes[i][j]);
+                     this.cubes[i][j].display();
+                     this.scene.clearPickRegistration();
+                 } else {
 
-                    this.cubes[i][j].display();
-                }
+                     this.cubes[i][j].display();
+                 }
 
-                this.scene.popMatrix();
+                 this.scene.popMatrix();
 
-                this.scene.translate(0.5, 0, 0);
+                 this.scene.translate(0.5, 0, 0);
 
-            }
+             }
 
-            this.scene.popMatrix();
+             this.scene.popMatrix();
 
-            this.scene.translate(0, 0, -0.5);
+             this.scene.translate(0, 0, -0.5);
 
-            if (i == 4) {
-                higher = true;
-            }
-        }
+             if (i == 1) {
+                 higher = true;
+             }
+         }
 
-        this.scene.popMatrix();
+         this.scene.popMatrix();
 
-    }
+     }
 
-    updateTexCoords(s, t) {}
-}
+     updateTexCoords(s, t) {}
+ }
