@@ -1,7 +1,7 @@
- /**
- * MyGameBoard class, which represents a Patch object
+/**
+ * PieceBoard class, which represents an auxiliary board
  */
-class MyBoard extends CGFobject {
+class PieceBoard extends CGFobject {
 
     /**
      * @constructor
@@ -12,13 +12,15 @@ class MyBoard extends CGFobject {
 
         this.cubes = [];
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 2; i++) {
 
             this.cubes.push([]);
+
             for (let j = 0; j < 4; j++) {
 
                 this.cubes[i].push(new MyCube(scene, 10, 10));
             }
+            
         }
 
     }
@@ -28,6 +30,7 @@ class MyBoard extends CGFobject {
         this.scene.pushMatrix();
 
         this.scene.scale(1, 0.3, 1);
+        this.scene.rotate(Math.PI / 2, 0.0, 1.0, 0.0);
 
         this.scene.translate(-0.25 * (this.cubes.length - 1), 0, 0.25 * (this.cubes.length - 1));
 
@@ -38,19 +41,7 @@ class MyBoard extends CGFobject {
             this.scene.pushMatrix();
 
             for (let j = 0; j < this.cubes[i].length; j++) {
-
-                let n_row = j;
-
                 this.scene.pushMatrix();
-                if (higher && (n_row == 0 || n_row == 1)) {
-
-                    this.scene.scale(1, 0.6, 1);
-
-                } else if (!higher && (n_row == 2 || n_row == 3)) {
-
-                    this.scene.scale(1, 0.6, 1);
-
-                }
 
 
                 if (board[i][j] == null) {
@@ -79,6 +70,12 @@ class MyBoard extends CGFobject {
         }
 
         this.scene.popMatrix();
+
+    }
+
+    getTile(x, y) {
+
+        return this.cubes[x + y * 4];
 
     }
 

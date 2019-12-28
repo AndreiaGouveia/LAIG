@@ -7,14 +7,22 @@ class MyDonut extends CGFobject {
      * @constructor
      * @param {XMLScene} scene           represents the CGFscene
      */
-    constructor(scene) {
+    constructor(scene, player) {
         super(scene);
+
+        
+        if(player == 0)
+            this.id = 3;
+        else this.id = 7;
 
         this.donut = new MyTorus(scene, "donut", 0.04, 0.08, 20, 20);
 
         this.color = new CGFappearance(scene);
         this.color.setAmbient(1, 1, 1, 1);
+
+        if(player == 0)
         this.donutTexture = new CGFtexture(this.scene, "scenes/images/donut.png");
+            else this.donutTexture = new CGFtexture(this.scene, "scenes/images/donut2.jpg");
 
 
     }

@@ -7,8 +7,12 @@ class MyIceCream extends CGFobject {
      * @constructor
      * @param {XMLScene} scene           represents the CGFscene
      */
-    constructor(scene) {
+    constructor(scene, player) {
         super(scene);
+
+        if(player == 0)
+            this.id = 1;
+        else this.id = 6;
 
         this.cone = new MyCylinder(scene, "cone", 0, 0.07, 0.2, 10, 10);
         this.iceCream = new MySphere(scene, 'ice cream', 0.07, 10, 10);
@@ -18,7 +22,10 @@ class MyIceCream extends CGFobject {
         this.coneColor = new CGFappearance(scene);
         this.coneColor.setAmbient(1, 1, 1, 1);
 
+        if(player == 0)
         this.creamTexture = new CGFtexture(this.scene, "../scenes/images/cream.jpg");
+        else this.creamTexture = new CGFtexture(this.scene, "../scenes/images/mint.jpg");
+        
         this.coneTexture = new CGFtexture(this.scene, "../scenes/images/cone.jpg");
 
         this.ice.setTexture(this.creamTexture);

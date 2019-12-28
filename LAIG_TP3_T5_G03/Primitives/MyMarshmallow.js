@@ -7,8 +7,12 @@ class MyMarshmallow extends CGFobject {
      * @constructor
      * @param {XMLScene} scene           represents the CGFscene
      */
-    constructor(scene) {
+    constructor(scene, player) {
         super(scene);
+        
+        if(player == 0)
+            this.id = 0;
+        else this.id = 5;
 
         this.marshmallow = new MyCylinder(scene, "marshmallow", 0.1, 0.1, 0.15, 20, 20);
         this.marshmallow.updateTexCoords(0.25, 1);
@@ -17,7 +21,10 @@ class MyMarshmallow extends CGFobject {
 
         this.color = new CGFappearance(scene);
         this.color.setAmbient(1, 1, 1, 1);
+
+        if(player == 0)
         this.donutTexture = new CGFtexture(this.scene, "scenes/images/marshmallow.jpg");
+            else this.donutTexture = new CGFtexture(this.scene, "scenes/images/marsh.jpg");
 
 
     }

@@ -582,7 +582,7 @@
             <component id="SkyBox">
             <transformation>
                 <translate x="0" y="-20" z="0" />
-                <scale x="90" y="90" z="90" />
+                <scale x="130" y="130" z="130" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />

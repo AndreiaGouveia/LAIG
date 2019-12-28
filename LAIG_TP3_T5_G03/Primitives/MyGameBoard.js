@@ -13,13 +13,13 @@ class MyGameBoard extends CGFobject {
         this.board = new MyBoard(this.scene);
 
         this.pieces = [
-            [new MyMarshmallow(this.scene), null, new MyMarshmallow(this.scene), null],
-            [new MyDonut(this.scene), null, null, null],
+            [new MyMarshmallow(this.scene, 1), null, new MyMarshmallow(this.scene, 1), null],
+            [new MyDonut(this.scene, 1), null, null, null],
             [null, null, null, null],
             [null, null, null, null],
         ];
 
-        this.auxiliary = [new MyMarshmallow(this.scene), new MyMarshmallow(this.scene)];
+        this.auxiliary = [new MyMarshmallow(this.scene, 0), new MyMarshmallow(this.scene, 0)];
 
         this.grey = new CGFappearance(scene);
         this.grey.setAmbient(0.3, 0.3, 0.3, 1.0);
@@ -28,6 +28,8 @@ class MyGameBoard extends CGFobject {
         this.grey.setShininess(10.0);
 
         this.scene.setPickEnabled(true);
+
+        this.pieceSelected = null;
 
     }
 
@@ -41,9 +43,28 @@ class MyGameBoard extends CGFobject {
                     var obj = this.scene.pickResults[i][0];
 
                     if (obj) {
-                        console.log(obj)
+
                         var customId = this.scene.pickResults[i][1];
-                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                        //console.log("Picked object: " + obj + ", with pick id " + customId);
+
+                        if (obj instanceof MyCube) {
+
+                            if (this.pieceSelected != null) {
+                                console.log("move");
+
+                                let x = Math.floor(customId / 10) - 1;
+                                let y = customId % 10 - 1;
+                                this.pieces[y][x] = this.pieceSelected[1];
+
+                                this.auxiliary.splice(this.pieceSelected[0], 1);
+                                this.pieceSelected = null;
+                            }
+
+
+                        } else {
+
+                            this.pieceSelected = [customId % 100, obj];
+                        }
                     }
                 }
                 this.scene.pickResults.splice(0, this.scene.pickResults.length);
@@ -65,7 +86,6 @@ class MyGameBoard extends CGFobject {
             for (let j = 0; j < this.pieces[i].length; j++) {
 
                 if (this.pieces[i][j] != null) {
-
 
                     this.scene.pushMatrix();
 
@@ -91,7 +111,9 @@ class MyGameBoard extends CGFobject {
 
         for (let i = 0; i < this.auxiliary.length; i++) {
 
+            this.scene.registerForPick(100 + i, this.auxiliary[i]);
             this.auxiliary[i].display();
+            this.scene.clearPickRegistration();
 
             this.scene.translate(0, 0, 0.3);
 
