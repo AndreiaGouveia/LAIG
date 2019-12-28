@@ -11,7 +11,7 @@ class MyChristmasTree extends CGFobject {
         super(scene);
 
         if(player == 0)
-            this.id = 4;
+            this.id = 3;
         else this.id = 8;
 
         this.trunk = new MyCylinder(scene, "trunk", 0.04, 0.04, 0.2, 10, 10);

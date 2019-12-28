@@ -12,7 +12,7 @@ class MyDonut extends CGFobject {
 
         
         if(player == 0)
-            this.id = 3;
+            this.id = 2;
         else this.id = 7;
 
         this.donut = new MyTorus(scene, "donut", 0.04, 0.08, 20, 20);

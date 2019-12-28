@@ -11,8 +11,8 @@ class MyMarshmallow extends CGFobject {
         super(scene);
         
         if(player == 0)
-            this.id = 0;
-        else this.id = 5;
+            this.id = 4;
+        else this.id = 9;
 
         this.marshmallow = new MyCylinder(scene, "marshmallow", 0.1, 0.1, 0.15, 20, 20);
         this.marshmallow.updateTexCoords(0.25, 1);
