@@ -64,7 +64,7 @@ class MyGameBoard extends CGFobject {
 
         this.scene.pushMatrix();
 
-        this.scene.scale(15, 15, 15);
+        this.scene.scale(30, 30, 30);
 
         this.board.display();
 

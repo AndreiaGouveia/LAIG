@@ -5,8 +5,13 @@
     <views default="defaultCamera">
 
         <perspective id="defaultCamera" near="0.1" far="100" angle="45">
-            <from x="15" y="20" z="15" />
+            <from x="60" y="10" z="0" />
             <to x="0" y="0" z="0" />
+        </perspective>
+
+        <perspective id="topView" near="0.1" far="500" angle="45">
+            <from x="0" y="120" z="50" />
+            <to x="0" y="0" z="-25" />
         </perspective>
 
     </views>
@@ -14,7 +19,7 @@
     <!-- Ambient Light-->
     <globals>
         <ambient r="0.5" g="0.5" b="0.6" a="1.0" />
-        <background r="1" g="1" b="0.85" a="1.0" />
+        <background r="0" g="0" b="0" a="1.0" />
     </globals>
 
     <!-- Other Lights-->
@@ -30,6 +35,9 @@
     </lights>
 
     <textures>
+        <texture id="rainbow" file="scenes/images/rainbow.jpg" /> 
+        <texture id="olho" file="scenes/images/eye.jpg" />
+        <texture id="gold" file="scenes/images/gold.jpg" />
         <texture id="galaxy" file="scenes/images/galaxy+X.png" />
         <texture id="glitter" file="scenes/images/glitter.jpg" />
         <texture id="glitter2" file="scenes/images/glitter2.jpg" />
@@ -78,6 +86,96 @@
             <keyframe instant = "85">
                 <translate x="0" y="0" z="0" />
                 <rotate angle_x="-360" angle_y="0" angle_z="-360" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+        </animation>
+
+        <animation id="ArmAnimation">
+            <keyframe instant = "5">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "10">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="45" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "45">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="-45" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "55">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="45" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "85">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="-45" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+        </animation>
+
+        <animation id="CerialAnimation">
+            <keyframe instant = "0">
+                <translate x="0" y="-5" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-90" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "10">
+                <translate x="0" y="5" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-45" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "20">
+                <translate x="0" y="-5" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "30">
+                <translate x="0" y="5" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="45" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "45">
+                <translate x="0" y="-5" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="90" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "50">
+                <translate x="0" y="5" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="45" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "60">
+                <translate x="0" y="-5" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "70">
+                <translate x="0" y="5" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-45" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+            <keyframe instant = "85">
+                <translate x="0" y="-5" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-90" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
 
@@ -579,10 +677,10 @@
         </component>
 
         <!--    Glitter rain    -->
-            <component id="SkyBox">
+        <component id="SkyBox">
             <transformation>
                 <translate x="0" y="-20" z="0" />
-                <scale x="130" y="130" z="130" />
+                <scale x="120" y="120" z="120" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -595,14 +693,347 @@
 
         <!--  SkyBox  -->
 
+        
+        <!-- Eye component-->
+
+        <component id="DemoEye">
+            <transformation>
+                <rotate axis="y" angle="80"/>
+                <rotate axis="x" angle="-90"/>
+                <scale x="0.35" y="0.25" z="0.25" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="Sphere" />
+            </children>
+        </component>
+
+        <component id="EyeRight">
+            <transformation>
+                <translate x="1.5" y="3" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="DemoEye" />
+            </children>
+        </component>
+
+        <component id="EyeLeft">
+            <transformation>
+                <translate x="-1.5" y="3" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="DemoEye" />
+            </children>
+        </component>
+
+        <component id="Eyes">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="olho" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="EyeRight" />
+                <componentref id="EyeLeft"/>
+            </children>
+        </component>
+
+        <!-- END Eye component-->
+
+        <!-- Arms -->
+
+        <component id="DemoArm">
+            <transformation>
+                <scale x="0.17" y="0.17" z="2.3"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Cylinder" />
+            </children>
+        </component>
+
+        <component id="ArmLeft">
+            <transformation>
+                <translate x="4.5" y="0" z="0" />
+                <rotate axis="z" angle="40"/>
+                <rotate axis="y" angle="-45"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="DemoArm" />
+            </children>
+        </component>
+
+        <component id="ArmRight">
+            <transformation>
+                <translate x="-4.5" y="0" z="0" />
+                <rotate axis="z" angle="-40"/>
+                <rotate axis="y" angle="45"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="DemoArm" />
+            </children>
+        </component>
+
+        <component id="Arms">
+            <transformation>
+             <rotate axis="x" angle="-70"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="ArmLeft"/>
+                <componentref id="ArmRight"/>
+            </children>
+            <animationref id="ArmAnimation"/>
+        </component>
+
+        <!-- END Arms -->
+
+        <!-- Legs -->
+
+        <component id="DemoLeg">
+            <transformation>
+                <rotate axis="z" angle="-90"/>
+                <rotate axis="y" angle="90"/>
+                <scale x="0.15" y="0.15" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="Cylinder" />
+            </children>
+        </component>
+
+        <component id="LegLeft">
+            <transformation>
+                <translate x="2" y="-3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="DemoLeg" />
+            </children>
+        </component>
+
+        <component id="LegRight">
+            <transformation>
+                <translate x="-2" y="-3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="DemoLeg" />
+            </children>
+        </component>
+
+        <component id="Legs">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="LegRight"/>
+                <componentref id="LegLeft"/>
+            </children>
+        </component>
+
+        <!-- END Legs -->
+
+        <!-- END Arms and legs -->
+
+        <!--Donut component-->
+
+        <component id="Donut">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="Torus" />
+            </children>
+        </component>
+
+        <component id="finalDonut">
+            <transformation>
+                <translate x="0" y="5" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Donut" />
+                <componentref id="Eyes" />
+                <componentref id="Legs" />
+                <componentref id="Arms" />
+            </children>
+        </component>
+
+        <component id="DonutGod">
+            <transformation>
+                <translate x="0" y="4" z="-10"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="gold" length_s ="0.5" length_t="1"/>
+            <children>
+                <componentref id="finalDonut" />
+            </children>
+        </component>
+
+        <!--    Donut God   -->
+
+        <component id="Cerial1">
+            <transformation>
+                <translate x="0" y="22" z="-10"/>
+                <scale x="0.25" y="0.25" z="0.25" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="rainbow" length_s ="0.5" length_t="1"/>
+            <children>
+                <componentref id="Donut" />
+            </children>
+        </component>
+
+        <component id="Cerial2">
+            <transformation>
+                <translate x="5" y="18" z="-10"/>
+                <scale x="0.25" y="0.25" z="0.25" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="rainbow" length_s ="0.5" length_t="1"/>
+            <children>
+                <componentref id="Donut" />
+            </children>
+        </component>
+
+        <component id="Cerial3">
+            <transformation>
+                <translate x="-5" y="19" z="-10"/>
+                <scale x="0.25" y="0.25" z="0.25" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="rainbow" length_s ="0.5" length_t="1"/>
+            <children>
+                <componentref id="Donut" />
+            </children>
+        </component>
+
+        <component id="Cerial4">
+            <transformation>
+                <translate x="2" y="21" z="-10"/>
+                <scale x="0.25" y="0.25" z="0.25" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="rainbow" length_s ="0.5" length_t="1"/>
+            <children>
+                <componentref id="Donut" />
+            </children>
+        </component>
+
+        <component id="Cerial5">
+            <transformation>
+                <translate x="-3" y="20" z="-10"/>
+                <scale x="0.25" y="0.25" z="0.25" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="rainbow" length_s ="0.5" length_t="1"/>
+            <children>
+                <componentref id="Donut" />
+            </children>
+        </component>
+        
+        <component id="Cerial6">
+            <transformation>
+                <translate x="5" y="21" z="-10"/>
+                <scale x="0.25" y="0.25" z="0.25" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="rainbow" length_s ="0.5" length_t="1"/>
+            <children>
+                <componentref id="Donut" />
+            </children>
+        </component>
+
+        <component id="Cerials">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="rainbow" length_s ="0.5" length_t="1"/>
+            <children>
+                <componentref id="Cerial1" />
+                <componentref id="Cerial2" />
+                <componentref id="Cerial3" />
+                <componentref id="Cerial4" />
+                <componentref id="Cerial5" />
+                <componentref id="Cerial6" />
+            </children>
+            <animationref id="CerialAnimation"/>
+        </component>
+
+        <!--    Cereal  -->
+
         <component id="deliveryRoot">
             <transformation>
+                <scale x="0.10" y="0.10" z="0.10" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
             <texture id="none"/>
             <children>
+                <componentref id="Cerials" />
+                <componentref id="DonutGod" />
                 <componentref id="SkyBox" />
                 <componentref id="GlitterRain" />
             </children>
