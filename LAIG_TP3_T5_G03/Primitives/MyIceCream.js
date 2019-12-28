@@ -33,6 +33,10 @@ class MyIceCream extends CGFobject {
 
     }
 
+    getId(){
+        return this.id;
+    }
+
     display() {
 
         /*this.scene.pushMatrix();

@@ -29,6 +29,10 @@ class MyMarshmallow extends CGFobject {
 
     }
 
+    getId(){
+        return this.id;
+    }
+
     display() {
 
         this.color.setTexture(this.donutTexture);

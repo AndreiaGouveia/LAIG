@@ -32,6 +32,10 @@ class MyChristmasTree extends CGFobject {
         this.trunkColor.setTexture(this.trunkTexture);
 
     }
+    
+    getId(){
+        return this.id;
+    }
 
     display() {
 
