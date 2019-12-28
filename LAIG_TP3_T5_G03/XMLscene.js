@@ -197,11 +197,11 @@ class XMLscene extends CGFscene {
         this.board.logPicking();
         this.clearPickRegistration();
 
-        this.sideBoard1.logPicking();
+       /*this.sideBoard1.logPicking();
         this.clearPickRegistration();
 
         this.sideBoard2.logPicking();
-        this.clearPickRegistration();
+        this.clearPickRegistration();*/
 
         this.secTexture.attachToFrameBuffer();
 

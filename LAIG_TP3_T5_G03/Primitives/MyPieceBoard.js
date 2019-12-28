@@ -26,7 +26,7 @@ class MyPieceBoard extends CGFobject {
         this.grey.setSpecular(1, 1, 1, 1.0);
         this.grey.setShininess(10.0);
 
-        this.scene.setPickEnabled(true);
+        //this.scene.setPickEnabled(true);
 
     }
 
