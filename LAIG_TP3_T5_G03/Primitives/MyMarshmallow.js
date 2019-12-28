@@ -9,10 +9,6 @@ class MyMarshmallow extends CGFobject {
      */
     constructor(scene, player) {
         super(scene);
-        
-        if(player == 0)
-            this.id = 4;
-        else this.id = 9;
 
         this.marshmallow = new MyCylinder(scene, "marshmallow", 0.1, 0.1, 0.15, 20, 20);
         this.marshmallow.updateTexCoords(0.25, 1);
@@ -22,15 +18,12 @@ class MyMarshmallow extends CGFobject {
         this.color = new CGFappearance(scene);
         this.color.setAmbient(1, 1, 1, 1);
 
-        if(player == 0)
-        this.donutTexture = new CGFtexture(this.scene, "scenes/images/marshmallow.jpg");
-            else this.donutTexture = new CGFtexture(this.scene, "scenes/images/marsh.jpg");
+        if (player == 1)
+            this.donutTexture = new CGFtexture(this.scene, "scenes/images/marshmallow.jpg");
+        else
+            this.donutTexture = new CGFtexture(this.scene, "scenes/images/marsh.jpg");
 
 
-    }
-
-    getId(){
-        return this.id;
     }
 
     display() {

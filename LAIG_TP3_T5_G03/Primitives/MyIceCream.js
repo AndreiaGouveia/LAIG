@@ -10,10 +10,6 @@ class MyIceCream extends CGFobject {
     constructor(scene, player) {
         super(scene);
 
-        if(player == 0)
-            this.id = 1;
-        else this.id = 6;
-
         this.cone = new MyCylinder(scene, "cone", 0, 0.07, 0.2, 10, 10);
         this.iceCream = new MySphere(scene, 'ice cream', 0.07, 10, 10);
 
@@ -22,10 +18,11 @@ class MyIceCream extends CGFobject {
         this.coneColor = new CGFappearance(scene);
         this.coneColor.setAmbient(1, 1, 1, 1);
 
-        if(player == 0)
-        this.creamTexture = new CGFtexture(this.scene, "../scenes/images/cream.jpg");
-        else this.creamTexture = new CGFtexture(this.scene, "../scenes/images/mint.jpg");
-        
+        if (player == 1)
+            this.creamTexture = new CGFtexture(this.scene, "../scenes/images/cream.jpg");
+        else
+            this.creamTexture = new CGFtexture(this.scene, "../scenes/images/mint.jpg");
+
         this.coneTexture = new CGFtexture(this.scene, "../scenes/images/cone.jpg");
 
         this.ice.setTexture(this.creamTexture);
@@ -33,27 +30,7 @@ class MyIceCream extends CGFobject {
 
     }
 
-    getId(){
-        return this.id;
-    }
-
     display() {
-
-        /*this.scene.pushMatrix();
-        this.ice.apply();
-        this.scene.translate(0,9,0);
-        this.iceCream.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.translate(0,11,0);
-        this.iceCream1.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.translate(0,13,0);
-        this.iceCream2.display();
-        this.scene.popMatrix();*/
 
         this.scene.pushMatrix();
 

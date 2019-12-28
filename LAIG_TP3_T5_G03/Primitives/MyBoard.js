@@ -7,29 +7,74 @@
       * @constructor
       * @param {XMLScene} scene           represents the CGFscene
       */
-     constructor(scene) {
+     constructor(scene, x = 4, y = 4) {
          super(scene);
 
          this.cubes = [];
 
-         for (let i = 0; i < 4; i++) {
+         for (let i = 0; i < x; i++) {
 
              this.cubes.push([]);
-             for (let j = 0; j < 4; j++) {
+             for (let j = 0; j < y; j++) {
 
                  this.cubes[i].push(new MyCube(scene, 10, 10));
              }
          }
 
+
+         this.pieces = [
+             [new MyMarshmallow(this.scene, 1), null, new MyMarshmallow(this.scene, 1), null],
+             [new MyDonut(this.scene, 1), null, null, null],
+             [null, null, null, null],
+             [null, null, null, null],
+         ];
+
+         this.grey = new CGFappearance(scene);
+         this.grey.setAmbient(0.3, 0.3, 0.3, 1.0);
+         this.grey.setDiffuse(0.3, 0.3, 0.3, 1.0);
+         this.grey.setSpecular(1, 1, 1, 1.0);
+         this.grey.setShininess(10.0);
+
      }
 
-     display(board) {
+     display() {
+
+         //display of the pieces
+         this.scene.pushMatrix();
+
+         this.scene.translate(0, 0.2, 0);
+
+         for (let i = 0; i < this.pieces.length; i++) {
+             for (let j = 0; j < this.pieces[i].length; j++) {
+
+                 if (this.pieces[i][j] != null) {
+
+                     this.scene.pushMatrix();
+
+                     this.scene.translate((j - 2) * 0.5 + 0.25, 0, (2 - i) * 0.5 - 0.25);
+                     this.pieces[i][j].display();
+
+                     this.scene.popMatrix();
+
+                 }
+
+             }
+
+         }
+
+         this.scene.popMatrix();
+
+
+         //display of the board
 
          this.scene.pushMatrix();
 
+
+         this.grey.apply();
+
          this.scene.scale(1, 0.3, 1);
 
-         this.scene.translate(-0.25 * (this.cubes.length - 1), 0, 0.25 * (this.cubes.length - 1));
+         this.scene.translate(-0.25 * (this.cubes[0].length - 1), 0, 0.25 * (this.cubes.length - 1));
 
          let higher = false;
 
@@ -52,7 +97,7 @@
                  }
 
 
-                 if (board[i][j] == null) {
+                 if (this.pieces[i][j] == null) {
 
                      this.scene.registerForPick((j + 1) * 10 + i + 1, this.cubes[i][j]);
                      this.cubes[i][j].display();

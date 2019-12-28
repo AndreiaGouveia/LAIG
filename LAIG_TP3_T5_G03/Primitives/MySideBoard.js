@@ -1,26 +1,26 @@
 /**
- * PieceBoard class, which represents an auxiliary board
+ * MySideBoard class, which represents an auxiliary board
  */
-class PieceBoard extends CGFobject {
+class MySideBoard extends CGFobject {
 
     /**
      * @constructor
      * @param {XMLScene} scene           represents the CGFscene
      */
-    constructor(scene) {
+    constructor(scene, x, y) {
         super(scene);
 
         this.cubes = [];
 
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < x; i++) {
 
             this.cubes.push([]);
 
-            for (let j = 0; j < 4; j++) {
+            for (let j = 0; j < y; j++) {
 
                 this.cubes[i].push(new MyCube(scene, 10, 10));
             }
-            
+
         }
 
     }
@@ -30,11 +30,8 @@ class PieceBoard extends CGFobject {
         this.scene.pushMatrix();
 
         this.scene.scale(1, 0.3, 1);
-        this.scene.rotate(Math.PI / 2, 0.0, 1.0, 0.0);
 
-        this.scene.translate(-0.25 * (this.cubes.length - 1), 0, 0.25 * (this.cubes.length - 1));
-
-        let higher = false;
+        this.scene.translate(-0.25 * (this.cubes[0].length - 1), 0, 0.25 * (this.cubes.length - 1));
 
         for (let i = 0; i < this.cubes.length; i++) {
 
@@ -70,12 +67,6 @@ class PieceBoard extends CGFobject {
         }
 
         this.scene.popMatrix();
-
-    }
-
-    getTile(x, y) {
-
-        return this.cubes[x + y * 4];
 
     }
 

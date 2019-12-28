@@ -10,10 +10,6 @@ class MyChristmasTree extends CGFobject {
     constructor(scene, player) {
         super(scene);
 
-        if(player == 0)
-            this.id = 3;
-        else this.id = 8;
-
         this.trunk = new MyCylinder(scene, "trunk", 0.04, 0.04, 0.2, 10, 10);
         this.leaf = new MyCylinder(scene, "leaf", 0, 0.15, 0.2, 10, 10);
 
@@ -23,18 +19,15 @@ class MyChristmasTree extends CGFobject {
         this.trunkColor = new CGFappearance(scene);
         this.trunkColor.setAmbient(1, 1, 1, 1);
 
-        if(player == 0)
-        this.creamTexture = new CGFtexture(this.scene, "../scenes/images/folha.jpg");
-        else this.creamTexture = new CGFtexture(this.scene, "../scenes/images/folha2.jpg");
-        
+        if (player == 1)
+            this.creamTexture = new CGFtexture(this.scene, "../scenes/images/folha.jpg");
+        else
+            this.creamTexture = new CGFtexture(this.scene, "../scenes/images/folha2.jpg");
+
         this.trunkTexture = new CGFtexture(this.scene, "../scenes/images/tronco.jpg");
 
         this.trunkColor.setTexture(this.trunkTexture);
 
-    }
-    
-    getId(){
-        return this.id;
     }
 
     display() {

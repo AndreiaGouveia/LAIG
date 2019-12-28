@@ -1887,8 +1887,6 @@ class MySceneGraph {
 
 
         this.scene.board.display();
-        this.scene.sideBoard1.display();
-        this.scene.sideBoard2.display();
 
         this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
 

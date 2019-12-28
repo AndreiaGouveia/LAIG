@@ -46,7 +46,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
     'Primitives/MyPatch.js', 'Primitives/MyCylinder2.js', 'Primitives/MyGameBoard.js', 'CGFResourceReader.js', 'CGFOBJModel.js',
     'Primitives/MyMarshmallow.js', 'Primitives/MyCircle.js', 'Primitives/MyDonut.js', 'Primitives/MyCube.js',
     'Primitives/MyBoard.js', 'Primitives/MyIceCream.js', 'Primitives/MyChristmasTree.js', 'Primitives/MyPieceBoard.js',
-    'Primitives/PieceBoard.js',
+    'Primitives/MySideBoard.js',
 
     main = function() {
         // Standard application, scene and interface setup

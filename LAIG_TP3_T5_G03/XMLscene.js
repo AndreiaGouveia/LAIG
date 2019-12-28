@@ -43,8 +43,6 @@ class XMLscene extends CGFscene {
         this.secTexture = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height); //create render-to-texture texture
 
         this.board = new MyGameBoard(this);
-        this.sideBoard1 = new MyPieceBoard(this , 0);
-        this.sideBoard2 = new MyPieceBoard(this , 1);
     }
 
     update(currTime) {
@@ -196,12 +194,6 @@ class XMLscene extends CGFscene {
 
         this.board.logPicking();
         this.clearPickRegistration();
-
-       /*this.sideBoard1.logPicking();
-        this.clearPickRegistration();
-
-        this.sideBoard2.logPicking();
-        this.clearPickRegistration();*/
 
         this.secTexture.attachToFrameBuffer();
 
