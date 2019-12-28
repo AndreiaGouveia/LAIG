@@ -41,7 +41,7 @@ class MyPieceBoard extends CGFobject {
 
                 this.scene.translate(((i % 2) - 1) * 0.5 + 0.25, 0.2, (2 - Math.floor(i / 2)) * 0.5 - 0.25);
 
-                this.scene.registerForPick(100 + i, this.pieces[i]);
+                this.scene.registerForPick(this.player * 100 + i, this.pieces[i]);
                 this.pieces[i].display();
                 this.scene.clearPickRegistration();
 
@@ -55,7 +55,7 @@ class MyPieceBoard extends CGFobject {
         this.scene.popMatrix();
 
         this.grey.apply();
-        this.board.display(this.pieces);
+        this.board.display();
 
         this.scene.pushMatrix();
 

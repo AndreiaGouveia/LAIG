@@ -17,7 +17,6 @@ class MyGameBoard extends CGFobject {
         this.scene.setPickEnabled(true);
 
         this.pieceSelected = null;
-
     }
 
     logPicking() {
@@ -43,14 +42,16 @@ class MyGameBoard extends CGFobject {
                                 let y = customId % 10 - 1;
                                 this.board.pieces[y][x] = this.pieceSelected[1];
 
-                                this.auxiliary.splice(this.pieceSelected[0], 1);
+                                this["sideBoard" + Math.floor(this.pieceSelected[0] / 100)].pieces[this.pieceSelected[0] % 100] = null;
+
                                 this.pieceSelected = null;
                             }
 
 
                         } else {
 
-                            this.pieceSelected = [customId % 100, obj];
+                            console.log(customId)
+                            this.pieceSelected = [customId, obj];
                         }
                     }
                 }

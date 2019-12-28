@@ -23,8 +23,8 @@
 
 
          this.pieces = [
-             [new MyMarshmallow(this.scene, 1), null, new MyMarshmallow(this.scene, 1), null],
-             [new MyDonut(this.scene, 1), null, null, null],
+             [null, null, null, null],
+             [null, null, null, null],
              [null, null, null, null],
              [null, null, null, null],
          ];

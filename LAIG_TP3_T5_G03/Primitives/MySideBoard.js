@@ -25,7 +25,7 @@ class MySideBoard extends CGFobject {
 
     }
 
-    display(board) {
+    display() {
 
         this.scene.pushMatrix();
 
@@ -40,16 +40,7 @@ class MySideBoard extends CGFobject {
             for (let j = 0; j < this.cubes[i].length; j++) {
                 this.scene.pushMatrix();
 
-
-                if (board[i][j] == null) {
-
-                    this.scene.registerForPick((j + 1) * 10 + i + 1, this.cubes[i][j]);
-                    this.cubes[i][j].display();
-                    this.scene.clearPickRegistration();
-                } else {
-
-                    this.cubes[i][j].display();
-                }
+                this.cubes[i][j].display();
 
                 this.scene.popMatrix();
 
