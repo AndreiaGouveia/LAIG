@@ -10,18 +10,10 @@ class MySideBoard extends CGFobject {
     constructor(scene, x, y) {
         super(scene);
 
-        this.cubes = [];
+        this.x = x;
+        this.y = y;
 
-        for (let i = 0; i < x; i++) {
-
-            this.cubes.push([]);
-
-            for (let j = 0; j < y; j++) {
-
-                this.cubes[i].push(new MyCube(scene, 10, 10));
-            }
-
-        }
+        this.cube = new MyCube(scene, 10, 10);
 
     }
 
@@ -31,16 +23,16 @@ class MySideBoard extends CGFobject {
 
         this.scene.scale(1, 0.3, 1);
 
-        this.scene.translate(-0.25 * (this.cubes[0].length - 1), 0, 0.25 * (this.cubes.length - 1));
+        this.scene.translate(-0.25 * (this.y - 1), 0, 0.25 * (this.x - 1));
 
-        for (let i = 0; i < this.cubes.length; i++) {
+        for (let i = 0; i < this.x; i++) {
 
             this.scene.pushMatrix();
 
-            for (let j = 0; j < this.cubes[i].length; j++) {
+            for (let j = 0; j < this.y; j++) {
                 this.scene.pushMatrix();
 
-                this.cubes[i][j].display();
+                this.cube.display();
 
                 this.scene.popMatrix();
 

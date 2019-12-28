@@ -9,17 +9,9 @@
       */
      constructor(scene, x = 4, y = 4) {
          super(scene);
-
-         this.cubes = [];
-
-         for (let i = 0; i < x; i++) {
-
-             this.cubes.push([]);
-             for (let j = 0; j < y; j++) {
-
-                 this.cubes[i].push(new MyCube(scene, 10, 10));
-             }
-         }
+         this.cube = new MyCube(scene, 10, 10);
+         this.x = x;
+         this.y = y;
 
 
          this.pieces = [
@@ -74,15 +66,15 @@
 
          this.scene.scale(1, 0.3, 1);
 
-         this.scene.translate(-0.25 * (this.cubes[0].length - 1), 0, 0.25 * (this.cubes.length - 1));
+         this.scene.translate(-0.25 * (this.y - 1), 0, 0.25 * (this.x - 1));
 
          let higher = false;
 
-         for (let i = 0; i < this.cubes.length; i++) {
+         for (let i = 0; i < this.x; i++) {
 
              this.scene.pushMatrix();
 
-             for (let j = 0; j < this.cubes[i].length; j++) {
+             for (let j = 0; j < this.y; j++) {
 
                  this.scene.pushMatrix();
 
@@ -99,12 +91,12 @@
 
                  if (this.pieces[i][j] == null) {
 
-                     this.scene.registerForPick((j + 1) * 10 + i + 1, this.cubes[i][j]);
-                     this.cubes[i][j].display();
+                     this.scene.registerForPick((j + 1) * 10 + i + 1, this.cube);
+                     this.cube.display();
                      this.scene.clearPickRegistration();
                  } else {
 
-                     this.cubes[i][j].display();
+                     this.cube.display();
                  }
 
                  this.scene.popMatrix();
