@@ -53,7 +53,7 @@ class MyGameBoard extends CGFobject {
 
                                 this["sideBoard" + n_board].pieces[this.pieceSelected[0] % 100] = null;
 
-                                this.pieceSelected[1].setAnimation(this["positionOfSideBoard" + n_board], this.pieceSelected[0] % 100, x, y);
+                                this.pieceSelected[1].setAnimation(this["positionOfSideBoard" + n_board], this.pieceSelected[0] % 100, x, y, this.board.isPieceLow(x, y));
                                 this.pieceSelected = null;
                             }
 

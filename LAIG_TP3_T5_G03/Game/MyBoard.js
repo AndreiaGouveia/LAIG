@@ -47,8 +47,6 @@
          //display of the pieces
          this.scene.pushMatrix();
 
-         this.scene.translate(0, 0.2, 0);
-
          for (let i = 0; i < this.pieces.length; i++) {
              for (let j = 0; j < this.pieces[i].length; j++) {
 
@@ -83,8 +81,6 @@
 
          this.scene.translate(-0.25 * (this.y - 1), 0, 0.25 * (this.x - 1));
 
-         let higher = false;
-
          for (let i = 0; i < this.x; i++) {
 
              this.scene.pushMatrix();
@@ -93,11 +89,7 @@
 
                  this.scene.pushMatrix();
 
-                 if (higher && (j == 0 || j == 1)) {
-
-                     this.scene.scale(1, 0.6, 1);
-
-                 } else if (!higher && (j == 2 || j == 3)) {
+                 if (this.isPieceLow(i, j)) {
 
                      this.scene.scale(1, 0.6, 1);
 
@@ -123,13 +115,25 @@
              this.scene.popMatrix();
 
              this.scene.translate(0, 0, -0.5);
-
-             if (i == 1) {
-                 higher = true;
-             }
          }
 
          this.scene.popMatrix();
+
+     }
+
+     isPieceLow(i, j) {
+
+         if ((i >= 2) && (j == 0 || j == 1)) {
+
+             return true;
+
+         } else if ((i < 2) && (j == 2 || j == 3)) {
+
+             return true;
+
+         }
+
+         return false;
 
      }
 
