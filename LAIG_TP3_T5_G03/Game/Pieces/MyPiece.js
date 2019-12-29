@@ -20,20 +20,25 @@ class MyPiece extends CGFobject {
         this.animation = new KeyframeAnimation(this.scene, "pieceAnim");
 
 
-        let initialPosition = [((initialX % 2) - 1) * 0.5 + 0.25, 0, (2 - Math.floor(initialX / 2)) * 0.5 - 0.25];
+        let initialPositionWithinBoard = [((initialX % 2) - 1) * 0.5 + 0.25, 0, (2 - Math.floor(initialX / 2)) * 0.5 - 0.25];
 
-        let output = [];
+        let initialPosition = [];
         initialPositionBoard.forEach(function(curr, i) {
-            output[i] = initialPosition[i] + initialPositionBoard[i];
+            initialPosition[i] = initialPositionWithinBoard[i] + initialPositionBoard[i];
         });
 
-        console.log(output);
-
-        let firstKeyFrame = new KeyframeModel(0, output, [0, 0, 0], [1, 1, 1]);
+        let firstKeyFrame = new KeyframeModel(0, initialPosition, [0, 0, 0], [1, 1, 1]);
         this.animation.addKeyFrame(firstKeyFrame);
 
-        let lastKeyFrame = new KeyframeModel(2, [(finalX - 2) * 0.5 + 0.25, 0, (2 - finalZ) * 0.5 - 0.25], [0, 0, 0], [1, 1, 1]);
+        let topPosition1 = new KeyframeModel(1, [initialPosition[0], 0.5 + initialPosition[1], initialPosition[2]], [0, 0, 0], [1, 1, 1]);
+        this.animation.addKeyFrame(topPosition1);
 
+        let finalPosition = [(finalX - 2) * 0.5 + 0.25, 0, (2 - finalZ) * 0.5 - 0.25];
+
+        let topPosition2 = new KeyframeModel(2, [finalPosition[0], 0.5 + finalPosition[1], finalPosition[2]], [0, 0, 0], [1, 1, 1]);
+        this.animation.addKeyFrame(topPosition2);
+
+        let lastKeyFrame = new KeyframeModel(3, finalPosition, [0, 0, 0], [1, 1, 1]);
         this.animation.addKeyFrame(lastKeyFrame);
 
     }

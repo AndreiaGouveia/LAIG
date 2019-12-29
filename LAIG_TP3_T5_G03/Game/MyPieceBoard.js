@@ -32,6 +32,8 @@ class MyPieceBoard extends CGFobject {
 
         this.scene.pushMatrix();
 
+        this.scene.translate(0, 0.2, 0);
+
         for (let i = 0; i < this.pieces.length; i++) {
 
             if (this.pieces[i] != null) {
@@ -39,7 +41,7 @@ class MyPieceBoard extends CGFobject {
 
                 this.scene.pushMatrix();
 
-                this.scene.translate(((i % 2) - 1) * 0.5 + 0.25, 0.2, (2 - Math.floor(i / 2)) * 0.5 - 0.25);
+                this.scene.translate(((i % 2) - 1) * 0.5 + 0.25, 0, (2 - Math.floor(i / 2)) * 0.5 - 0.25);
 
                 this.scene.registerForPick(this.player * 100 + i, this.pieces[i]);
                 this.pieces[i].display();

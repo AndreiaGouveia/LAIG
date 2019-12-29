@@ -56,7 +56,6 @@
 
                      this.scene.pushMatrix();
 
-                     //this.scene.translate((j - 2) * 0.5 + 0.25, 0, (2 - i) * 0.5 - 0.25);
                      if (this.pieces[i][j].animation != null)
                          this.pieces[i][j].animation.apply();
 
