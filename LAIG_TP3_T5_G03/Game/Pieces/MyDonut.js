@@ -1,14 +1,14 @@
 /**
  * MyDonut class, which represents a Patch object
  */
-class MyDonut extends CGFobject {
+class MyDonut extends MyPiece {
 
     /**
      * @constructor
      * @param {XMLScene} scene           represents the CGFscene
      */
     constructor(scene, player) {
-        super(scene);
+        super(scene, player);
 
         this.donut = new MyTorus(scene, "donut", 0.04, 0.08, 20, 20);
 

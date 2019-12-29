@@ -12,11 +12,18 @@ class MyGameBoard extends CGFobject {
 
         this.board = new MyBoard(this.scene);
         this.sideBoard1 = new MyPieceBoard(this.scene, 1);
+        this.positionOfSideBoard1 = [1.75, 0, 0];
         this.sideBoard2 = new MyPieceBoard(this.scene, 2);
+        this.positionOfSideBoard2 = [-1.75, 0, 0];
 
         this.scene.setPickEnabled(true);
 
         this.pieceSelected = null;
+    }
+
+    update(currTime) {
+
+        this.board.update(currTime);
     }
 
     logPicking() {
@@ -42,8 +49,11 @@ class MyGameBoard extends CGFobject {
                                 let y = customId % 10 - 1;
                                 this.board.pieces[y][x] = this.pieceSelected[1];
 
-                                this["sideBoard" + Math.floor(this.pieceSelected[0] / 100)].pieces[this.pieceSelected[0] % 100] = null;
+                                let n_board = Math.floor(this.pieceSelected[0] / 100);
 
+                                this["sideBoard" + n_board].pieces[this.pieceSelected[0] % 100] = null;
+
+                                this.pieceSelected[1].setAnimation(this["positionOfSideBoard" + n_board], this.pieceSelected[0] % 100, x, y);
                                 this.pieceSelected = null;
                             }
 
@@ -70,31 +80,17 @@ class MyGameBoard extends CGFobject {
 
 
         this.scene.pushMatrix();
-        this.scene.translate(1.75, 0, 0);
+        this.scene.translate(...this.positionOfSideBoard1);
         this.sideBoard1.display();
         this.scene.popMatrix();
 
 
         this.scene.pushMatrix();
-        this.scene.translate(-1.75, 0, 0);
+        this.scene.translate(...this.positionOfSideBoard2);
         this.sideBoard2.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-
-        /*this.scene.translate(-1.2, 0.25, -1.2);
-
-        for (let i = 0; i < this.auxiliary.length; i++) {
-
-            this.scene.registerForPick(100 + i, this.auxiliary[i]);
-            this.auxiliary[i].display();
-            this.scene.clearPickRegistration();
-
-            this.scene.translate(0, 0, 0.3);
-
-        }
-
-        this.scene.popMatrix();*/
 
         this.scene.popMatrix();
 

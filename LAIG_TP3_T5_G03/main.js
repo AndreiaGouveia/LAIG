@@ -43,10 +43,10 @@ function getUrlVars() {
 serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'Primitives/MyRectangle.js', 'Primitives/MyTriangle.js',
     'MyGraphNode.js', 'Primitives/MyCylinder.js', 'Primitives/MySphere.js', 'Primitives/MyTorus.js', 'Animation/Animation.js',
     'Animation/KeyframeAnimation.js', 'Animation/KeyframeModel.js', 'Primitives/MySecurityCamera.js', 'Primitives/MyPlane.js',
-    'Primitives/MyPatch.js', 'Primitives/MyCylinder2.js', 'Primitives/MyGameBoard.js', 'CGFResourceReader.js', 'CGFOBJModel.js',
-    'Primitives/MyMarshmallow.js', 'Primitives/MyCircle.js', 'Primitives/MyDonut.js', 'Primitives/MyCube.js',
-    'Primitives/MyBoard.js', 'Primitives/MyIceCream.js', 'Primitives/MyChristmasTree.js', 'Primitives/MyPieceBoard.js',
-    'Primitives/MySideBoard.js',
+    'Primitives/MyPatch.js', 'Primitives/MyCylinder2.js', 'Game/MyGameBoard.js', 'CGFResourceReader.js', 'CGFOBJModel.js',
+    'Game/Pieces/MyPiece.js', 'Game/Pieces/MyMarshmallow.js', 'Primitives/MyCircle.js', 'Game/Pieces/MyDonut.js', 'Primitives/MyCube.js',
+    'Game/MyBoard.js', 'Game/Pieces/MyIceCream.js', 'Game/Pieces/MyChristmasTree.js', 'Game/MyPieceBoard.js',
+    'Game/MySideBoard.js',
 
     main = function() {
         // Standard application, scene and interface setup

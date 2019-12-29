@@ -42,7 +42,6 @@ class KeyframeAnimation extends Animation {
 
         if (!this.endOfAnimation && this.keyFrames.length != 0) {
 
-
             var newMatrix = mat4.create();
 
             if (this.timeElapsed > this.keyFrames[this.stage].endInstant) {
@@ -96,6 +95,7 @@ class KeyframeAnimation extends Animation {
 
 
         this.scene.multMatrix(this.animationMatrix);
+
 
     }
 

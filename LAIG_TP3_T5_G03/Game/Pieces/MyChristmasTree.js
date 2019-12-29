@@ -1,14 +1,14 @@
 /**
  * MyChristmasTree class, which represents a Patch object
  */
-class MyChristmasTree extends CGFobject {
+class MyChristmasTree extends MyPiece {
 
     /**
      * @constructor
      * @param {XMLScene} scene           represents the CGFscene
      */
     constructor(scene, player) {
-        super(scene);
+        super(scene, player);
 
         this.trunk = new MyCylinder(scene, "trunk", 0.04, 0.04, 0.2, 10, 10);
         this.leaf = new MyCylinder(scene, "leaf", 0, 0.15, 0.2, 10, 10);

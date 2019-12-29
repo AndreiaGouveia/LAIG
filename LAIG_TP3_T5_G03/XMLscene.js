@@ -60,6 +60,11 @@ class XMLscene extends CGFscene {
 
         var timeInSeconds = this.delta / 1000;
 
+        if (this.board == undefined)
+            return;
+
+        this.board.update(timeInSeconds);
+
         if (this.animations == undefined)
             return;
 

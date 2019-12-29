@@ -1,14 +1,14 @@
 /**
  * MyIceCream class, which represents a Patch object
  */
-class MyIceCream extends CGFobject {
+class MyIceCream extends MyPiece {
 
     /**
      * @constructor
      * @param {XMLScene} scene           represents the CGFscene
      */
     constructor(scene, player) {
-        super(scene);
+        super(scene, player);
 
         this.cone = new MyCylinder(scene, "cone", 0, 0.07, 0.2, 10, 10);
         this.iceCream = new MySphere(scene, 'ice cream', 0.07, 10, 10);

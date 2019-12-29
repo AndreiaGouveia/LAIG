@@ -1,14 +1,14 @@
 /**
  * MyMarshmallow class, which represents a Patch object
  */
-class MyMarshmallow extends CGFobject {
+class MyMarshmallow extends MyPiece {
 
     /**
      * @constructor
      * @param {XMLScene} scene           represents the CGFscene
      */
     constructor(scene, player) {
-        super(scene);
+        super(scene, player);
 
         this.marshmallow = new MyCylinder(scene, "marshmallow", 0.1, 0.1, 0.15, 20, 20);
         this.marshmallow.updateTexCoords(0.25, 1);

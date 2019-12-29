@@ -29,6 +29,19 @@
 
      }
 
+     update(currTime) {
+
+
+         for (let i = 0; i < this.pieces.length; i++) {
+             for (let j = 0; j < this.pieces[i].length; j++) {
+
+                 if (this.pieces[i][j] != null)
+                     this.pieces[i][j].update(currTime);
+
+             }
+         }
+     }
+
      display() {
 
          //display of the pieces
@@ -43,7 +56,10 @@
 
                      this.scene.pushMatrix();
 
-                     this.scene.translate((j - 2) * 0.5 + 0.25, 0, (2 - i) * 0.5 - 0.25);
+                     //this.scene.translate((j - 2) * 0.5 + 0.25, 0, (2 - i) * 0.5 - 0.25);
+                     if (this.pieces[i][j].animation != null)
+                         this.pieces[i][j].animation.apply();
+
                      this.pieces[i][j].display();
 
                      this.scene.popMatrix();
