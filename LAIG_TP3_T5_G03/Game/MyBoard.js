@@ -42,6 +42,11 @@
          }
      }
 
+     getPiece(x, y) {
+
+         return this.pieces[y][x];
+     }
+
      display() {
 
          //display of the pieces

@@ -28,6 +28,16 @@ class MyPieceBoard extends CGFobject {
 
     }
 
+    getPiece(x) {
+
+        return this.pieces[x];
+    }
+
+    removePiece(x) {
+
+        this.pieces[x] = null;
+    }
+
     display() {
 
         this.scene.pushMatrix();
