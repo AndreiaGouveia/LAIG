@@ -11,7 +11,7 @@ class MyPiece extends CGFobject {
 
         super(scene);
         this.animation = null;
-        this.player = player
+        this.player = player;
     }
 
     setAnimation(initialPositionBoard, initialX, finalX, finalZ, isLow) {
@@ -29,7 +29,7 @@ class MyPiece extends CGFobject {
 
         console.log(initialPosition)
 
-        let firstKeyFrame = new KeyframeModel(0, initialPosition, [0, 0, 0], [1, 1, 1]);
+        let firstKeyFrame = new KeyframeModel(-0.1, initialPosition, [0, 0, 0], [1, 1, 1]);
         this.animation.addKeyFrame(firstKeyFrame);
 
         let topPosition1 = new KeyframeModel(1, [initialPosition[0], 0.5 + initialPosition[1], initialPosition[2]], [0, 0, 0], [1, 1, 1]);

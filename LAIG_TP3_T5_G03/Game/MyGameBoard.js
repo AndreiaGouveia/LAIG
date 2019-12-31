@@ -19,6 +19,8 @@ class MyGameBoard extends CGFobject {
         this.scene.setPickEnabled(true);
 
         this.pieceSelected = null;
+
+        this.gameMoves = new MyGameSequence(this.board, this.sideBoard1, this.sideBoard2);
     }
 
     update(currTime) {
@@ -47,14 +49,11 @@ class MyGameBoard extends CGFobject {
 
                                 let x = Math.floor(customId / 10) - 1;
                                 let y = customId % 10 - 1;
-                                this.board.pieces[y][x] = this.pieceSelected[1];
 
                                 let n_board = Math.floor(this.pieceSelected[0] / 100);
+                                let n_piece = this.pieceSelected[0] % 100;
 
-                                this["sideBoard" + n_board].pieces[this.pieceSelected[0] % 100] = null;
-
-                                this.pieceSelected[1].setAnimation(this["positionOfSideBoard" + n_board], this.pieceSelected[0] % 100, x, y, this.board.isPieceLow(x, y));
-                                this.pieceSelected = null;
+                                this.gameMoves.addMove(this.pieceSelected[1], this["positionOfSideBoard" + n_board], n_board, n_piece, n_board, x, y);
                             }
 
 
