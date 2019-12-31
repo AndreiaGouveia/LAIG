@@ -1116,7 +1116,7 @@ class MySceneGraph {
                 if ((error = this.parseCylinder2(primitiveId, grandChildren)) != null)
                     return error;
             } else if (primitiveType == 'quantik') {
-
+                    console.log('here');
                 this.primitives[primitiveId] = this.scene.quantik;
             }
         }

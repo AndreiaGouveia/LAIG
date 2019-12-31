@@ -1043,19 +1043,33 @@
 
         <!--    Board   -->
 
+        <component id="Scene">
+            <transformation>
+                <scale x="5" y="5" z="5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="Cerials" />
+                <componentref id="DonutGod" />
+                <componentref id="SkyBox" />
+                <componentref id="GlitterRain" />
+            </children>
+        </component>
+
+        <!--    Board   -->
+
         <component id="deliveryRoot">
             <transformation>
-                <scale x="0.10" y="0.10" z="0.10" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
             <texture id="none"/>
             <children>
-                <componentref id="Cerials" />
-                <componentref id="DonutGod" />
-                <componentref id="SkyBox" />
-                <componentref id="GlitterRain" />
+                <componentref id="Scene" />
                 <componentref id="Board" />
             </children>
         </component>
