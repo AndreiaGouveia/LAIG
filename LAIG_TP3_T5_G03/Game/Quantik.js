@@ -1,0 +1,98 @@
+/**
+ * Represents the Quantik game
+ */
+class Quantik extends CGFobject {
+    /**
+     * [constructor description]
+     * @param {XMLScene} scene	 represents the CGFscene
+     */
+    constructor(scene) {
+      super(scene);
+  
+      this.mode = {
+        PvP: '1',
+        PvC: '2',
+        CvC: '3'
+      };
+      this.state = {
+        playerTurn: '1',
+        botTurn: '2',
+        waiting: '4',
+        quit: '5'
+      };
+      this.difficulty = {
+        easy: '1',
+        hard: '2'
+      };
+  
+      this.server = new Server();
+      this.gameState = this.state.waiting;
+      this.gameDifficulty = this.difficulty.easy;
+      this.gameMode = this.mode.PvP;
+      this.gameBoard = new MyGameBoard(scene);
+      this.boardArray = this.gameBoard.board.pieces;
+      this.player1Pieces = this.gameBoard.sideBoard1.pieces;
+      this.player2Pieces = this.gameBoard.sideBoard1.pieces;
+      
+      this.scene.setPickEnabled(true);
+    };
+  
+    /**
+     * displays the game
+     */
+    display() {
+      this.gameBoard.display();
+    };
+  
+     /**
+   * checks what needs to happen wether it's the player's or bot's turn
+   */
+  checkState() {
+    switch (this.gameState) {
+      case this.state.playerTurn:
+        this.playerPick();
+        break;
+      case this.state.botTurn:
+        this.getBotMove();
+        break;
+    }
+  };
+
+  /**
+   * initializes everything needed to start a new game
+   */
+  startGame() {
+    var quantik = this;
+
+    this.server.makeRequest('start', function(data) {
+      quantik.scene.setPickEnabled(true);
+      quantik.init();
+      quantik.currentPlayer = 'player1';
+      quantik.updateState();
+    });
+  }
+
+  quitGame() {
+    this.gameState = this.state.quit;
+    this.scene.setPickEnabled(false);
+  }
+
+  updateState() {
+    switch (this.gameMode) {
+      case this.mode.PvP:
+        this.gameState = this.state.playerTurn;
+        this.scene.setPickEnabled(true);
+        break;
+      case this.mode.PvC:
+        this.gameState = (this.currentPlayer == 'player1') ? this.state.playerTurn : this.state.botTurn;
+        if (this.gameState == this.state.playerTurn)
+          this.scene.setPickEnabled(true);
+        break;
+      case this.mode.CvC:
+        this.gameState = this.state.botTurn;
+        break;
+    }
+  }
+  
+    updateTexCoords(s, t) {};
+  };

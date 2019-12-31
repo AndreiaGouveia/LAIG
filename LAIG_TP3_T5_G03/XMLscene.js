@@ -42,7 +42,7 @@ class XMLscene extends CGFscene {
         this.secObject = new MySecurityCamera(this); //create retangle object
         this.secTexture = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height); //create render-to-texture texture
 
-        this.board = new MyGameBoard(this);
+        this.quantik = new Quantik(this);
     }
 
     update(currTime) {
@@ -60,10 +60,10 @@ class XMLscene extends CGFscene {
 
         var timeInSeconds = this.delta / 1000;
 
-        if (this.board == undefined)
+        if (this.quantik.gameBoard == undefined)
             return;
 
-        this.board.update(timeInSeconds);
+        this.quantik.gameBoard.update(timeInSeconds);
 
         if (this.animations == undefined)
             return;
@@ -189,6 +189,7 @@ class XMLscene extends CGFscene {
         this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
 
         this.initLights();
+        
         this.initXMLCameras();
 
         this.sceneInited = true;
@@ -197,7 +198,7 @@ class XMLscene extends CGFscene {
     display() {
 
 
-        this.board.logPicking();
+        this.quantik.gameBoard.logPicking();
         this.clearPickRegistration();
 
         this.secTexture.attachToFrameBuffer();

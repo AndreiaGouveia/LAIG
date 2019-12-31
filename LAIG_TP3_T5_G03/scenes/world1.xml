@@ -216,6 +216,10 @@
         <primitive id="Plane">
             <plane npartsU="5" npartsV="8" />
         </primitive>
+
+        <primitive id="quantik">
+            <quantik />
+        </primitive>
     </primitives>
 
     <components>
@@ -1023,6 +1027,22 @@
 
         <!--    Cereal  -->
 
+        <component id="Board">
+            <transformation>
+                <translate x="-0.25" y="0.25" z="0" />
+                <rotate axis="z" angle="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="quantik" />
+            </children>
+        </component>
+
+        <!--    Board   -->
+
         <component id="deliveryRoot">
             <transformation>
                 <scale x="0.10" y="0.10" z="0.10" />
@@ -1036,6 +1056,7 @@
                 <componentref id="DonutGod" />
                 <componentref id="SkyBox" />
                 <componentref id="GlitterRain" />
+                <componentref id="Board" />
             </children>
         </component>
 

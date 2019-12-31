@@ -215,7 +215,6 @@ class MySceneGraph {
             if ((error = this.parseComponents(nodes[index])) != null)
                 return error;
         }
-        this.log("all parsed");
     }
 
     /**
@@ -1068,7 +1067,9 @@ class MySceneGraph {
             if (grandChildren.length != 1 ||
                 (grandChildren[0].nodeName != 'rectangle' && grandChildren[0].nodeName != 'triangle' &&
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
-                    grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'plane' && grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'cylinder2')) {
+                    grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'plane' 
+                    && grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'cylinder2'
+                    && grandChildren[0].nodeName != 'quantik')) {
                 return grandChildren[0].nodeName + " of " + primitiveID + " is not a valid primitive type. Valid primitive types: rectangle, triangle, cylinder, sphere , torus or plane.";
             }
 
@@ -1114,6 +1115,9 @@ class MySceneGraph {
                 var error;
                 if ((error = this.parseCylinder2(primitiveId, grandChildren)) != null)
                     return error;
+            } else if (primitiveType == 'quantik') {
+
+                this.primitives[primitiveId] = this.scene.quantik;
             }
         }
 
@@ -1884,12 +1888,7 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-
-
-        this.scene.board.display();
-
         this.displayComponent(this.components[this.idRoot], this.components[this.idRoot].materials[0], this.components[this.idRoot].texture);
-
     }
 
     displayComponent(component, parentMaterial, parentTexture, parentS, parentT) {
