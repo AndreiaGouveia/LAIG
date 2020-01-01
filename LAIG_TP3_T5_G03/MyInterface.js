@@ -50,6 +50,14 @@ class MyInterface extends CGFinterface {
         return this.activeKeys[keyCode] || false;
     }
 
+    addGameSettings() {
+        var group = this.gui.addFolder("game");
+        group.open();
+    
+        group.add(this.scene.quantik, 'gameDifficulty', { Easy: '1', Hard: '2' }).name("Difficulty");
+        group.add(this.scene.quantik, 'gameMode', { 'Player v Player': '1', 'Player v Bot': '2', 'Bot v Bot': '3' }).name("Mode");
+        group.add(this.scene.quantik, 'startGame').name("Start");
+      }
 
     createCamerasDropdown(graph) {
 

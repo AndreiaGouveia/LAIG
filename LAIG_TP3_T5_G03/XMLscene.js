@@ -153,6 +153,10 @@ class XMLscene extends CGFscene {
         }
     }
 
+    startGame(){
+        this.quantik.startGame();
+    }
+
     setLightState(lightIndex) {
 
         if (this.lightsMapId == undefined)
@@ -192,6 +196,8 @@ class XMLscene extends CGFscene {
         this.initXMLCameras();
 
         this.sceneInited = true;
+
+        this.interface.addGameSettings();
     }
 
     display() {

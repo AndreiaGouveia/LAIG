@@ -66,7 +66,7 @@ class Quantik extends CGFobject {
      */
     startGame() {
         var quantik = this;
-
+      console.log("lol");
         this.server.makeRequest('start', function(data) {
             quantik.scene.setPickEnabled(true);
             quantik.init();
