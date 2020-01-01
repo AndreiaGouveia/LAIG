@@ -35,6 +35,7 @@ class Quantik extends CGFobject {
         this.player2Pieces = this.gameBoard.sideBoard1.pieces;
 
         this.currentPlayer = 'player1';
+        this.lastPlayer = 'player2';
 
         this.pieceSelected = null;
         this.gameMoves = new MyGameSequence(this.gameBoard);
@@ -78,9 +79,21 @@ class Quantik extends CGFobject {
 
     changePlayer() {
 
+        this.lastPlayer = (this.currentPlayer == 'player1') ? 'player1' : 'player2';
         this.currentPlayer = (this.currentPlayer == 'player1') ? 'player2' : 'player1';
         this.time = 0;
 
+    }
+
+    changeToLastPlayer() {
+        this.currentPlayer = (this.lastPlayer == 'player1') ? 'player1' : 'player2';
+        this.lastPlayer = (this.lastPlayer == 'player1') ? 'player2' : 'player1';
+        this.time = 0;
+    }
+
+    changeJustCurrentPlayer() {
+        this.currentPlayer = (this.currentPlayer == 'player1') ? 'player2' : 'player1';
+        this.time = 0;
     }
 
     /**
@@ -189,8 +202,10 @@ class Quantik extends CGFobject {
     undo() {
 
         console.log("undo");
-        if (this.gameMoves.undoMove())
-            this.changePlayer();
+        if (this.gameMoves.undoMove()) {
+            this.changeToLastPlayer();
+            this.updateErrors("");
+        }
     }
 
     updateErrors(error) {
@@ -237,7 +252,7 @@ class Quantik extends CGFobject {
         if (this.time > this.timeout) {
 
             this.updateErrors(this.currentPlayer + " lost his turn!");
-            this.changePlayer();
+            this.changeJustCurrentPlayer();
         }
     }
 
