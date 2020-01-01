@@ -15,58 +15,11 @@ class MyGameBoard extends CGFobject {
         this.positionOfSideBoard1 = [1.75, 0, 0];
         this.sideBoard2 = new MyPieceBoard(this.scene, 2);
         this.positionOfSideBoard2 = [-1.75, 0, 0];
-
-        this.scene.setPickEnabled(true);
-
-        this.pieceSelected = null;
-
-        this.gameMoves = new MyGameSequence(this.board, this.sideBoard1, this.sideBoard2);
     }
 
     update(currTime) {
 
         this.board.update(currTime);
-    }
-
-    logPicking() {
-
-        if (this.scene.pickMode == false) {
-
-            if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
-
-                for (var i = 0; i < this.scene.pickResults.length; i++) {
-                    var obj = this.scene.pickResults[i][0];
-
-                    if (obj) {
-
-                        var customId = this.scene.pickResults[i][1];
-                        //console.log("Picked object: " + obj + ", with pick id " + customId);
-
-                        if (obj instanceof MyCube) {
-
-                            if (this.pieceSelected != null) {
-                                console.log("move");
-
-                                let x = Math.floor(customId / 10) - 1;
-                                let y = customId % 10 - 1;
-
-                                let n_board = Math.floor(this.pieceSelected[0] / 100);
-                                let n_piece = this.pieceSelected[0] % 100;
-
-                                this.gameMoves.addMove(this.pieceSelected[1], this["positionOfSideBoard" + n_board], n_board, n_piece, n_board, x, y);
-                            }
-
-
-                        } else {
-
-                            console.log(customId)
-                            this.pieceSelected = [customId, obj];
-                        }
-                    }
-                }
-                this.scene.pickResults.splice(0, this.scene.pickResults.length);
-            }
-        }
     }
 
     display() {

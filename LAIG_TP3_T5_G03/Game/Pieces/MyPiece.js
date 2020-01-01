@@ -26,9 +26,6 @@ class MyPiece extends CGFobject {
             initialPosition[i] = initialPositionWithinBoard[i] + initialPositionBoard[i];
         });
 
-
-        console.log(initialPosition)
-
         let firstKeyFrame = new KeyframeModel(-0.1, initialPosition, [0, 0, 0], [1, 1, 1]);
         this.animation.addKeyFrame(firstKeyFrame);
 

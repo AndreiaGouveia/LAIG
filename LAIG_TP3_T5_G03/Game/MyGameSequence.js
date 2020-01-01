@@ -1,22 +1,23 @@
 class MyGameSequence {
 
-    constructor(board, sideBoard1, sideBoard2) {
+    constructor(gameBoard) {
 
-        this.board = board;
-        this.sideBoard1 = sideBoard1;
-        this.sideBoard2 = sideBoard2;
+        this.board = gameBoard.board;
+        this.sideBoard1 = gameBoard.sideBoard1;
+        this.positionOfSideBoard1 = gameBoard.positionOfSideBoard1;
+        this.sideBoard2 = gameBoard.sideBoard2;
+        this.positionOfSideBoard2 = gameBoard.positionOfSideBoard2;
 
         this.moves = [];
     }
 
-    addMove(pieceSelected, positionOfSideBoard, n_board, n_piece, initialX, finalX, finalZ) {
+    addMove(pieceSelected, n_board, n_piece, finalX, finalZ) {
 
-
-        console.log(n_board)
         this.board.pieces[finalZ][finalX] = pieceSelected;
 
         this["sideBoard" + n_board].removePiece(n_piece);
 
+        let positionOfSideBoard = this["positionOfSideBoard" + n_board];
         pieceSelected.setAnimation(positionOfSideBoard, n_piece, finalX, finalZ, this.board.isPieceLow(finalX, finalZ));
 
         this.moves.push(new MyGameMove(pieceSelected, this["sideBoard" + n_board].getPiece(n_piece), this.board.getPiece(finalX, finalX)));
@@ -34,7 +35,7 @@ class MyGameSequence {
         this.moves[i].destiny = this.moves[i].piece;
         this.moves[i].origin = null;
         this.moves[i].piece.animation = null;
-        this.moves.splice(i, 1);
+        this.moves.pop();
 
 
     }

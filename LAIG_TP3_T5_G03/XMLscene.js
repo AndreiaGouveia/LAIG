@@ -197,7 +197,7 @@ class XMLscene extends CGFscene {
     display() {
 
 
-        this.quantik.gameBoard.logPicking();
+        this.quantik.picking();
         this.clearPickRegistration();
 
         this.secTexture.attachToFrameBuffer();
