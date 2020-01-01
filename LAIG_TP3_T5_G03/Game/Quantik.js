@@ -17,9 +17,8 @@ class Quantik extends CGFobject {
         this.state = {
             playerTurn: '1',
             botTurn: '2',
-            waiting: '4',
-            moving: '5',
-            quit: '6'
+            waiting: '3',
+            quit: '4'
         };
         this.difficulty = {
             easy: '1',
@@ -35,16 +34,25 @@ class Quantik extends CGFobject {
         this.player1Pieces = this.gameBoard.sideBoard1.pieces;
         this.player2Pieces = this.gameBoard.sideBoard1.pieces;
 
+        this.currentPlayer = 'player1';
+
         this.pieceSelected = null;
         this.gameMoves = new MyGameSequence(this.gameBoard);
 
+        this.time = 0;
+        this.timeout = 30;
+
         this.scene.setPickEnabled(true);
+
     };
 
     /**
      * displays the game
      */
     display() {
+        this.updateHTML();
+        this.updateState();
+        this.checkState();
         this.gameBoard.display();
     };
 
@@ -54,13 +62,19 @@ class Quantik extends CGFobject {
     checkState() {
         switch (this.gameState) {
             case this.state.playerTurn:
-                this.playerPick();
+                //this.playerPick();
                 break;
             case this.state.botTurn:
-                this.getBotMove();
+                //this.getBotMove();
                 break;
         }
     };
+
+    changePlayer() {
+
+        this.currentPlayer = (this.currentPlayer == 'player1') ? 'player2' : 'player1';
+
+    }
 
     /**
      * initializes everything needed to start a new game
@@ -83,19 +97,26 @@ class Quantik extends CGFobject {
 
     updateState() {
 
-        switch (this.gameMode) {
-            case this.mode.PvP:
-                this.gameState = this.state.playerTurn;
-                this.scene.setPickEnabled(true);
-                break;
-            case this.mode.PvC:
-                this.gameState = (this.currentPlayer == 'player1') ? this.state.playerTurn : this.state.botTurn;
-                if (this.gameState == this.state.playerTurn)
+        if (this.gameBoard.board.isPieceBeingMoved()) {
+            this.gameState = this.state.moving;
+        }
+
+        if (!this.gameBoard.board.isPieceBeingMoved()) {
+
+            switch (this.gameMode) {
+                case this.mode.PvP:
+                    this.gameState = this.state.playerTurn;
                     this.scene.setPickEnabled(true);
-                break;
-            case this.mode.CvC:
-                this.gameState = this.state.botTurn;
-                break;
+                    break;
+                case this.mode.PvC:
+                    this.gameState = (this.currentPlayer == 'player1') ? this.state.playerTurn : this.state.botTurn;
+                    if (this.gameState == this.state.playerTurn)
+                        this.scene.setPickEnabled(true);
+                    break;
+                case this.mode.CvC:
+                    this.gameState = this.state.botTurn;
+                    break;
+            }
         }
     }
 
@@ -135,12 +156,21 @@ class Quantik extends CGFobject {
                 this.gameMoves.addMove(this.pieceSelected[1], n_board, n_piece, x, y);
 
                 this.pieceSelected = null;
+
+                this.changePlayer();
             }
 
 
         } else if (obj instanceof MyPiece) {
 
+
+            if (obj.getPlayer() != this.currentPlayer) {
+                this.updateErrors("Not your piece!");
+                return;
+            }
+
             this.pieceSelected = [customId, obj];
+            this.updateErrors("");
         }
 
     }
@@ -149,6 +179,40 @@ class Quantik extends CGFobject {
 
         console.log("undo");
         this.gameMoves.undoMove();
+    }
+
+    updateErrors(error) {
+        document.getElementById("error").innerText = error;
+    }
+
+    updateHTML() {
+
+        if (this.gameState == this.state.botTurn || this.gameState == this.state.playerTurn) {
+
+            document.getElementById("player").innerText = (this.currentPlayer == 'player1') ? "Player 1's turn" : "Player 2's turn\n";
+        } else
+            document.getElementById("player").innerText = "";
+
+        switch (this.gameState) {
+            case this.state.waiting:
+                document.getElementById("information").innerText = "Start a game";
+                break;
+            case this.state.quit:
+                document.getElementById("information").innerText = "You've exited the game";
+                break;
+            case this.state.moving:
+                document.getElementById("information").innerText = "Moving piece";
+                break;
+            case this.state.playerTurn:
+                document.getElementById("information").innerText = "Please select your movement";
+                break;
+            case this.state.botTurn:
+                document.getElementById("information").innerText = "Moving piece";
+                break;
+            default:
+                document.getElementById("information").innerText = "";
+                break;
+        }
     }
 
 

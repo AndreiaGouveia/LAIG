@@ -65,6 +65,8 @@ class MyInterface extends CGFinterface {
             .onChange(val => this.scene.setCurrentCamera(val));
 
         var group = this.gui.addFolder("Game");
+        group.add(this.scene.quantik, 'gameDifficulty', { Easy: '1', Hard: '2' }).name("Difficulty");
+        group.add(this.scene.quantik, 'gameMode', { 'Player v Player': '1', 'Player v Bot': '2', 'Bot v Bot': '3' }).name("Mode");
         group.add(this.scene.quantik, 'undo').name("Undo");
     }
 

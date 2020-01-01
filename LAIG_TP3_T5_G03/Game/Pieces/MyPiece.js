@@ -52,4 +52,8 @@ class MyPiece extends CGFobject {
         if (this.animation != null)
             this.animation.update(currTime);
     }
+
+    getPlayer() {
+        return "player" + this.player;
+    }
 }
