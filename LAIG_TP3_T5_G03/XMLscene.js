@@ -43,6 +43,7 @@ class XMLscene extends CGFscene {
         this.secTexture = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height); //create render-to-texture texture
 
         this.quantik = new Quantik(this);
+        this.animationCamera = null;
     }
 
     update(currTime) {
@@ -59,6 +60,11 @@ class XMLscene extends CGFscene {
         }
 
         var timeInSeconds = this.delta / 1000;
+
+        if (this.animationCamera != null) {
+
+            this.animationCamera.update(timeInSeconds);
+        }
 
         this.quantik.update(timeInSeconds);
 
@@ -86,6 +92,7 @@ class XMLscene extends CGFscene {
 
 
         this.interface.setActiveCamera(this.camera);
+
     }
 
     initXMLCameras() {
@@ -97,6 +104,8 @@ class XMLscene extends CGFscene {
 
     setCurrentCamera(newCameraID) {
 
+
+            this.animationCamera = new CameraAnimation(this, "cameraAnimation", this.camera, this.graph.cameras[newCameraID], 2);
             this.camera = this.graph.cameras[newCameraID];
             this.newCamera = this.camera;
             this.interface.setActiveCamera(this.camera);
@@ -193,6 +202,12 @@ class XMLscene extends CGFscene {
 
     display() {
 
+
+
+        if (this.animationCamera != null)
+            this.animationCamera.apply();
+
+        this.render();
 
         this.quantik.picking();
         this.clearPickRegistration();
