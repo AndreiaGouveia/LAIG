@@ -60,10 +60,7 @@ class XMLscene extends CGFscene {
 
         var timeInSeconds = this.delta / 1000;
 
-        if (this.quantik.gameBoard == undefined)
-            return;
-
-        this.quantik.gameBoard.update(timeInSeconds);
+        this.quantik.update(timeInSeconds);
 
         if (this.animations == undefined)
             return;
