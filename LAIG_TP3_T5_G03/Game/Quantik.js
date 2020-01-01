@@ -33,7 +33,8 @@ class Quantik extends CGFobject {
         this.boardArray = this.gameBoard.board.pieces;
         this.player1Pieces = this.gameBoard.sideBoard1.pieces;
         this.player2Pieces = this.gameBoard.sideBoard1.pieces;
-
+        this.prologBoard = this.convertBoard();
+        console.log(this.prologBoard);
         this.currentPlayer = 'player1';
 
         this.pieceSelected = null;
@@ -42,9 +43,41 @@ class Quantik extends CGFobject {
         this.time = 0;
         this.timeout = 30;
 
-        this.scene.setPickEnabled(true);
+        this.scene.setPickEnabled(false);
 
     };
+
+    convertBoard(){
+
+        var board = "[";
+        for( var i = 0; i<this.boardArray.length ; i++){
+            var row = "[";
+            var boardRow = this.boardArray[i];
+            for( var j = 0 ; j < boardRow.length ; j++)
+            {
+                if(boardRow[j] == null)
+                   {
+                        row = row + "0";
+                   }
+                    else row = row + boardRow[j].getId().toString();
+
+                if(j < 3){
+                    row = row + ',';
+                }
+            }
+            
+            row = row + "]";
+
+            if(i < 3){
+                row = row + ',';
+            }
+            board = board + row;
+        }
+
+        board = board + "]";
+        
+        return board;
+    }
 
     /**
      * displays the game
@@ -87,14 +120,11 @@ class Quantik extends CGFobject {
      */
     startGame() {
         var quantik = this;
-      console.log("lol");
-
-        /*this.server.makeRequest('start', function(data) {
+        this.server.makeRequest('start', function(data) {
             quantik.scene.setPickEnabled(true);
-            quantik.init();
             quantik.currentPlayer = 'player1';
-            quantik.updateState();
-        });*/
+            var response = data.target.response;
+        });
 
         quantik.updateState();
     }
@@ -126,6 +156,8 @@ class Quantik extends CGFobject {
                     break;
             }
         }
+
+        this.prologBoard = this.convertBoard();
     }
 
     picking() {
@@ -149,6 +181,7 @@ class Quantik extends CGFobject {
     }
 
     onObjectSelected(customId, obj) {
+        var scene = this;
 
         if (obj instanceof MyCube) {
 
@@ -158,14 +191,26 @@ class Quantik extends CGFobject {
                 let x = Math.floor(customId / 10) - 1;
                 let y = customId % 10 - 1;
 
-                let n_board = Math.floor(this.pieceSelected[0] / 100);
-                let n_piece = this.pieceSelected[0] % 100;
+                var command = "pieceRuleValidation("+this.prologBoard +","+(x+1).toString()+","+(y+1).toString()+ "," + this.pieceSelected[1].getId().toString()+")";
+                
+                this.server.makeRequest(command, function(data){ 
+                    if(data.target.response == 1)
+                    {
+                        scene.updateErrors("Not a valid move");
+                        return;
+                    }
 
-                this.gameMoves.addMove(this.pieceSelected[1], n_board, n_piece, x, y);
-
-                this.pieceSelected = null;
-
-                this.changePlayer();
+                 
+                    let n_board = Math.floor(scene.pieceSelected[0] / 100);
+                    let n_piece = scene.pieceSelected[0] % 100;
+    
+                    scene.gameMoves.addMove(scene.pieceSelected[1], n_board, n_piece, x, y);
+    
+                    scene.pieceSelected = null;
+    
+                    scene.changePlayer();
+                });
+            
             }
 
 

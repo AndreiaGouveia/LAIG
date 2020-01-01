@@ -17,6 +17,7 @@ class MyIceCream extends MyPiece {
         this.ice.setAmbient(1, 1, 1, 1);
         this.coneColor = new CGFappearance(scene);
         this.coneColor.setAmbient(1, 1, 1, 1);
+        this.player = player
 
         if (player == 1)
             this.creamTexture = new CGFtexture(this.scene, "../scenes/images/cream.jpg");
@@ -28,6 +29,15 @@ class MyIceCream extends MyPiece {
         this.ice.setTexture(this.creamTexture);
         this.coneColor.setTexture(this.coneTexture);
 
+    }
+
+    getId(){
+        if(this.player == 1)
+        {
+            return 1;
+        }
+        
+        return 6;
     }
 
     display() {
