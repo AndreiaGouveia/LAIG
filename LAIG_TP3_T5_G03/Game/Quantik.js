@@ -123,7 +123,7 @@ class Quantik extends CGFobject {
 
         if (obj instanceof MyCube) {
 
-            if (this.pieceSelected != null) {
+            if (this.pieceSelected != null && !this.gameBoard.board.isPieceBeingMoved()) {
                 console.log("move");
 
                 let x = Math.floor(customId / 10) - 1;
