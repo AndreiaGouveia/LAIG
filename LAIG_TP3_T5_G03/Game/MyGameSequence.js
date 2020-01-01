@@ -28,13 +28,15 @@ class MyGameSequence {
         let i = this.moves.length - 1;
 
         if (i < 0)
-            return;
+            return false;
 
         let move = this.moves[i];
         this.board.setPiece(move.destinyX, move.destinyY, null);
         this["sideBoard" + move.n_board].setPiece(move.n_piece_origin, move.piece);
         this.moves[i].piece.animation = null;
         this.moves.pop();
+
+        return true;
 
     }
 }

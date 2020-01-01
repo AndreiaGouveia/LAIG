@@ -131,7 +131,7 @@ class Quantik extends CGFobject {
 
         if (this.scene.pickMode == false) {
 
-            if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
+            if (this.scene.pickResults != null && this.scene.pickResults.length > 0 && this.gameState != this.state.waiting) {
 
                 for (var i = 0; i < this.scene.pickResults.length; i++) {
                     var obj = this.scene.pickResults[i][0];
@@ -185,7 +185,8 @@ class Quantik extends CGFobject {
     undo() {
 
         console.log("undo");
-        this.gameMoves.undoMove();
+        if (this.gameMoves.undoMove())
+            this.changePlayer();
     }
 
     updateErrors(error) {
