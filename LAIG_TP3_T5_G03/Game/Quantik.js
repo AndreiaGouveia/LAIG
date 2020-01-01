@@ -51,7 +51,6 @@ class Quantik extends CGFobject {
      */
     display() {
         this.updateHTML();
-        this.updateState();
         this.checkState();
         this.gameBoard.display();
     };
@@ -60,6 +59,13 @@ class Quantik extends CGFobject {
      * checks what needs to happen wether it's the player's or bot's turn
      */
     checkState() {
+
+
+        if (this.gameState == this.state.waiting)
+            return;
+
+        this.updateState();
+
         switch (this.gameState) {
             case this.state.playerTurn:
                 //this.playerPick();
@@ -82,12 +88,15 @@ class Quantik extends CGFobject {
     startGame() {
         var quantik = this;
       console.log("lol");
-        this.server.makeRequest('start', function(data) {
+
+        /*this.server.makeRequest('start', function(data) {
             quantik.scene.setPickEnabled(true);
             quantik.init();
             quantik.currentPlayer = 'player1';
             quantik.updateState();
-        });
+        });*/
+
+        quantik.updateState();
     }
 
     quitGame() {
@@ -99,9 +108,8 @@ class Quantik extends CGFobject {
 
         if (this.gameBoard.board.isPieceBeingMoved()) {
             this.gameState = this.state.moving;
-        }
 
-        if (!this.gameBoard.board.isPieceBeingMoved()) {
+        } else {
 
             switch (this.gameMode) {
                 case this.mode.PvP:
