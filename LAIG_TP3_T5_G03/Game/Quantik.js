@@ -82,6 +82,7 @@ class Quantik extends CGFobject {
         this.lastPlayer = (this.currentPlayer == 'player1') ? 'player1' : 'player2';
         this.currentPlayer = (this.currentPlayer == 'player1') ? 'player2' : 'player1';
         this.time = 0;
+        this.updateErrors("");
 
     }
 
@@ -89,6 +90,7 @@ class Quantik extends CGFobject {
         this.currentPlayer = (this.lastPlayer == 'player1') ? 'player1' : 'player2';
         this.lastPlayer = (this.lastPlayer == 'player1') ? 'player2' : 'player1';
         this.time = 0;
+        this.updateErrors("");
     }
 
     changeJustCurrentPlayer() {
