@@ -18,7 +18,8 @@ class Quantik extends CGFobject {
             playerTurn: '1',
             botTurn: '2',
             waiting: '4',
-            quit: '5'
+            moving: '5',
+            quit: '6'
         };
         this.difficulty = {
             easy: '1',
@@ -110,8 +111,6 @@ class Quantik extends CGFobject {
                     if (obj) {
 
                         var customId = this.scene.pickResults[i][1];
-                        //console.log("Picked object: " + obj + ", with pick id " + customId);
-
                         this.onObjectSelected(customId, obj);
                     }
                 }
@@ -134,6 +133,8 @@ class Quantik extends CGFobject {
                 let n_piece = this.pieceSelected[0] % 100;
 
                 this.gameMoves.addMove(this.pieceSelected[1], n_board, n_piece, x, y);
+
+                this.pieceSelected = null;
             }
 
 
