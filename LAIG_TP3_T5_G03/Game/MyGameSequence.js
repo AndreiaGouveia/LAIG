@@ -13,7 +13,7 @@ class MyGameSequence {
 
     addMove(pieceSelected, n_board, n_piece, finalX, finalZ) {
 
-        this.board.pieces[finalZ][finalX] = pieceSelected;
+        this.board.addPiece(finalX, finalZ, pieceSelected);
 
         this["sideBoard" + n_board].removePiece(n_piece);
 
@@ -21,8 +21,6 @@ class MyGameSequence {
         pieceSelected.setAnimation(positionOfSideBoard, n_piece, finalX, finalZ, this.board.isPieceLow(finalX, finalZ));
 
         this.moves.push(new MyGameMove(pieceSelected, n_board, n_piece, finalX, finalZ));
-
-        pieceSelected = null;
     }
 
     undoMove() {
