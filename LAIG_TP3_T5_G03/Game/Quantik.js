@@ -144,5 +144,11 @@ class Quantik extends CGFobject {
 
     }
 
+    undo() {
+
+        console.log("undo");
+        this.gameMoves.undoMove();
+    }
+
 
 };

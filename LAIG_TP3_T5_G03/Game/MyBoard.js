@@ -47,6 +47,10 @@
          return this.pieces[y][x];
      }
 
+     setPiece(x, y, Piece) {
+         this.pieces[y][x] = Piece;
+     }
+
      display() {
 
          //display of the pieces

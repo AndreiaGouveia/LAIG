@@ -47,6 +47,4 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
 
     }
-
-    updateTexCoords(s, t) {}
 }

@@ -65,7 +65,7 @@ class MyInterface extends CGFinterface {
             .onChange(val => this.scene.setCurrentCamera(val));
 
         var group = this.gui.addFolder("Game");
-        //group.add(this.scene.quantik, 'undo').name("Undo");
+        group.add(this.scene.quantik, 'undo').name("Undo");
     }
 
     createLightsCheckboxes(graph) {

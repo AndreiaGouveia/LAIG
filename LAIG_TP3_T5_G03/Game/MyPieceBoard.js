@@ -33,6 +33,10 @@ class MyPieceBoard extends CGFobject {
         return this.pieces[x];
     }
 
+    setPiece(x, Piece) {
+        this.pieces[x] = Piece;
+    }
+
     removePiece(x) {
 
         this.pieces[x] = null;

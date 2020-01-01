@@ -20,7 +20,7 @@ class MyGameSequence {
         let positionOfSideBoard = this["positionOfSideBoard" + n_board];
         pieceSelected.setAnimation(positionOfSideBoard, n_piece, finalX, finalZ, this.board.isPieceLow(finalX, finalZ));
 
-        this.moves.push(new MyGameMove(pieceSelected, this["sideBoard" + n_board].getPiece(n_piece), this.board.getPiece(finalX, finalX)));
+        this.moves.push(new MyGameMove(pieceSelected, n_board, n_piece, finalX, finalZ));
 
         pieceSelected = null;
     }
@@ -32,11 +32,11 @@ class MyGameSequence {
         if (i < 0)
             return;
 
-        this.moves[i].destiny = this.moves[i].piece;
-        this.moves[i].origin = null;
+        let move = this.moves[i];
+        this.board.setPiece(move.destinyX, move.destinyY, null);
+        this["sideBoard" + move.n_board].setPiece(move.n_piece_origin, move.piece);
         this.moves[i].piece.animation = null;
         this.moves.pop();
-
 
     }
 }

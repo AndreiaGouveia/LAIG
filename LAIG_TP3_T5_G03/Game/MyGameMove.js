@@ -1,9 +1,11 @@
 class MyGameMove {
 
-    constructor(piece, origin, destiny) {
+    constructor(piece, n_board, n_piece_origin, destinyX, destinyY) {
 
         this.piece = piece;
-        this.origin = origin;
-        this.destiny = destiny;
+        this.n_board = n_board;
+        this.n_piece_origin = n_piece_origin;
+        this.destinyX = destinyX;
+        this.destinyY = destinyY;
     }
 }
