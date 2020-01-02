@@ -36,6 +36,7 @@ class Quantik extends CGFobject {
         this.prologBoard = this.convertBoard();
         console.log(this.prologBoard);
         this.currentPlayer = 'player1';
+        this.lastPlayer = 'player2';
 
         this.pieceSelected = null;
         this.gameMoves = new MyGameSequence(this.gameBoard);
@@ -111,8 +112,23 @@ class Quantik extends CGFobject {
 
     changePlayer() {
 
+        this.lastPlayer = (this.currentPlayer == 'player1') ? 'player1' : 'player2';
         this.currentPlayer = (this.currentPlayer == 'player1') ? 'player2' : 'player1';
+        this.time = 0;
+        this.updateErrors("");
 
+    }
+
+    changeToLastPlayer() {
+        this.currentPlayer = (this.lastPlayer == 'player1') ? 'player1' : 'player2';
+        this.lastPlayer = (this.lastPlayer == 'player1') ? 'player2' : 'player1';
+        this.time = 0;
+        this.updateErrors("");
+    }
+
+    changeJustCurrentPlayer() {
+        this.currentPlayer = (this.currentPlayer == 'player1') ? 'player2' : 'player1';
+        this.time = 0;
     }
 
     /**
@@ -166,13 +182,15 @@ class Quantik extends CGFobject {
 
             if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
 
-                for (var i = 0; i < this.scene.pickResults.length; i++) {
-                    var obj = this.scene.pickResults[i][0];
+                if (this.gameState != this.state.waiting) {
+                    for (var i = 0; i < this.scene.pickResults.length; i++) {
+                        var obj = this.scene.pickResults[i][0];
 
-                    if (obj) {
+                        if (obj) {
 
-                        var customId = this.scene.pickResults[i][1];
-                        this.onObjectSelected(customId, obj);
+                            var customId = this.scene.pickResults[i][1];
+                            this.onObjectSelected(customId, obj);
+                        }
                     }
                 }
                 this.scene.pickResults.splice(0, this.scene.pickResults.length);
@@ -219,6 +237,7 @@ class Quantik extends CGFobject {
 
             if (obj.getPlayer() != this.currentPlayer) {
                 this.updateErrors("Not your piece!");
+                this.pieceSelected = null;
                 return;
             }
 
@@ -231,7 +250,10 @@ class Quantik extends CGFobject {
     undo() {
 
         console.log("undo");
-        this.gameMoves.undoMove();
+        if (this.gameMoves.undoMove()) {
+            this.changeToLastPlayer();
+            this.updateErrors("");
+        }
     }
 
     updateErrors(error) {
@@ -242,9 +264,14 @@ class Quantik extends CGFobject {
 
         if (this.gameState == this.state.botTurn || this.gameState == this.state.playerTurn) {
 
-            document.getElementById("player").innerText = (this.currentPlayer == 'player1') ? "Player 1's turn" : "Player 2's turn\n";
-        } else
+            document.getElementById("time").innerText = Math.floor(this.time) + " seconds ";
+            document.getElementById("player").innerText = this.currentPlayer + "'s turn";
+
+        } else {
+
+            document.getElementById("time").innerText = "";
             document.getElementById("player").innerText = "";
+        }
 
         switch (this.gameState) {
             case this.state.waiting:
@@ -268,5 +295,25 @@ class Quantik extends CGFobject {
         }
     }
 
+    checkTimeout() {
+
+        if (this.time > this.timeout) {
+
+            this.updateErrors(this.currentPlayer + " lost his turn!");
+            this.changeJustCurrentPlayer();
+        }
+    }
+
+    update(currTime) {
+
+        if (this.gameState == this.state.playerTurn) {
+
+            this.gameBoard.update(currTime);
+            this.time += currTime;
+            this.checkTimeout();
+        }
+
+        this.gameBoard.update(currTime);
+    }
 
 };
