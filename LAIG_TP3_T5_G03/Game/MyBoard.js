@@ -37,6 +37,11 @@ class MyBoard extends CGFobject {
         if (this.movingPiece != null) {
             this.movingPiece.update(currTime);
 
+            if (this.movingPiece.animation == null) {
+                this.movingPiece = null;
+                return;
+            }
+
             if (this.movingPiece.animation.endOfAnimation) {
                 this.movingPiece = null;
             }
