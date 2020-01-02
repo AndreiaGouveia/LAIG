@@ -1029,8 +1029,6 @@
 
         <component id="Board">
             <transformation>
-                <translate x="-0.25" y="0.25" z="0" />
-                <rotate axis="z" angle="90" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />

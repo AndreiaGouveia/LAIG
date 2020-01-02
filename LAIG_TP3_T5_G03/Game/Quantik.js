@@ -33,9 +33,9 @@ class Quantik extends CGFobject {
         this.gameMode = this.mode.PvP;
         this.gameBoard = new MyGameBoard(scene);
         this.boardArray = this.gameBoard.board.pieces;
-        this.player1Pieces = this.gameBoard.sideBoard1.pieces;
-        this.player2Pieces = this.gameBoard.sideBoard1.pieces;
-        this.prologBoard = this.convertBoard();
+        this.player1Pieces = this.convertBoard(this.gameBoard.sideBoard1.pieces);
+        this.player2Pieces = this.convertBoard(this.gameBoard.sideBoard1.pieces);
+        this.prologBoard = this.convertBoard(this.boardArray);
         this.currentPlayer = 'player1';
         this.lastPlayer = 'player2';
 
@@ -49,12 +49,12 @@ class Quantik extends CGFobject {
 
     };
 
-    convertBoard() {
+    convertBoard(boardToConvert) {
 
         var board = "[";
-        for (var i = 0; i < this.boardArray.length; i++) {
+        for (var i = 0; i < boardToConvert.length; i++) {
             var row = "[";
-            var boardRow = this.boardArray[i];
+            var boardRow = boardToConvert[i];
             for (var j = 0; j < boardRow.length; j++) {
                 if (boardRow[j] == null) {
                     row = row + "0";
@@ -156,6 +156,20 @@ class Quantik extends CGFobject {
         this.scene.setPickEnabled(false);
     }
 
+    getBotPlay(){
+        var scene1 = this;
+
+        var dif;
+        if(this.gameDifficulty = this.difficulty.easy)
+            dif = "random";
+        else dif = "smart";
+
+        var command = "getBotMove("+ this.player1Pieces + ","+this.prologBoard+","+dif+")";
+        this.server.makeRequest(command, function(data) {
+            console.log(data.target.reponse);
+        });
+    }
+
     checkWin() {
         var scene1 = this;
 
@@ -191,9 +205,6 @@ class Quantik extends CGFobject {
                     break;
             }
         }
-
-        /*this.prologBoard = this.convertBoard();
-        this.checkWin();*/
     }
 
     picking() {
@@ -247,8 +258,9 @@ class Quantik extends CGFobject {
                     scene.changePlayer();
 
 
-                    scene.prologBoard = scene.convertBoard();
+                    scene.prologBoard = scene.convertBoard(scene.boardArray);
                     scene.checkWin();
+                    scene.getBotPlay();
                 });
 
             }
