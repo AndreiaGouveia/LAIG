@@ -59,6 +59,20 @@ class Quantik extends CGFobject {
     convertBoard(boardToConvert) {
 
         var board = "[";
+
+    if(boardToConvert.length !=4)
+        {
+            for (var i = 0; i < boardToConvert.length; i++) {
+                if (boardToConvert[i] == null) {
+                    board = board + "0";
+                } else board = board + boardToConvert[i].getId().toString();
+
+                if (i < 7) {
+                    board = board + ',';
+                }
+            }
+        } 
+        else {
         for (var i = 0; i < boardToConvert.length; i++) {
             var row = "[";
             var boardRow = boardToConvert[i];
@@ -78,6 +92,7 @@ class Quantik extends CGFobject {
                 row = row + ',';
             }
             board = board + row;
+            }
         }
 
         board = board + "]";
@@ -177,8 +192,9 @@ class Quantik extends CGFobject {
         else dif = "smart";
 
         var command = "getBotMove("+ this.player1Pieces + ","+this.prologBoard+","+dif+")";
+        console.log(command);
         this.server.makeRequest(command, function(data) {
-            console.log(data.target.reponse);
+            console.log(data.target.response);
         });
     }
 
