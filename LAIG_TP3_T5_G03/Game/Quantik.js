@@ -18,7 +18,8 @@ class Quantik extends CGFobject {
             playerTurn: '1',
             botTurn: '2',
             waiting: '3',
-            quit: '4'
+            quit: '4',
+            won: '5'
         };
         this.difficulty = {
             easy: '1',
@@ -136,18 +137,27 @@ class Quantik extends CGFobject {
      */
     startGame() {
         var quantik = this;
-        this.server.makeRequest('start', function(data) {
-            quantik.scene.setPickEnabled(true);
-            quantik.currentPlayer = 'player1';
-            var response = data.target.response;
-        });
-
+        this.scene.setPickEnabled(true);
         quantik.updateState();
     }
 
     quitGame() {
+        console.log("here");
         this.gameState = this.state.quit;
         this.scene.setPickEnabled(false);
+    }
+
+    checkWin(){
+        var scene1 = this;
+        
+        var command = this.prologBoard;
+        this.server.makeRequest(command , function(data){
+                if(data.target.response == 0)
+                {
+                    console.log("WONNNNNNNNNNNNNNNNNNN");
+                    scene1.quitGame();
+                }
+        });
     }
 
     updateState() {
@@ -159,21 +169,23 @@ class Quantik extends CGFobject {
 
             switch (this.gameMode) {
                 case this.mode.PvP:
+                    if(this.gameMode != this.state.quit)
                     this.gameState = this.state.playerTurn;
-                    this.scene.setPickEnabled(true);
                     break;
                 case this.mode.PvC:
+                    if(this.gameMode != this.state.quit)
                     this.gameState = (this.currentPlayer == 'player1') ? this.state.playerTurn : this.state.botTurn;
                     if (this.gameState == this.state.playerTurn)
-                        this.scene.setPickEnabled(true);
                     break;
                 case this.mode.CvC:
+                    if(this.gameMode != this.state.quit)
                     this.gameState = this.state.botTurn;
                     break;
             }
         }
 
         this.prologBoard = this.convertBoard();
+        this.checkWin();
     }
 
     picking() {
@@ -225,7 +237,8 @@ class Quantik extends CGFobject {
                     scene.gameMoves.addMove(scene.pieceSelected[1], n_board, n_piece, x, y);
     
                     scene.pieceSelected = null;
-    
+                    
+
                     scene.changePlayer();
                 });
             
@@ -289,9 +302,13 @@ class Quantik extends CGFobject {
             case this.state.botTurn:
                 document.getElementById("information").innerText = "Moving piece";
                 break;
+            case this.state.win:
+                document.getElementById("information").innerText = "You Won";
+                break;
             default:
                 document.getElementById("information").innerText = "";
                 break;
+                
         }
     }
 

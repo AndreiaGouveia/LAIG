@@ -120,3 +120,11 @@ parse_input(pieceRuleValidation(Board , X , Y , Piece), Result):-
 parse_input(pieceRuleValidation(Board , X , Y , Piece), Result):-
 	Result = 1.
 	
+parse_input(Board,Result):-
+	game_over(Board,0,Something),
+	Something is 15,
+	!,
+	Result = 0.
+
+parse_input(Board,Result):-
+	Result = 1.
