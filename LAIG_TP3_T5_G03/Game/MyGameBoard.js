@@ -22,6 +22,13 @@ class MyGameBoard extends CGFobject {
         this.board.update(currTime);
     }
 
+    reset() {
+
+        this.board.reset();
+        this.sideBoard1.reset();
+        this.sideBoard2.reset();
+    }
+
     display() {
 
         this.scene.pushMatrix();
