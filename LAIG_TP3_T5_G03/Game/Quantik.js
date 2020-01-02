@@ -19,7 +19,8 @@ class Quantik extends CGFobject {
             botTurn: '2',
             waiting: '3',
             quit: '4',
-            won: '5'
+            won: '5',
+            moving: '6'
         };
         this.difficulty = {
             easy: '1',
@@ -49,35 +50,32 @@ class Quantik extends CGFobject {
 
     };
 
-    convertBoard(){
+    convertBoard() {
 
         var board = "[";
-        for( var i = 0; i<this.boardArray.length ; i++){
+        for (var i = 0; i < this.boardArray.length; i++) {
             var row = "[";
             var boardRow = this.boardArray[i];
-            for( var j = 0 ; j < boardRow.length ; j++)
-            {
-                if(boardRow[j] == null)
-                   {
-                        row = row + "0";
-                   }
-                    else row = row + boardRow[j].getId().toString();
+            for (var j = 0; j < boardRow.length; j++) {
+                if (boardRow[j] == null) {
+                    row = row + "0";
+                } else row = row + boardRow[j].getId().toString();
 
-                if(j < 3){
+                if (j < 3) {
                     row = row + ',';
                 }
             }
-            
+
             row = row + "]";
 
-            if(i < 3){
+            if (i < 3) {
                 row = row + ',';
             }
             board = board + row;
         }
 
         board = board + "]";
-        
+
         return board;
     }
 
@@ -147,16 +145,15 @@ class Quantik extends CGFobject {
         this.scene.setPickEnabled(false);
     }
 
-    checkWin(){
+    checkWin() {
         var scene1 = this;
-        
+
         var command = this.prologBoard;
-        this.server.makeRequest(command , function(data){
-                if(data.target.response == 0)
-                {
-                    console.log("WONNNNNNNNNNNNNNNNNNN");
-                    scene1.quitGame();
-                }
+        this.server.makeRequest(command, function(data) {
+            if (data.target.response == 0) {
+                console.log("WONNNNNNNNNNNNNNNNNNN");
+                scene1.quitGame();
+            }
         });
     }
 
@@ -169,17 +166,17 @@ class Quantik extends CGFobject {
 
             switch (this.gameMode) {
                 case this.mode.PvP:
-                    if(this.gameMode != this.state.quit)
-                    this.gameState = this.state.playerTurn;
+                    if (this.gameMode != this.state.quit)
+                        this.gameState = this.state.playerTurn;
                     break;
                 case this.mode.PvC:
-                    if(this.gameMode != this.state.quit)
-                    this.gameState = (this.currentPlayer == 'player1') ? this.state.playerTurn : this.state.botTurn;
+                    if (this.gameMode != this.state.quit)
+                        this.gameState = (this.currentPlayer == 'player1') ? this.state.playerTurn : this.state.botTurn;
                     if (this.gameState == this.state.playerTurn)
-                    break;
+                        break;
                 case this.mode.CvC:
-                    if(this.gameMode != this.state.quit)
-                    this.gameState = this.state.botTurn;
+                    if (this.gameMode != this.state.quit)
+                        this.gameState = this.state.botTurn;
                     break;
             }
         }
@@ -221,27 +218,26 @@ class Quantik extends CGFobject {
                 let x = Math.floor(customId / 10) - 1;
                 let y = customId % 10 - 1;
 
-                var command = "pieceRuleValidation("+this.prologBoard +","+(x+1).toString()+","+(y+1).toString()+ "," + this.pieceSelected[1].getId().toString()+")";
-                
-                this.server.makeRequest(command, function(data){ 
-                    if(data.target.response == 1)
-                    {
+                var command = "pieceRuleValidation(" + this.prologBoard + "," + (x + 1).toString() + "," + (y + 1).toString() + "," + this.pieceSelected[1].getId().toString() + ")";
+
+                this.server.makeRequest(command, function(data) {
+                    if (data.target.response == 1) {
                         scene.updateErrors("Not a valid move");
                         return;
                     }
 
-                 
+
                     let n_board = Math.floor(scene.pieceSelected[0] / 100);
                     let n_piece = scene.pieceSelected[0] % 100;
-    
+
                     scene.gameMoves.addMove(scene.pieceSelected[1], n_board, n_piece, x, y);
-    
+
                     scene.pieceSelected = null;
-                    
+
 
                     scene.changePlayer();
                 });
-            
+
             }
 
 
@@ -263,9 +259,11 @@ class Quantik extends CGFobject {
     undo() {
 
         console.log("undo");
-        if (this.gameMoves.undoMove()) {
-            this.changeToLastPlayer();
-            this.updateErrors("");
+        if (this.gameState == this.state.moving || this.gameState == this.state.playerTurn || this.gameState == this.state.botTurn) {
+            if (this.gameMoves.undoMove()) {
+                this.changeToLastPlayer();
+                this.updateErrors("");
+            }
         }
     }
 
@@ -308,7 +306,7 @@ class Quantik extends CGFobject {
             default:
                 document.getElementById("information").innerText = "";
                 break;
-                
+
         }
     }
 
