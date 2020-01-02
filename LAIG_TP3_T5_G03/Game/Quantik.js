@@ -140,7 +140,6 @@ class Quantik extends CGFobject {
     }
 
     quitGame() {
-        console.log("here");
         this.gameState = this.state.quit;
         this.scene.setPickEnabled(false);
     }
@@ -181,8 +180,8 @@ class Quantik extends CGFobject {
             }
         }
 
-        this.prologBoard = this.convertBoard();
-        this.checkWin();
+        /*this.prologBoard = this.convertBoard();
+        this.checkWin();*/
     }
 
     picking() {
@@ -233,9 +232,11 @@ class Quantik extends CGFobject {
                     scene.gameMoves.addMove(scene.pieceSelected[1], n_board, n_piece, x, y);
 
                     scene.pieceSelected = null;
-
-
                     scene.changePlayer();
+
+
+                    scene.prologBoard = scene.convertBoard();
+                    scene.checkWin();
                 });
 
             }
