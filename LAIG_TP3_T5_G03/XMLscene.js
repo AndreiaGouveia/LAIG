@@ -44,6 +44,7 @@ class XMLscene extends CGFscene {
 
         this.quantik = new Quantik(this);
         this.animationCamera = null;
+
     }
 
     update(currTime) {
@@ -100,6 +101,13 @@ class XMLscene extends CGFscene {
         this.interface.setActiveCamera(this.camera);
 
         this.newCamera = this.camera;
+    }
+
+
+    changeScene(filename) {
+        this.onGraphLoaded();
+        this.graph.reader.open('scenes/' + filename + '.xml', this.graph);
+        this.graph.filename = filename + '.xml';
     }
 
     setCurrentCamera(newCameraID) {
@@ -198,11 +206,11 @@ class XMLscene extends CGFscene {
         this.initXMLCameras();
 
         this.sceneInited = true;
+
+        this.currentScene = this.graph.filename.slice(0, -4);
     }
 
     display() {
-
-
 
         if (this.animationCamera != null)
             this.animationCamera.apply();

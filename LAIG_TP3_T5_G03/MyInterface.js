@@ -50,9 +50,14 @@ class MyInterface extends CGFinterface {
         return this.activeKeys[keyCode] || false;
     }
 
+    cleanGUI() {
+
+        this.gui.destroy();
+        this.gui = new dat.GUI();
+    }
+
 
     createCamerasDropdown(graph) {
-
 
         const cameraDropdownModel = [
             ...Object.keys(graph.cameras)
@@ -64,13 +69,6 @@ class MyInterface extends CGFinterface {
             .name("View ")
             .onChange(val => this.scene.setCurrentCamera(val));
 
-        var group = this.gui.addFolder("Game");
-        group.add(this.scene.quantik, 'startGame').name("Start");
-        group.add(this.scene.quantik, 'gameDifficulty', { Easy: '1', Hard: '2' }).name("Difficulty");
-        group.add(this.scene.quantik, 'gameMode', { 'Player v Player': '1', 'Player v Bot': '2', 'Bot v Bot': '3' }).name("Mode");
-        group.add(this.scene.quantik, 'undo').name("Undo");
-        group.add(this.scene.quantik, 'timeout', 5, 120).step(5).name("Timeout");
-        group.open();
     }
 
     createLightsCheckboxes(graph) {
@@ -90,6 +88,22 @@ class MyInterface extends CGFinterface {
             }
 
         }
+
+    }
+
+    createGameDropDown() {
+
+        var group = this.gui.addFolder("Game");
+        group.add(this.scene.quantik, 'startGame').name("Start");
+        group.add(this.scene.quantik, 'gameDifficulty', { Easy: '1', Hard: '2' }).name("Difficulty");
+        group.add(this.scene.quantik, 'gameMode', { 'Player v Player': '1', 'Player v Bot': '2', 'Bot v Bot': '3' }).name("Mode");
+        group.add(this.scene.quantik, 'undo').name("Undo");
+        group.add(this.scene.quantik, 'timeout', 5, 120).step(5).name("Timeout");
+        group.open();
+
+        group.add(this.scene, "currentScene", ["world1", "world2"])
+            .name("Scene ")
+            .onChange(val => this.scene.changeScene(val));
 
     }
 
