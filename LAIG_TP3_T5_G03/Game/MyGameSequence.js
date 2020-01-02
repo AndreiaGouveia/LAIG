@@ -39,4 +39,11 @@ class MyGameSequence {
         return true;
 
     }
+
+    undoEverything() {
+        while (true) {
+            if (!this.undoMove())
+                break;
+        }
+    }
 }

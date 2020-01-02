@@ -31,6 +31,18 @@ class MyBoard extends CGFobject {
 
     }
 
+    reset() {
+        this.pieces = [
+            [null, null, null, null],
+            [null, null, null, null],
+            [null, null, null, null],
+            [null, null, null, null],
+        ];
+
+        this.movingPiece = null;
+
+    }
+
     update(currTime) {
 
 

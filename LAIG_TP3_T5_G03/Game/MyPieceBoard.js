@@ -28,6 +28,15 @@ class MyPieceBoard extends CGFobject {
 
     }
 
+    reset() {
+        this.pieces = [
+            new MyMarshmallow(this.scene, player), new MyMarshmallow(this.scene, player),
+            new MyDonut(this.scene, player), new MyDonut(this.scene, player),
+            new MyChristmasTree(this.scene, player), new MyChristmasTree(this.scene, player),
+            new MyIceCream(this.scene, player), new MyIceCream(this.scene, player),
+        ];
+    }
+
     getPiece(x) {
 
         return this.pieces[x];

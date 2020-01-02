@@ -98,6 +98,7 @@ class MyInterface extends CGFinterface {
         group.add(this.scene.quantik, 'gameMode', { 'Player v Player': '1', 'Player v Bot': '2', 'Bot v Bot': '3' }).name("Mode");
         group.add(this.scene.quantik, 'undo').name("Undo");
         group.add(this.scene.quantik, 'timeout', 5, 120).step(5).name("Timeout");
+        group.add(this.scene.quantik, 'quitGame').name("Quit");
         group.open();
 
         group.add(this.scene, "currentScene", ["world1", "world2"])

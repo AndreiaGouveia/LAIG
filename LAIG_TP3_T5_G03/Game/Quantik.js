@@ -27,11 +27,22 @@ class Quantik extends CGFobject {
             hard: '2'
         };
 
+        this.gamesWon_player1 = 0;
+        this.gamesWon_player2 = 0;
+
         this.server = new Server();
+        this.gameBoard = new MyGameBoard(this.scene);
+        this.gameMoves = new MyGameSequence(this.gameBoard);
+        this.init();
+
+        this.scene.setPickEnabled(false);
+
+    };
+
+    init() {
         this.gameState = this.state.waiting;
         this.gameDifficulty = this.difficulty.easy;
         this.gameMode = this.mode.PvP;
-        this.gameBoard = new MyGameBoard(scene);
         this.boardArray = this.gameBoard.board.pieces;
         this.player1Pieces = this.convertBoard(this.gameBoard.sideBoard1.pieces);
         this.player2Pieces = this.convertBoard(this.gameBoard.sideBoard1.pieces);
@@ -40,14 +51,10 @@ class Quantik extends CGFobject {
         this.lastPlayer = 'player2';
 
         this.pieceSelected = null;
-        this.gameMoves = new MyGameSequence(this.gameBoard);
 
         this.time = 0;
         this.timeout = 30;
-
-        this.scene.setPickEnabled(false);
-
-    };
+    }
 
     convertBoard(boardToConvert) {
 
@@ -139,8 +146,11 @@ class Quantik extends CGFobject {
 
         this.server.makeRequest('start', function(data) {
             quantik.scene.setPickEnabled(true);
-            quantik.updateState();
 
+            quantik.gameMoves.undoEverything();
+            quantik.init();
+
+            quantik.updateState();
             quantik.updateErrors("");
         });
     }
@@ -154,6 +164,8 @@ class Quantik extends CGFobject {
 
         this.gameState = this.state.win;
         this.scene.setPickEnabled(false);
+        this["gamesWon_" + this.lastPlayer]++;
+        this.updateScore();
     }
 
     getBotPlay(){
@@ -296,12 +308,18 @@ class Quantik extends CGFobject {
         document.getElementById("error").innerText = error;
     }
 
+    updateScore() {
+        document.getElementById("score").innerText = this.gamesWon_player1 + " wins : " + this.gamesWon_player2 + " wins";
+
+    }
+
     updateHTML() {
 
         if (this.gameState == this.state.botTurn || this.gameState == this.state.playerTurn) {
 
             document.getElementById("time").innerText = Math.floor(this.time) + " seconds ";
             document.getElementById("player").innerText = this.currentPlayer + "'s turn";
+            this.updateScore();
 
         } else {
 
