@@ -25,9 +25,6 @@ class CameraAnimation extends Animation {
         this.farSecondCamera = secondCamera.far;
         this.angleSecondCamera = secondCamera.fov;
 
-        console.log(firstCamera)
-        console.log(secondCamera)
-
         this.lengthOfTime = lengthOfTime;
     }
 

@@ -36,7 +36,6 @@ class Quantik extends CGFobject {
         this.player1Pieces = this.gameBoard.sideBoard1.pieces;
         this.player2Pieces = this.gameBoard.sideBoard1.pieces;
         this.prologBoard = this.convertBoard();
-        console.log(this.prologBoard);
         this.currentPlayer = 'player1';
         this.lastPlayer = 'player2';
 
