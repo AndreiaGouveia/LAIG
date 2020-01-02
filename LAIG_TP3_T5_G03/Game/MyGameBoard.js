@@ -12,9 +12,9 @@ class MyGameBoard extends CGFobject {
 
         this.board = new MyBoard(this.scene);
         this.sideBoard1 = new MyPieceBoard(this.scene, 1);
-        this.positionOfSideBoard1 = [1.75, 0, 0];
+        this.positionOfSideBoard1 = [-1.75, 0, 0];
         this.sideBoard2 = new MyPieceBoard(this.scene, 2);
-        this.positionOfSideBoard2 = [-1.75, 0, 0];
+        this.positionOfSideBoard2 = [1.75, 0, 0];
     }
 
     update(currTime) {

@@ -27,6 +27,9 @@ class Quantik extends CGFobject {
             hard: '2'
         };
 
+        this.gamesWon_player1 = 0;
+        this.gamesWon_player2 = 0;
+
         this.server = new Server();
         this.gameBoard = new MyGameBoard(this.scene);
         this.gameMoves = new MyGameSequence(this.gameBoard);
@@ -161,6 +164,8 @@ class Quantik extends CGFobject {
 
         this.gameState = this.state.win;
         this.scene.setPickEnabled(false);
+        this["gamesWon_" + this.lastPlayer]++;
+        this.updateScore();
     }
 
     checkWin() {
@@ -291,12 +296,18 @@ class Quantik extends CGFobject {
         document.getElementById("error").innerText = error;
     }
 
+    updateScore() {
+        document.getElementById("score").innerText = this.gamesWon_player1 + " wins : " + this.gamesWon_player2 + " wins";
+
+    }
+
     updateHTML() {
 
         if (this.gameState == this.state.botTurn || this.gameState == this.state.playerTurn) {
 
             document.getElementById("time").innerText = Math.floor(this.time) + " seconds ";
             document.getElementById("player").innerText = this.currentPlayer + "'s turn";
+            this.updateScore();
 
         } else {
 

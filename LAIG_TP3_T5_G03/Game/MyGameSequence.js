@@ -41,8 +41,9 @@ class MyGameSequence {
     }
 
     undoEverything() {
-        for (let i = 0; i < this.moves.length; i++) {
-            this.undoMove();
+        while (true) {
+            if (!this.undoMove())
+                break;
         }
     }
 }
