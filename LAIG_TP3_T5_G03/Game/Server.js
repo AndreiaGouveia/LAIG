@@ -5,7 +5,7 @@ class Server {
     /**
      * @constructor
      */
-    constructor() {
+    constructor(onErrorFunction) {
         this.port = 8081;
     };
 
@@ -22,7 +22,7 @@ class Server {
      * @param  {string} data response from the XMLHttpRequest
      */
     onError(data) {
-        //swal("Oops...", "Please connect to Prolog server", "error");
+        document.getElementById("error").innerText = "No connection";
     };
 
     /**

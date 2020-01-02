@@ -93,7 +93,7 @@ class Quantik extends CGFobject {
     checkState() {
 
 
-        if (this.gameState == this.state.waiting)
+        if (this.gameState == this.state.waiting || this.gameState == this.state.quit || this.gameState == this.state.win)
             return;
 
         this.updateState();
@@ -133,13 +133,26 @@ class Quantik extends CGFobject {
      * initializes everything needed to start a new game
      */
     startGame() {
+
         var quantik = this;
-        this.scene.setPickEnabled(true);
-        quantik.updateState();
+        this.updateErrors("Connecting...");
+
+        this.server.makeRequest('start', function(data) {
+            quantik.scene.setPickEnabled(true);
+            quantik.updateState();
+
+            quantik.updateErrors("");
+        });
     }
 
     quitGame() {
         this.gameState = this.state.quit;
+        this.scene.setPickEnabled(false);
+    }
+
+    winGame() {
+
+        this.gameState = this.state.win;
         this.scene.setPickEnabled(false);
     }
 
@@ -149,8 +162,8 @@ class Quantik extends CGFobject {
         var command = this.prologBoard;
         this.server.makeRequest(command, function(data) {
             if (data.target.response == 0) {
-                console.log("WONNNNNNNNNNNNNNNNNNN");
-                scene1.quitGame();
+                console.log(scene1.lastPlayer + " won");
+                scene1.winGame();
             }
         });
     }
@@ -301,7 +314,7 @@ class Quantik extends CGFobject {
                 document.getElementById("information").innerText = "Moving piece";
                 break;
             case this.state.win:
-                document.getElementById("information").innerText = "You Won";
+                document.getElementById("information").innerText = this.lastPlayer + " Won!";
                 break;
             default:
                 document.getElementById("information").innerText = "";
