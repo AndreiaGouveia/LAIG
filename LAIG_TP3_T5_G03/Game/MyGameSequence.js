@@ -39,4 +39,10 @@ class MyGameSequence {
         return true;
 
     }
+
+    undoEverything() {
+        for (let i = 0; i < this.moves.length; i++) {
+            this.undoMove();
+        }
+    }
 }

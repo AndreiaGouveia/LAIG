@@ -28,6 +28,8 @@ class Quantik extends CGFobject {
         };
 
         this.server = new Server();
+        this.gameBoard = new MyGameBoard(this.scene);
+        this.gameMoves = new MyGameSequence(this.gameBoard);
         this.init();
 
         this.scene.setPickEnabled(false);
@@ -38,9 +40,6 @@ class Quantik extends CGFobject {
         this.gameState = this.state.waiting;
         this.gameDifficulty = this.difficulty.easy;
         this.gameMode = this.mode.PvP;
-
-
-        this.gameBoard = new MyGameBoard(this.scene);
         this.boardArray = this.gameBoard.board.pieces;
         this.player1Pieces = this.gameBoard.sideBoard1.pieces;
         this.player2Pieces = this.gameBoard.sideBoard1.pieces;
@@ -49,7 +48,6 @@ class Quantik extends CGFobject {
         this.lastPlayer = 'player2';
 
         this.pieceSelected = null;
-        this.gameMoves = new MyGameSequence(this.gameBoard);
 
         this.time = 0;
         this.timeout = 30;
@@ -145,6 +143,8 @@ class Quantik extends CGFobject {
 
         this.server.makeRequest('start', function(data) {
             quantik.scene.setPickEnabled(true);
+
+            quantik.gameMoves.undoEverything();
             quantik.init();
 
             quantik.updateState();
