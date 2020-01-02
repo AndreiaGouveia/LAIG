@@ -103,10 +103,28 @@ print_header_line(_).
 
 % Require your Prolog Files here
 
-parse_input(handshake, handshake).
-parse_input(test(C,N), Res) :- test(C,Res,N).
-parse_input(quit, goodbye).
+:- consult('Quantik.pl').
+:- consult('Menu.pl').
+:- consult('display.pl').
+:- consult('Logica.pl').
+:- consult('Modos.pl').
+:- consult('bot.pl').	
 
-test(_,[],N) :- N =< 0.
-test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
+parse_input(start,ok):-
+	displayMainMenu.
+
+parse_input(pieceRuleValidation(Board , X , Y , Piece), Result):-
+	pieceRuleValidation(Board , X , Y , Piece),
+	!,
+	Result = 0.
+parse_input(pieceRuleValidation(Board , X , Y , Piece), Result):-
+	Result = 1.
 	
+parse_input(Board,Result):-
+	game_over(Board,0,Something),
+	Something is 15,
+	!,
+	Result = 0.
+
+parse_input(Board,Result):-
+	Result = 1.

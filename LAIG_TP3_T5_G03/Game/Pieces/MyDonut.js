@@ -14,6 +14,7 @@ class MyDonut extends MyPiece {
 
         this.color = new CGFappearance(scene);
         this.color.setAmbient(1, 1, 1, 1);
+        this.player = player
 
         if (player == 1)
             this.donutTexture = new CGFtexture(this.scene, "scenes/images/donut.png");
@@ -21,6 +22,15 @@ class MyDonut extends MyPiece {
             this.donutTexture = new CGFtexture(this.scene, "scenes/images/donut2.jpg");
 
 
+    }
+
+    getId(){
+        if(this.player == 1)
+        {
+            return 3;
+        }
+        
+        return 8;
     }
 
 

@@ -68,7 +68,6 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, "cameraIndex", cameraDropdownModel)
             .name("View ")
             .onChange(val => this.scene.setCurrentCamera(val));
-
     }
 
     createLightsCheckboxes(graph) {

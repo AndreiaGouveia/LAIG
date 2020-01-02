@@ -18,6 +18,7 @@ class MyChristmasTree extends MyPiece {
         this.trees.setAmbient(1, 1, 1, 1);
         this.trunkColor = new CGFappearance(scene);
         this.trunkColor.setAmbient(1, 1, 1, 1);
+        this.player = player
 
         if (player == 1)
             this.creamTexture = new CGFtexture(this.scene, "../scenes/images/folha.jpg");
@@ -28,6 +29,15 @@ class MyChristmasTree extends MyPiece {
 
         this.trunkColor.setTexture(this.trunkTexture);
 
+    }
+
+    getId(){
+        if(this.player == 1)
+        {
+            return 2;
+        }
+        
+        return 7;
     }
 
     display() {

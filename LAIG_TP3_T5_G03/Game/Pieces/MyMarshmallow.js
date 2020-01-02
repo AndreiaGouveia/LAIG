@@ -18,12 +18,23 @@ class MyMarshmallow extends MyPiece {
         this.color = new CGFappearance(scene);
         this.color.setAmbient(1, 1, 1, 1);
 
+        this.player = player;
+
         if (player == 1)
             this.donutTexture = new CGFtexture(this.scene, "scenes/images/marshmallow.jpg");
         else
             this.donutTexture = new CGFtexture(this.scene, "scenes/images/marsh.jpg");
 
 
+    }
+
+    getId(){
+        if(this.player == 1)
+        {
+            return 4;
+        }
+        
+        return 9;
     }
 
     display() {

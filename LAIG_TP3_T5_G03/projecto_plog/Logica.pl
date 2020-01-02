@@ -215,27 +215,27 @@ checkWin(Board , X , Y):- % win from square
 game_over(Board,_Counter,NewCounter):-
 	checkWin(Board,1,1),
 	!,
-	NewCounter is 15,
+	NewCounter = 15,
 	write('\n You won! \n').
 
 game_over(Board,_Counter,NewCounter):-
 	checkWin(Board,2,3),
 	!,
-	NewCounter is 15,
+	NewCounter = 15,
 	write('\n You won! \n').
 
 game_over(Board,_Counter,NewCounter):-
 	checkWin(Board,3,2), 
 	!,
-	NewCounter is 15,
+	NewCounter = 15,
 	write('\n You won! \n').
 
 game_over(Board,_Counter,NewCounter):-
 	checkWin(Board,4,4),
 	!,
-	NewCounter is 15,
+	NewCounter = 15,
 	write('\n You won! \n').
 
 game_over(_Board,Counter,NewCounter):-
-	NewCounter is Counter,
+	NewCounter = Counter,
 	write('\n Keep playing! \n').
