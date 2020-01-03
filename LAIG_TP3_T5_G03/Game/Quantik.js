@@ -285,12 +285,16 @@ class Quantik extends CGFobject {
 
     makeMovie() {
 
-        this.gameState = this.state.movie;
-        this.movieMoves = this.gameMoves.moves.slice();
-        this.gameMoves.undoEverything();
+        if (this.gameState == this.state.playerTurn || this.gameState == this.state.botTurn) {
+            this.gameState = this.state.movie;
+            this.movieMoves = this.gameMoves.moves.slice();
+            this.gameMoves.undoEverything();
+        }
     }
 
     nextMove() {
+
+
 
         if (this.movieMoves.length == 0) {
             this.gameState = this.state.moving
@@ -470,6 +474,9 @@ class Quantik extends CGFobject {
                 break;
             case this.state.waitingForBot:
                 document.getElementById("information").innerText = "Bot is thinking!";
+                break;
+            case this.state.movie:
+                document.getElementById("information").innerText = "Enjoy your movie!";
                 break;
             default:
                 document.getElementById("information").innerText = "";
