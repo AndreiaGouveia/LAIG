@@ -121,7 +121,7 @@ parse_input(pieceRuleValidation(Board , X , Y , Piece), Result):-
 	Result = 1.
 	
 
-parse_input(getBotMove(Pieces,Board,Smart), [X , Y]):-
+parse_input(getBotMove(Pieces,Board,Smart), [X , Y , Piece]):-
 	remove_dups(Pieces, NewPieces1),
     valid_moves(Board, [], NewPieces1, ListOfMoves),
     length(ListOfMoves, L),
@@ -129,7 +129,7 @@ parse_input(getBotMove(Pieces,Board,Smart), [X , Y]):-
 	!,
     choose_move(Board, Smart, X, Y, Piece, ListOfMoves).
 
-parse_input(getBotMove(Pieces,Board,Smart), [-1 , -1]).
+parse_input(getBotMove(Pieces,Board,Smart), [-1 , -1 , Piece]).
 
 parse_input(Board,Result):-
 	game_over(Board,0,Something),

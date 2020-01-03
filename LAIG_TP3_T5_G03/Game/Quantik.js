@@ -63,13 +63,18 @@ class Quantik extends CGFobject {
     if(boardToConvert.length !=4)
         {
             for (var i = 0; i < boardToConvert.length; i++) {
+                
                 if (boardToConvert[i] == null) {
-                    board = board + "0";
-                } else board = board + boardToConvert[i].getId().toString();
+                   continue;
+                }
 
-                if (i < 7) {
+                if (i !=0) {
                     board = board + ',';
                 }
+                
+                board = board + boardToConvert[i].getId().toString();
+
+                
             }
         } 
         else {
@@ -122,10 +127,10 @@ class Quantik extends CGFobject {
 
         switch (this.gameState) {
             case this.state.playerTurn:
-                //this.playerPick();
+                this.playerPick();
                 break;
             case this.state.botTurn:
-                //this.getBotMove();
+                this.getBotPlay();
                 break;
         }
     };
@@ -160,8 +165,6 @@ class Quantik extends CGFobject {
         this.updateErrors("Connecting...");
 
         this.server.makeRequest('start', function(data) {
-            quantik.scene.setPickEnabled(true);
-
             quantik.gameMoves.undoEverything();
             quantik.init();
 
@@ -183,18 +186,65 @@ class Quantik extends CGFobject {
         this.updateScore();
     }
 
+    playerPick(){
+        this.scene.setPickEnabled(true);
+    }
+
     getBotPlay(){
+
+        this.scene.setPickEnabled(false);
         var scene1 = this;
 
-        var dif;
+        var dif,pieceBoard;
+        var botMove = null;
+
         if(this.gameDifficulty = this.difficulty.easy)
             dif = "random";
         else dif = "smart";
 
-        var command = "getBotMove("+ this.player1Pieces + ","+this.prologBoard+","+dif+")";
-        console.log(command);
+        if(this.currentPlayer == 'player1')
+            pieceBoard = this.gameBoard.sideBoard1.pieces;
+            else pieceBoard = this.gameBoard.sideBoard2.pieces;
+
+        var command = "getBotMove("+ this.convertBoard(pieceBoard) + ","+this.prologBoard+",smart)";
+
+        
         this.server.makeRequest(command, function(data) {
-            console.log(data.target.response);
+            botMove = data.target.response; 
+
+            if(botMove[1]==-1)//lose
+                scene1.gameState = scene1.state.quit;
+
+            var piece;
+            var i=0;
+            
+            for( ; i < pieceBoard.length ; i++){
+                
+                if(pieceBoard[i]!=null)
+                if(pieceBoard[i].getId() == botMove[5]){
+                    piece = pieceBoard[i];
+                    break;
+                }
+            }
+            let x = botMove[1]-1;
+            let y = botMove[3]-1;
+            let n_board =0;
+
+            if(scene1.currentPlayer == 'player1')
+                 n_board = 1;
+            else  n_board = 2;
+
+            let n_piece =i;
+            scene1.gameMoves.addMove(piece, n_board, n_piece, x, y);
+
+            pieceBoard[i] = null;
+            scene1.changePlayer();
+
+
+            scene1.prologBoard = scene1.convertBoard(scene1.boardArray);
+            scene1.prologSideBoard1 = scene1.convertBoard(scene1.gameBoard.sideBoard1.pieces);
+            scene1.prologSideBoard2 = scene1.convertBoard(scene1.gameBoard.sideBoard2.pieces);
+            scene1.checkWin();
         });
     }
 
@@ -216,7 +266,6 @@ class Quantik extends CGFobject {
             this.gameState = this.state.moving;
 
         } else {
-
             switch (this.gameMode) {
                 case this.mode.PvP:
                     if (this.gameMode != this.state.quit)
@@ -259,10 +308,11 @@ class Quantik extends CGFobject {
 
     onObjectSelected(customId, obj) {
         var scene = this;
-
+console.log("PICKED");
         if (obj instanceof MyCube) {
+            this.getBotPlay();// TESTS
 
-            if (this.pieceSelected != null && !this.gameBoard.board.isPieceBeingMoved()) {
+           /* if (this.pieceSelected != null && !this.gameBoard.board.isPieceBeingMoved()) {
                 console.log("move");
 
                 let x = Math.floor(customId / 10) - 1;
@@ -279,7 +329,6 @@ class Quantik extends CGFobject {
 
                     let n_board = Math.floor(scene.pieceSelected[0] / 100);
                     let n_piece = scene.pieceSelected[0] % 100;
-
                     scene.gameMoves.addMove(scene.pieceSelected[1], n_board, n_piece, x, y);
 
                     scene.pieceSelected = null;
@@ -288,10 +337,9 @@ class Quantik extends CGFobject {
 
                     scene.prologBoard = scene.convertBoard(scene.boardArray);
                     scene.checkWin();
-                    scene.getBotPlay();
                 });
 
-            }
+            }*/
 
 
         } else if (obj instanceof MyPiece) {

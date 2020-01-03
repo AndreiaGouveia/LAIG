@@ -110,6 +110,36 @@ class XMLscene extends CGFscene {
         this.graph.filename = filename + '.xml';
     }
 
+    changeMode(mode) {
+        console.log("changed");
+        switch(mode){
+            case 1: 
+                this.quantik.gameMode = this.quantik.mode.PvP;
+                break;
+            
+            case 2: 
+                this.quantik.gameMode = this.quantik.mode.PvC;
+                break;
+            
+            case 3: 
+                this.quantik.gameMode = this.quantik.mode.CvC;
+                break;
+        }
+    }
+
+    changeDificulty(difficulty) {
+        switch(difficulty){
+            case 1: 
+                this.quantik.gameDifficulty = this.quantik.difficulty.easy;
+                break;
+            
+            case 2: 
+                this.quantik.gameDifficulty = this.quantik.difficulty.hard;
+                break;
+        }
+        
+    }
+
     setCurrentCamera(newCameraID) {
 
 
