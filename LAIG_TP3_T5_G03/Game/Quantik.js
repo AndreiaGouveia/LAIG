@@ -310,9 +310,9 @@ class Quantik extends CGFobject {
         var scene = this;
 console.log("PICKED");
         if (obj instanceof MyCube) {
-            this.getBotPlay();// TESTS
+            //this.getBotPlay();// TESTS
 
-            /*if (this.pieceSelected != null && !this.gameBoard.board.isPieceBeingMoved()) {
+            if (this.pieceSelected != null && !this.gameBoard.board.isPieceBeingMoved()) {
                 console.log("move");
 
                 let x = Math.floor(customId / 10) - 1;
@@ -339,7 +339,7 @@ console.log("PICKED");
                     scene.checkWin();
                 });
 
-            }*/
+            }
 
 
         } else if (obj instanceof MyPiece) {
