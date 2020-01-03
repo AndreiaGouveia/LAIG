@@ -312,12 +312,20 @@ class Quantik extends CGFobject {
     pauseORContinue() {
 
 
-        if (this.gameState == this.state.pause) {
+        if (this.gameState == this.state.waiting || this.gameState == this.state.quit || this.gameState == this.state.won)
+            return;
+
+        if (this.isPaused()) {
             this.gameState = this.state.moving;
         } else {
             this.gameState = this.state.pause;
         }
 
+    }
+
+    isPaused() {
+
+        return (this.gameState == this.state.pause || this.gameState == this.state.waiting || this.gameState == this.state.quit || this.gameState == this.state.won);
     }
 
     checkWin() {

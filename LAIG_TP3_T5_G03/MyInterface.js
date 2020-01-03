@@ -103,7 +103,15 @@ class MyInterface extends CGFinterface {
         group.add(this.scene.quantik, 'timeout', 5, 120).step(5).name("Timeout");
         group.add(this.scene.quantik, 'makeMovie').name("Movie");
         group.add(this.scene.quantik, 'quitGame').name("Quit");
-        group.add(this.scene.quantik, 'pauseORContinue').name("Pause/Continue");
+
+        let pause = group.add(this.scene.quantik, 'pauseORContinue').name(this.scene.quantik.isPaused() ? 'Pause' : 'Play');
+
+        var me = this;
+        pause.__onChange = function() {
+            // opposite, because togglePause hasnt been called yet
+            pause.name(me.scene.quantik.isPaused() ? 'Pause' : 'Play');
+        };
+
         group.open();
 
         group.add(this.scene, "currentScene", ["world1", "world2"])
