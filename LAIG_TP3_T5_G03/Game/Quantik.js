@@ -20,7 +20,8 @@ class Quantik extends CGFobject {
             waiting: '3',
             quit: '4',
             won: '5',
-            moving: '6'
+            moving: '6',
+            waitingForBot: '7'
         };
         this.difficulty = {
             easy: '1',
@@ -33,6 +34,7 @@ class Quantik extends CGFobject {
         this.server = new Server();
         this.gameBoard = new MyGameBoard(this.scene);
         this.gameMoves = new MyGameSequence(this.gameBoard);
+        this.gameMode = this.mode.PvP;
         this.init();
 
         this.scene.setPickEnabled(false);
@@ -42,7 +44,6 @@ class Quantik extends CGFobject {
     init() {
         this.gameState = this.state.waiting;
         this.gameDifficulty = this.difficulty.easy;
-        this.gameMode = this.mode.PvP;
         this.boardArray = this.gameBoard.board.pieces;
         this.player1Pieces = this.convertBoard(this.gameBoard.sideBoard1.pieces);
         this.player2Pieces = this.convertBoard(this.gameBoard.sideBoard1.pieces);
@@ -60,43 +61,41 @@ class Quantik extends CGFobject {
 
         var board = "[";
 
-    if(boardToConvert.length !=4)
-        {
+        if (boardToConvert.length != 4) {
             for (var i = 0; i < boardToConvert.length; i++) {
-                
+
                 if (boardToConvert[i] == null) {
-                   continue;
+                    continue;
                 }
 
-                if (i !=0) {
+                if (i != 0) {
                     board = board + ',';
                 }
-                
+
                 board = board + boardToConvert[i].getId().toString();
 
-                
-            }
-        } 
-        else {
-        for (var i = 0; i < boardToConvert.length; i++) {
-            var row = "[";
-            var boardRow = boardToConvert[i];
-            for (var j = 0; j < boardRow.length; j++) {
-                if (boardRow[j] == null) {
-                    row = row + "0";
-                } else row = row + boardRow[j].getId().toString();
 
-                if (j < 3) {
+            }
+        } else {
+            for (var i = 0; i < boardToConvert.length; i++) {
+                var row = "[";
+                var boardRow = boardToConvert[i];
+                for (var j = 0; j < boardRow.length; j++) {
+                    if (boardRow[j] == null) {
+                        row = row + "0";
+                    } else row = row + boardRow[j].getId().toString();
+
+                    if (j < 3) {
+                        row = row + ',';
+                    }
+                }
+
+                row = row + "]";
+
+                if (i < 3) {
                     row = row + ',';
                 }
-            }
-
-            row = row + "]";
-
-            if (i < 3) {
-                row = row + ',';
-            }
-            board = board + row;
+                board = board + row;
             }
         }
 
@@ -186,66 +185,80 @@ class Quantik extends CGFobject {
         this.updateScore();
     }
 
-    playerPick(){
+    playerPick() {
         this.scene.setPickEnabled(true);
     }
 
-    getBotPlay(){
+    makeBotMove(botMove, pieceBoard) {
+
+        if (botMove[1] == -1) //lose
+        {
+            this.gameState = this.state.win;
+            return;
+        }
+
+        let x = botMove[1] - 1;
+        let y = botMove[3] - 1;
+        let n_board = 0;
+
+        if (this.currentPlayer == 'player1')
+            n_board = 1;
+        else
+            n_board = 2;
+
+        var piece;
+        var i = 0;
+
+        for (; i < pieceBoard.length; i++) {
+
+            if (pieceBoard[i] != null)
+                if (pieceBoard[i].getId() == botMove[5]) {
+                    piece = pieceBoard[i];
+                    break;
+                }
+        }
+        let n_piece = i;
+        this.gameMoves.addMove(piece, n_board, n_piece, x, y);
+        this.changePlayer();
+
+
+        this.prologBoard = this.convertBoard(this.boardArray);
+        this.prologSideBoard1 = this.convertBoard(this.gameBoard.sideBoard1.pieces);
+        this.prologSideBoard2 = this.convertBoard(this.gameBoard.sideBoard2.pieces);
+        this.checkWin();
+    }
+
+    getBotPlay() {
 
         this.scene.setPickEnabled(false);
         var scene1 = this;
 
-        var dif,pieceBoard;
+        var dif, pieceBoard;
         var botMove = null;
 
-        if(this.gameDifficulty = this.difficulty.easy)
+        if (this.gameDifficulty = this.difficulty.easy)
             dif = "random";
-        else dif = "smart";
+        else
+            dif = "smart";
 
-        if(this.currentPlayer == 'player1')
+        if (this.currentPlayer == 'player1')
             pieceBoard = this.gameBoard.sideBoard1.pieces;
-            else pieceBoard = this.gameBoard.sideBoard2.pieces;
+        else
+            pieceBoard = this.gameBoard.sideBoard2.pieces;
 
-        var command = "getBotMove("+ this.convertBoard(pieceBoard) + ","+this.prologBoard+",smart)";
+        var command = "getBotMove(" + this.convertBoard(pieceBoard) + "," + this.prologBoard + ",smart)";
 
-        
         this.server.makeRequest(command, function(data) {
-            botMove = data.target.response; 
+            botMove = data.target.response;
+            scene1.gameState = scene1.state.moving;
 
-            if(botMove[1]==-1)//lose
-                scene1.gameState = scene1.state.quit;
-
-            var piece;
-            var i=0;
-            
-            for( ; i < pieceBoard.length ; i++){
-                
-                if(pieceBoard[i]!=null)
-                if(pieceBoard[i].getId() == botMove[5]){
-                    piece = pieceBoard[i];
-                    break;
-                }
-            }
-            let x = botMove[1]-1;
-            let y = botMove[3]-1;
-            let n_board =0;
-
-            if(scene1.currentPlayer == 'player1')
-                 n_board = 1;
-            else  n_board = 2;
-
-            let n_piece =i;
-            scene1.gameMoves.addMove(piece, n_board, n_piece, x, y);
-
-            pieceBoard[i] = null;
-            scene1.changePlayer();
+            scene1.makeBotMove(botMove, pieceBoard);
 
 
-            scene1.prologBoard = scene1.convertBoard(scene1.boardArray);
-            scene1.prologSideBoard1 = scene1.convertBoard(scene1.gameBoard.sideBoard1.pieces);
-            scene1.prologSideBoard2 = scene1.convertBoard(scene1.gameBoard.sideBoard2.pieces);
-            scene1.checkWin();
         });
+
+        this.gameState = this.state.waitingForBot;
+
     }
 
     checkWin() {
@@ -257,28 +270,29 @@ class Quantik extends CGFobject {
                 console.log(scene1.lastPlayer + " won");
                 scene1.winGame();
             }
+
         });
     }
 
     updateState() {
 
+        if (this.gameState == this.state.waitingForBot)
+            return;
+
         if (this.gameBoard.board.isPieceBeingMoved()) {
             this.gameState = this.state.moving;
 
         } else {
+
             switch (this.gameMode) {
                 case this.mode.PvP:
-                    if (this.gameMode != this.state.quit)
-                        this.gameState = this.state.playerTurn;
+                    this.gameState = this.state.playerTurn;
                     break;
                 case this.mode.PvC:
-                    if (this.gameMode != this.state.quit)
-                        this.gameState = (this.currentPlayer == 'player1') ? this.state.playerTurn : this.state.botTurn;
-                    if (this.gameState == this.state.playerTurn)
-                        break;
+                    this.gameState = (this.currentPlayer == 'player1') ? this.state.playerTurn : this.state.botTurn;
+                    break;
                 case this.mode.CvC:
-                    if (this.gameMode != this.state.quit)
-                        this.gameState = this.state.botTurn;
+                    this.gameState = this.state.botTurn;
                     break;
             }
         }
@@ -308,9 +322,8 @@ class Quantik extends CGFobject {
 
     onObjectSelected(customId, obj) {
         var scene = this;
-console.log("PICKED");
+
         if (obj instanceof MyCube) {
-            //this.getBotPlay();// TESTS
 
             if (this.pieceSelected != null && !this.gameBoard.board.isPieceBeingMoved()) {
                 console.log("move");
@@ -357,14 +370,23 @@ console.log("PICKED");
 
     }
 
+    undoOneMode() {
+        if (this.gameMoves.undoMove()) {
+            this.changeToLastPlayer();
+            this.updateErrors("");
+        }
+    }
+
     undo() {
 
         console.log("undo");
         if (this.gameState == this.state.moving || this.gameState == this.state.playerTurn || this.gameState == this.state.botTurn) {
-            if (this.gameMoves.undoMove()) {
-                this.changeToLastPlayer();
-                this.updateErrors("");
+            if (this.gameMode == this.mode.PvC && this.currentPlayer == 'player1') {
+
+                this.undoOneMode();
             }
+
+            this.undoOneMode();
         }
     }
 
@@ -409,6 +431,9 @@ console.log("PICKED");
                 break;
             case this.state.win:
                 document.getElementById("information").innerText = this.lastPlayer + " Won!";
+                break;
+            case this.state.waitingForBot:
+                document.getElementById("information").innerText = "Bot is thinking!";
                 break;
             default:
                 document.getElementById("information").innerText = "";
