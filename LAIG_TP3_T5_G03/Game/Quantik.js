@@ -228,10 +228,31 @@ class Quantik extends CGFobject {
         this.checkWin();
     }
 
+    makePersonMove(response, x, y) {
+
+        if (response == 1) {
+            this.updateErrors("Not a valid move");
+            return;
+        }
+
+
+        let n_board = Math.floor(this.pieceSelected[0] / 100);
+        let n_piece = this.pieceSelected[0] % 100;
+        this.gameMoves.addMove(this.pieceSelected[1], n_board, n_piece, x, y);
+
+        this.pieceSelected = null;
+        this.changePlayer();
+
+
+        this.prologBoard = this.convertBoard(this.boardArray);
+        this.checkWin();
+
+    }
+
     getBotPlay() {
 
         this.scene.setPickEnabled(false);
-        var scene1 = this;
+        var quantik = this;
 
         var dif, pieceBoard;
         var botMove = null;
@@ -250,9 +271,9 @@ class Quantik extends CGFobject {
 
         this.server.makeRequest(command, function(data) {
             botMove = data.target.response;
-            scene1.gameState = scene1.state.moving;
+            quantik.gameState = quantik.state.moving;
 
-            scene1.makeBotMove(botMove, pieceBoard);
+            quantik.makeBotMove(botMove, pieceBoard);
 
 
         });
@@ -262,13 +283,13 @@ class Quantik extends CGFobject {
     }
 
     checkWin() {
-        var scene1 = this;
+        var quantik = this;
 
         var command = this.prologBoard;
         this.server.makeRequest(command, function(data) {
             if (data.target.response == 0) {
-                console.log(scene1.lastPlayer + " won");
-                scene1.winGame();
+                console.log(quantik.lastPlayer + " won");
+                quantik.winGame();
             }
 
         });
@@ -321,7 +342,7 @@ class Quantik extends CGFobject {
     }
 
     onObjectSelected(customId, obj) {
-        var scene = this;
+        var quantik = this;
 
         if (obj instanceof MyCube) {
 
@@ -334,22 +355,9 @@ class Quantik extends CGFobject {
                 var command = "pieceRuleValidation(" + this.prologBoard + "," + (x + 1).toString() + "," + (y + 1).toString() + "," + this.pieceSelected[1].getId().toString() + ")";
 
                 this.server.makeRequest(command, function(data) {
-                    if (data.target.response == 1) {
-                        scene.updateErrors("Not a valid move");
-                        return;
-                    }
+                    let response = data.target.response;
 
-
-                    let n_board = Math.floor(scene.pieceSelected[0] / 100);
-                    let n_piece = scene.pieceSelected[0] % 100;
-                    scene.gameMoves.addMove(scene.pieceSelected[1], n_board, n_piece, x, y);
-
-                    scene.pieceSelected = null;
-                    scene.changePlayer();
-
-
-                    scene.prologBoard = scene.convertBoard(scene.boardArray);
-                    scene.checkWin();
+                    quantik.makePersonMove(response, x, y);
                 });
 
             }
