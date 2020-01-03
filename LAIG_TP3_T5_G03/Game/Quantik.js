@@ -460,20 +460,7 @@ class Quantik extends CGFobject {
 
     }
 
-    updateHTML() {
-
-        if (this.gameState == this.state.botTurn || this.gameState == this.state.playerTurn) {
-
-            document.getElementById("time").innerText = Math.floor(this.time) + " seconds ";
-            document.getElementById("player").innerText = this.currentPlayer + "'s turn";
-            this.updateScore();
-
-        } else {
-
-            document.getElementById("time").innerText = "";
-            document.getElementById("player").innerText = "";
-        }
-
+    updateInformation() {
         switch (this.gameState) {
             case this.state.waiting:
                 document.getElementById("information").innerText = "Start a game";
@@ -505,8 +492,24 @@ class Quantik extends CGFobject {
             default:
                 document.getElementById("information").innerText = "";
                 break;
-
         }
+    }
+
+    updateHTML() {
+
+        if (this.gameState == this.state.botTurn || this.gameState == this.state.playerTurn) {
+
+            document.getElementById("time").innerText = Math.floor(this.time) + " seconds ";
+            document.getElementById("player").innerText = this.currentPlayer + "'s turn";
+            this.updateScore();
+
+        } else {
+
+            document.getElementById("time").innerText = "";
+            document.getElementById("player").innerText = "";
+        }
+
+        this.updateInformation();
     }
 
     checkTimeout() {
