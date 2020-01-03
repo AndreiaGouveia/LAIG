@@ -301,7 +301,7 @@ class Quantik extends CGFobject {
 
 
         var command = "checkLoss(" + this.convertBoard(pieceBoard) + "," + this.prologBoard + ")";
-        console.log("command: " + command);
+        
         this.server.makeRequest(command, function(data) {
             var response = data.target.response;
 
@@ -310,7 +310,7 @@ class Quantik extends CGFobject {
                 scene1.changePlayer();
                 
                 console.log(scene1.currentPlayer + " won");
-                scene1.winGame();
+                scene1.winGame();//to do melhorar
             }
 
 
