@@ -103,6 +103,7 @@ class MyInterface extends CGFinterface {
         group.add(this.scene.quantik, 'timeout', 5, 120).step(5).name("Timeout");
         group.add(this.scene.quantik, 'makeMovie').name("Movie");
         group.add(this.scene.quantik, 'quitGame').name("Quit");
+        group.add(this.scene.quantik, 'pauseORContinue').name("Pause/Continue");
         group.open();
 
         group.add(this.scene, "currentScene", ["world1", "world2"])

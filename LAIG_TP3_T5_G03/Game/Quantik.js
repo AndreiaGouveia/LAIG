@@ -22,7 +22,8 @@ class Quantik extends CGFobject {
             won: '5',
             moving: '6',
             waitingForBot: '7',
-            movie: '8'
+            movie: '8',
+            pause: '9',
         };
         this.difficulty = {
             easy: '1',
@@ -120,7 +121,8 @@ class Quantik extends CGFobject {
     checkState() {
 
 
-        if (this.gameState == this.state.waiting || this.gameState == this.state.quit || this.gameState == this.state.win)
+        if (this.gameState == this.state.waiting || this.gameState == this.state.quit || this.gameState == this.state.win ||
+            this.gameState == this.state.pause)
             return;
 
         this.updateState();
@@ -307,6 +309,17 @@ class Quantik extends CGFobject {
 
     }
 
+    pauseORContinue() {
+
+
+        if (this.gameState == this.state.pause) {
+            this.gameState = this.state.moving;
+        } else {
+            this.gameState = this.state.pause;
+        }
+
+    }
+
     checkWin() {
         var quantik = this;
 
@@ -478,6 +491,9 @@ class Quantik extends CGFobject {
             case this.state.movie:
                 document.getElementById("information").innerText = "Enjoy your movie!";
                 break;
+            case this.state.pause:
+                document.getElementById("information").innerText = "Game Paused";
+                break;
             default:
                 document.getElementById("information").innerText = "";
                 break;
@@ -495,6 +511,10 @@ class Quantik extends CGFobject {
     }
 
     update(currTime) {
+
+        if (this.gameState == this.state.quit || this.gameState == this.state.waiting || this.gameState == this.state.pause) {
+            return;
+        }
 
         if (this.gameState == this.state.playerTurn) {
 
