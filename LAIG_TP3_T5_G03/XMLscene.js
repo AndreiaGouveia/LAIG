@@ -105,6 +105,7 @@ class XMLscene extends CGFscene {
 
 
     changeScene(filename) {
+        this.sceneInited = false;
         this.onGraphLoaded();
         this.graph.reader.open('scenes/' + filename + '.xml', this.graph);
         this.graph.filename = filename + '.xml';

@@ -681,6 +681,8 @@ class MySceneGraph {
      */
     parseTextures(texturesNode) {
 
+        this.textures = [];
+
         //For each texture in textures block, check ID and file URL
 
         var children = texturesNode.children;
