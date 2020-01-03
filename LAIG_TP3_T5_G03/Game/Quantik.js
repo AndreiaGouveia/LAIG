@@ -275,7 +275,7 @@ class Quantik extends CGFobject {
 
 
         var command = "getBotMove(" + this.convertBoard(pieceBoard) + "," + this.prologBoard + "," + dif+")";
-        console.log("command: " + command);
+        
         this.server.makeRequest(command, function(data) {
             botMove = data.target.response;
 
@@ -288,6 +288,33 @@ class Quantik extends CGFobject {
 
         this.gameState = this.state.waitingForBot;
 
+    }
+
+    checkDraw(){
+        var scene1 = this;
+        var pieceBoard;
+
+        if (this.currentPlayer == 'player1')
+            pieceBoard = this.gameBoard.sideBoard1.pieces;
+        else
+            pieceBoard = this.gameBoard.sideBoard2.pieces;
+
+
+        var command = "checkLoss(" + this.convertBoard(pieceBoard) + "," + this.prologBoard + ")";
+        console.log("command: " + command);
+        this.server.makeRequest(command, function(data) {
+            var response = data.target.response;
+
+            if(response == 1)//perdeu
+            {
+                scene1.changePlayer();
+                
+                console.log(scene1.currentPlayer + " won");
+                scene1.winGame();
+            }
+
+
+        });
     }
 
     makeMovie() {
@@ -342,6 +369,7 @@ class Quantik extends CGFobject {
                 console.log(quantik.lastPlayer + " won");
                 quantik.winGame();
             }
+            else quantik.checkDraw();
 
         });
     }

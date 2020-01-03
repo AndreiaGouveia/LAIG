@@ -131,6 +131,17 @@ parse_input(getBotMove(Pieces,Board,Smart), [X , Y , Piece]):-
 
 parse_input(getBotMove(Pieces,Board,Smart), [-1 , -1 , 0]).
 
+parse_input(checkLoss(Pieces,Board), Result):-
+	remove_dups(Pieces, NewPieces1),
+    valid_moves(Board, [], NewPieces1, ListOfMoves),
+    length(ListOfMoves, L),
+    L>0,
+	!,
+	Result = 0.
+
+parse_input(checkLoss(Pieces,Board), Result):-
+	Result = 1.
+
 parse_input(Board,Result):-
 	game_over(Board,0,Something),
 	Something is 15,
