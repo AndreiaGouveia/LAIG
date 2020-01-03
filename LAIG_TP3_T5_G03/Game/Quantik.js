@@ -65,12 +65,13 @@ class Quantik extends CGFobject {
 
         if (boardToConvert.length != 4) {
             for (var i = 0; i < boardToConvert.length; i++) {
-
+                
                 if (boardToConvert[i] == null) {
                     continue;
                 }
 
-                if (i != 0) {
+                if (i != 0 ) {
+                    if(board[board.length - 1]!="[")
                     board = board + ',';
                 }
 
@@ -194,9 +195,9 @@ class Quantik extends CGFobject {
 
     makeBotMove(botMove, pieceBoard) {
 
-        if (botMove[1] == -1) //lose
+        if (botMove[1] == '-') //lose
         {
-            this.gameState = this.state.win;
+            this.gameState = this.state.quit;
             return;
         }
 
@@ -260,20 +261,24 @@ class Quantik extends CGFobject {
         var dif, pieceBoard;
         var botMove = null;
 
-        if (this.gameDifficulty = this.difficulty.easy)
+        if (this.gameDifficulty == this.difficulty.easy)
             dif = "random";
         else
             dif = "smart";
+
+            console.log("rand or sma: " + this.gameDifficulty);
 
         if (this.currentPlayer == 'player1')
             pieceBoard = this.gameBoard.sideBoard1.pieces;
         else
             pieceBoard = this.gameBoard.sideBoard2.pieces;
 
-        var command = "getBotMove(" + this.convertBoard(pieceBoard) + "," + this.prologBoard + ",smart)";
 
+        var command = "getBotMove(" + this.convertBoard(pieceBoard) + "," + this.prologBoard + "," + dif+")";
+        console.log("command: " + command);
         this.server.makeRequest(command, function(data) {
             botMove = data.target.response;
+
             quantik.gameState = quantik.state.moving;
 
             quantik.makeBotMove(botMove, pieceBoard);

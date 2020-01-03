@@ -95,8 +95,7 @@ class MyInterface extends CGFinterface {
         var group = this.gui.addFolder("Game");
         group.add(this.scene.quantik, 'startGame').name("Start");
         group.add(this.scene.quantik, 'gameDifficulty', { Easy: '1', Hard: '2' })
-            .name("Difficulty")
-            .onChange(val => this.scene.changeDificulty(val));
+            .name("Difficulty");
         group.add(this.scene.quantik, 'gameMode', { 'Player v Player': '1', 'Player v Bot': '2', 'Bot v Bot': '3' })
             .name("Mode");
         group.add(this.scene.quantik, 'undo').name("Undo");

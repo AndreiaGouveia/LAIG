@@ -129,7 +129,7 @@ parse_input(getBotMove(Pieces,Board,Smart), [X , Y , Piece]):-
 	!,
     choose_move(Board, Smart, X, Y, Piece, ListOfMoves).
 
-parse_input(getBotMove(Pieces,Board,Smart), [-1 , -1 , Piece]).
+parse_input(getBotMove(Pieces,Board,Smart), [-1 , -1 , 0]).
 
 parse_input(Board,Result):-
 	game_over(Board,0,Something),
