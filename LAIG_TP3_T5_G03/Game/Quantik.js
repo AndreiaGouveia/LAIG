@@ -378,7 +378,7 @@ class Quantik extends CGFobject {
 
             if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
 
-                if (this.gameState != this.state.waiting) {
+                if (!this.isPaused()) {
                     for (var i = 0; i < this.scene.pickResults.length; i++) {
                         var obj = this.scene.pickResults[i][0];
 
