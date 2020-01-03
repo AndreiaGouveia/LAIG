@@ -101,6 +101,7 @@ class MyInterface extends CGFinterface {
             .name("Mode");
         group.add(this.scene.quantik, 'undo').name("Undo");
         group.add(this.scene.quantik, 'timeout', 5, 120).step(5).name("Timeout");
+        group.add(this.scene.quantik, 'makeMovie').name("Movie");
         group.add(this.scene.quantik, 'quitGame').name("Quit");
         group.open();
 

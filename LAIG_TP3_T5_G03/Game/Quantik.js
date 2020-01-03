@@ -21,7 +21,8 @@ class Quantik extends CGFobject {
             quit: '4',
             won: '5',
             moving: '6',
-            waitingForBot: '7'
+            waitingForBot: '7',
+            movie: '8'
         };
         this.difficulty = {
             easy: '1',
@@ -282,6 +283,26 @@ class Quantik extends CGFobject {
 
     }
 
+    makeMovie() {
+
+        this.gameState = this.state.movie;
+        this.movieMoves = this.gameMoves.moves.slice();
+        this.gameMoves.undoEverything();
+    }
+
+    nextMove() {
+
+        if (this.movieMoves.length == 0) {
+            this.gameState = this.state.moving
+            return; //todo put other state after movie
+        }
+
+        let move = this.movieMoves[0];
+        this.gameMoves.addMove(move.piece, move.n_board, move.n_piece_origin, move.destinyX, move.destinyY);
+        this.movieMoves.shift();
+
+    }
+
     checkWin() {
         var quantik = this;
 
@@ -299,6 +320,13 @@ class Quantik extends CGFobject {
 
         if (this.gameState == this.state.waitingForBot)
             return;
+
+        if (this.gameState == this.state.movie) {
+            if (!this.gameBoard.board.isPieceBeingMoved())
+                this.nextMove();
+
+            return;
+        }
 
         if (this.gameBoard.board.isPieceBeingMoved()) {
             this.gameState = this.state.moving;
