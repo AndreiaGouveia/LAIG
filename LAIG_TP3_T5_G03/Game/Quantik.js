@@ -1,9 +1,10 @@
 /**
- * Represents the Quantik game
+ * Quantik class, which represents the Quantik game
  */
 class Quantik extends CGFobject {
+
     /**
-     * [constructor description]
+     * @constructor
      * @param {XMLScene} scene	 represents the CGFscene
      */
     constructor(scene) {

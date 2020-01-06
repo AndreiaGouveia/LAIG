@@ -1,11 +1,12 @@
 /**
- * MyPieceBoard class, which represents a Patch object
+ * MyPieceBoard class, which represents a Board of a Player
  */
 class MyPieceBoard extends CGFobject {
 
     /**
      * @constructor
-     * @param {XMLScene} scene           represents the CGFscene
+     * @param {XMLScene} scene   represents the CGFscene
+     * @param destinyY           player that owns the Board 
      */
     constructor(scene, player) {
         super(scene);

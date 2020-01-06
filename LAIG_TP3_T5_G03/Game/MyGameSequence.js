@@ -1,5 +1,12 @@
+/**
+ * MyGameSequence class, which represents a the sequences of moves in a Game
+ */
 class MyGameSequence {
 
+    /**
+     * @constructor
+     * @param {MyBoard} scene  represents the Board of a Game
+     */
     constructor(gameBoard) {
 
         this.board = gameBoard.board;

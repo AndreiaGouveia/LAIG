@@ -1,5 +1,5 @@
 /**
- * MyGameBoard class, which represents a Patch object
+ * MyGameBoard class, which represents the Main Board of the Game
  */
 class MyGameBoard extends CGFobject {
 

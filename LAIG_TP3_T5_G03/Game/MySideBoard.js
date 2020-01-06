@@ -5,7 +5,9 @@ class MySideBoard extends CGFobject {
 
     /**
      * @constructor
-     * @param {XMLScene} scene           represents the CGFscene
+     * @param {XMLScene} scene    represents the CGFscene
+     * @param x                   size of board in x
+     * @param y                   size of board in y
      */
     constructor(scene, x, y) {
         super(scene);

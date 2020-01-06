@@ -1,11 +1,13 @@
 /**
- * MyGameBoard class, which represents a Patch object
+ * MyBoard class, which represents the Board
  */
 class MyBoard extends CGFobject {
 
     /**
      * @constructor
-     * @param {XMLScene} scene           represents the CGFscene
+     * @param {XMLScene} scene    represents the CGFscene
+     * @param x                   size of board in x
+     * @param y                   size of board in y
      */
     constructor(scene, x = 4, y = 4) {
         super(scene);
