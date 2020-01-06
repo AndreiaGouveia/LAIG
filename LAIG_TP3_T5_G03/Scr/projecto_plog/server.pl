@@ -110,9 +110,11 @@ print_header_line(_).
 :- consult('Modos.pl').
 :- consult('bot.pl').	
 
+%Start function
 parse_input(start,ok):-
 	displayMainMenu.
 
+%Checks if move is valid
 parse_input(pieceRuleValidation(Board , X , Y , Piece), Result):-
 	pieceRuleValidation(Board , X , Y , Piece),
 	!,
@@ -121,6 +123,7 @@ parse_input(pieceRuleValidation(Board , X , Y , Piece), Result):-
 	Result = 1.
 	
 
+%Gets bot move
 parse_input(getBotMove(Pieces,Board,Smart), [X , Y , Piece]):-
 	remove_dups(Pieces, NewPieces1),
     valid_moves(Board, [], NewPieces1, ListOfMoves),
@@ -131,6 +134,7 @@ parse_input(getBotMove(Pieces,Board,Smart), [X , Y , Piece]):-
 
 parse_input(getBotMove(Pieces,Board,Smart), [-1 , -1 , 0]).
 
+%Checks if there are still available moves left
 parse_input(checkLoss(Pieces,Board), Result):-
 	remove_dups(Pieces, NewPieces1),
     valid_moves(Board, [], NewPieces1, ListOfMoves),
@@ -142,6 +146,7 @@ parse_input(checkLoss(Pieces,Board), Result):-
 parse_input(checkLoss(Pieces,Board), Result):-
 	Result = 1.
 
+%Checks if someone won
 parse_input(Board,Result):-
 	game_over(Board,0,Something),
 	Something is 15,

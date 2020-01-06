@@ -76,13 +76,6 @@
 
 
     <primitives>
-        <primitive id="Rectangle">
-            <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
-        </primitive>
-
-        <primitive id="Triangle">
-            <triangle x1="0.5" y1="-0.35" z1="-0.35" x2="1.2" y2="0.35" z2="-0.35" x3="0.5" y3="0.35" z3="0.35" />
-        </primitive>="-0.3" y1="0" z1="-0.3" x2="0" y2="0.4" z2="0" x3="0.3" y3="0" z3="-0.3" />
 
         <primitive id="Cone">
             <cylinder base="2" top="0" height="2" slices="20" stacks="20" />
@@ -90,10 +83,6 @@
 
         <primitive id="Cylinder">
             <cylinder base="2" top="2" height="2" slices="20" stacks="20" />
-        </primitive>
-
-        <primitive id="Cylinder2">
-            <cylinder2 base="0.5" top="0.5" height="1" slices="50" stacks="5" />
         </primitive>
 
         <primitive id="Sphere">
