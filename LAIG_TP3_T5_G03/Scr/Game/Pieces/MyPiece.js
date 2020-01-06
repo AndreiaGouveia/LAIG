@@ -1,11 +1,12 @@
 /**
- * MyPiece class, which represents a Patch object
+ * MyPiece class, which represents a Piece of the Game
  */
 class MyPiece extends CGFobject {
 
     /**
      * @constructor
-     * @param {XMLScene} scene           represents the CGFscene
+     * @param {XMLScene} scene   represents the CGFscene
+     * @param player             player that owns the Board 
      */
     constructor(scene, player) {
 

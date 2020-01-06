@@ -1,5 +1,5 @@
 /**
- * CameraAnimation class, which represents a KeyFrame Animation
+ * CameraAnimation class, which represents a Animation between two cameras
  */
 class CameraAnimation extends Animation {
 

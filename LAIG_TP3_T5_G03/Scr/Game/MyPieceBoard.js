@@ -6,7 +6,7 @@ class MyPieceBoard extends CGFobject {
     /**
      * @constructor
      * @param {XMLScene} scene   represents the CGFscene
-     * @param destinyY           player that owns the Board 
+     * @param player             player that owns the Board 
      */
     constructor(scene, player) {
         super(scene);

@@ -1,11 +1,12 @@
 /**
- * MyIceCream class, which represents a Patch object
+ * MyIceCream class, which represents an Ice Cream object
  */
 class MyIceCream extends MyPiece {
 
     /**
      * @constructor
-     * @param {XMLScene} scene           represents the CGFscene
+     * @param {XMLScene} scene   represents the CGFscene
+     * @param player             player that owns the Board 
      */
     constructor(scene, player) {
         super(scene, player);
@@ -31,12 +32,11 @@ class MyIceCream extends MyPiece {
 
     }
 
-    getId(){
-        if(this.player == 1)
-        {
+    getId() {
+        if (this.player == 1) {
             return 1;
         }
-        
+
         return 6;
     }
 

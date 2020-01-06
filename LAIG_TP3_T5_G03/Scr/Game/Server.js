@@ -1,11 +1,11 @@
 /**
- * Represents a server that creates a connection to the Prolog program
+ * Quantik class, Represents a server that creates a connection to the Prolog program
  */
 class Server {
     /**
      * @constructor
      */
-    constructor(onErrorFunction) {
+    constructor() {
         this.port = 8081;
     };
 

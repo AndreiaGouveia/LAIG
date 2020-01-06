@@ -1,3 +1,6 @@
+/**
+ * Animation class, which represents an Animation
+ */
 class Animation {
 
     constructor(scene, animationId) {

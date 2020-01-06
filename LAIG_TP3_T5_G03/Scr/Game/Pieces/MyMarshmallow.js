@@ -1,11 +1,12 @@
 /**
- * MyMarshmallow class, which represents a Patch object
+ * MyMarshmallow class, which represents a Marshmallow object
  */
 class MyMarshmallow extends MyPiece {
 
     /**
      * @constructor
-     * @param {XMLScene} scene           represents the CGFscene
+     * @param {XMLScene} scene   represents the CGFscene
+     * @param player             player that owns the Board 
      */
     constructor(scene, player) {
         super(scene, player);
@@ -28,12 +29,11 @@ class MyMarshmallow extends MyPiece {
 
     }
 
-    getId(){
-        if(this.player == 1)
-        {
+    getId() {
+        if (this.player == 1) {
             return 4;
         }
-        
+
         return 9;
     }
 
